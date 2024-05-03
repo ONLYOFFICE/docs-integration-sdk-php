@@ -32,9 +32,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
     public function healthcheckRequest();
 
-    public function sendRequestToConvertService();
+    public function sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, $isAsync, $region);
 
-    public function getConvertedUri();
+    public function getConvertedUri($documentUri, $fromExtension, $toExtension, $documentRevisionId, $region);
 
     public function commandRequest($method);
 

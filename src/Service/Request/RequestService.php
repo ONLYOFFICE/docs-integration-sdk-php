@@ -26,6 +26,7 @@ use Onlyoffice\DocsIntegrationSdk\Service\Request\RequestServiceInterface;
 use Onlyoffice\DocsIntegrationSdk\Util\CommandResponse;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
+use GuzzleHttp\Client;
 
 /**
  * Default Document service.
@@ -51,7 +52,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
     }
 
      /**
-     * Request to Document Server with turn off verification
+     * Request to Document Server
      *
      * @param string $url - request address
      * @param array $method - request method
@@ -59,39 +60,22 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
      *
      * @return string
      */
-    public function request($url, $method = 'GET', $opts = []) {
-
-        /**TODO: rewrite with Guzzle */
-        if (substr($url, 0, strlen('https')) === 'https') {
-            $opts['verify'] = false;
-        }
-        if (!array_key_exists('timeout', $opts)) {
-            $opts['timeout'] = 60;
+    public function request($url, $method = "GET", $opts = []) {
+        $client = new Client();
+        if ($this->settingsManager->isIgnoreSSL()) {
+            $opts["verify"] = false;
         }
 
-        $curl_info = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => $opts['timeout'],
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $opts['body'],
-            CURLOPT_HTTPHEADER => $opts['headers'],
-        ];
-
-        if ($opts == []) {
-            unset($curl_info[CURLOPT_POSTFIELDS]);
+        if (!array_key_exists("timeout", $opts)) {
+            $opts["timeout"] = 60;
         }
 
-        $curl = curl_init();
-        curl_setopt_array($curl, $curl_info);
-        $response = curl_exec($curl);
-        curl_close($curl);
+        $response = $client->request($method, $url, $opts);
+        if ($response->getStatusCode() === 200) {
+            return $response->getBody();
+        }
 
-        return $response;
+        return "";
     }
 
         /**
