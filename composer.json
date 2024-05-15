@@ -7,8 +7,10 @@
         "psr-4": {
             "Onlyoffice\\DocsIntegrationSdk\\": "src/",
             "Onlyoffice\\DocsIntegrationSdk\\Manager\\Document\\": "src/manager/document/",
+            "Onlyoffice\\DocsIntegrationSdk\\Manager\\Formats\\": "src/manager/formats/",
             "Onlyoffice\\DocsIntegrationSdk\\Manager\\Security\\": "src/manager/security/",
             "Onlyoffice\\DocsIntegrationSdk\\Manager\\Settings\\": "src/manager/settings/",
+            "Onlyoffice\\DocsIntegrationSdk\\Models\\": "src/models/",
             "Onlyoffice\\DocsIntegrationSdk\\Service\\Request\\": "src/service/request/",
             "Onlyoffice\\DocsIntegrationSdk\\Util\\": "src/util/"
         }

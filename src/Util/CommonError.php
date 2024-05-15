@@ -40,6 +40,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     case BadHealthcheckStatus = 10;
     case DocserviceError = 11;
     case NotSupportedVersion = 12;
+    case EmptyFormatsAsset = 13;
+    case FormatsAssetJsonError = 14;
 
     public function message(): string
     {
@@ -58,6 +60,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
             CommonError::DocserviceError => "Error occurred in the document service",
             CommonError::NotSupportedVersion => "Not supported version",
             CommonError::EmptyFormatsAsset => "formats submodule error",
+            CommonError::FormatsAssetJsonError => "Formats submodule JSON error",
         };
     }
 }
