@@ -45,18 +45,19 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     {
         return match($this) 
         {
-            ConvertResponse::NoHealthcheckEndpoint => "There is no healthcheck endpoint in the application configuration",
-            ConvertResponse::NoDocumentServerUrl => "There is no document server URL in the application configuration",
-            ConvertResponse::NoConvertServiceEndpoint => "There is no convert service endpoint in the application configuration",
-            ConvertResponse::NoJwtHeader => "There is no JWT header in the application configuration",
-            ConvertResponse::NoJwtPrefix => "There is no JWT prefix in the application configuration",
-            ConvertResponse::ReadXml => "Can't read XML",
-            ConvertResponse::BadResponseXml => "Bad response",
-            ConvertResponse::NoCommandEndpoint => "There is no command endpoint in the application configuration",
-            ConvertResponse::MixedContent => "Mixed Active Content is not allowed. HTTPS address for ONLYOFFICE Docs is required",
-            ConvertResponse::BadHealthcheckStatus => "Bad healthcheck status",
-            ConvertResponse::DocserviceError => "Error occurred in the document service",
-            ConvertResponse::NotSupportedVersion => "Not supported version",
+            CommonError::NoHealthcheckEndpoint => "There is no healthcheck endpoint in the application configuration",
+            CommonError::NoDocumentServerUrl => "There is no document server URL in the application configuration",
+            CommonError::NoConvertServiceEndpoint => "There is no convert service endpoint in the application configuration",
+            CommonError::NoJwtHeader => "There is no JWT header in the application configuration",
+            CommonError::NoJwtPrefix => "There is no JWT prefix in the application configuration",
+            CommonError::ReadXml => "Can't read XML",
+            CommonError::BadResponseXml => "Bad response",
+            CommonError::NoCommandEndpoint => "There is no command endpoint in the application configuration",
+            CommonError::MixedContent => "Mixed Active Content is not allowed. HTTPS address for ONLYOFFICE Docs is required",
+            CommonError::BadHealthcheckStatus => "Bad healthcheck status",
+            CommonError::DocserviceError => "Error occurred in the document service",
+            CommonError::NotSupportedVersion => "Not supported version",
+            CommonError::EmptyFormatsAsset => "formats submodule error",
         };
     }
 }
