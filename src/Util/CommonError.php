@@ -42,6 +42,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     case NotSupportedVersion = 12;
     case EmptyFormatsAsset = 13;
     case FormatsAssetJsonError = 14;
+    case UnknownExt = 15;
 
     public function message(): string
     {
@@ -61,6 +62,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
             CommonError::NotSupportedVersion => "Not supported version",
             CommonError::EmptyFormatsAsset => "formats submodule error",
             CommonError::FormatsAssetJsonError => "Formats submodule JSON error",
+            CommonError::UnknownExt => "Unknown file extension",
         };
     }
 }

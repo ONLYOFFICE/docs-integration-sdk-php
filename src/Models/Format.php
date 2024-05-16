@@ -100,4 +100,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
         $this->hasAction("auto-convert");
     }
 
+    public function isFillable() {
+        return $this->hasAction("fill");
+    }
+
  }
