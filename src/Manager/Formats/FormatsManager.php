@@ -71,9 +71,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
             if (!empty($formats)) {
                 return $formats;
             }
-            throw new \Exception(CommonError::FormatsAssetJsonError->message());
+            throw new \Exception(CommonError::message(CommonError::EMPTY_FORMATS_ASSET));
         }
-        throw new \Exception(CommonError::EmptyFormatsAsset->message());
+        throw new \Exception(CommonError::message(CommonError::EMPTY_FORMATS_ASSET));
     }
 
     public function getFormatsList() {

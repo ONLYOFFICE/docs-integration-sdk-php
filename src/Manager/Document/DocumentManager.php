@@ -44,11 +44,14 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      */
     public $formats;
 
-    public function __construct(FormatsManager $formats = new FormatsManager(true)) {
+    public function __construct(FormatsManager $formats = null) {
+        if ($formats === null) {
+            $formats = new FormatsManager(true);
+        }
         $this->formats = $formats;
     }
 
-    private function getFormatInfo(string $extension, string $option = null) : string|array|Format|bool {
+    private function getFormatInfo(string $extension, string $option = null)  {
         $search= null;
         $formats = $this->formats->getFormatsList();
         if (!array_key_exists($extension, $formats)) {
@@ -59,7 +62,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
                 }
             }
             if ($search === null) {
-                throw new \Exception(CommonError::UnknownExt->message());
+                throw new \Exception(CommonError::message(CommonError::UNKNOWN_EXT));
             }
         } else {
             $search = $formats[$extension];
@@ -119,7 +122,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     /**
      * Return file path info
      */
-    public function getPathInfo(string $filePath, string $option = null): string|array {
+    public function getPathInfo(string $filePath, string $option = null) {
         $result = ["dirname" => "", "basename" => "", "extension" => "", "filename" => ""];
         $pathInfo = [];
         if (preg_match("#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m", $filePath, $pathInfo)) {
@@ -151,19 +154,19 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         }
     }
 
-    public function getDirName(string $filePath): string|array {
+    public function getDirName(string $filePath) {
         return $this->getPathInfo($filePath, self::PATHINFO_DIRNAME);
     }
 
-    public function getBaseName(string $filePath): string|array {
+    public function getBaseName(string $filePath) {
         return $this->getPathInfo($filePath, self::PATHINFO_BASENAME);
     }
 
-    public function getExt(string $filePath): string|array {
+    public function getExt(string $filePath) {
         return $this->getPathInfo($filePath, self::PATHINFO_EXTENSION);
     }
 
-    public function getFileName(string $filePath): string|array {
+    public function getFileName(string $filePath) {
         return $this->getPathInfo($filePath, self::PATHINFO_FILENAME);
     }
 

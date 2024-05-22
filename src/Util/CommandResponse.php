@@ -27,26 +27,34 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
- enum CommandResponse : int {
-    case No = 0;
-    case Key = 1;
-    case CallbackUrl = 2;
-    case InternalServer = 3;
-    case ForceSave = 4;
-    case Command = 5;
-    case Token = 6;
+class CommandResponse {
+    const NO = 0;
+    const KEY = 1;
+    const CALLBACK_URL = 2;
+    const INTERNAL_SERVER = 3;
+    const FORCE_SAVE = 4;
+    const COMMAND = 5;
+    const TOKEN = 6;
 
-    public function message(): string
+    public function message($code): string
     {
-        return match($this) 
-        {
-            CommandResponse::No => "No errors",
-            CommandResponse::Key => "Document key is missing or no document with such key could be found",
-            CommandResponse::CallbackUrl => "Callback url not correct",
-            CommandResponse::InternalServer => "Internal server error",
-            CommandResponse::ForceSave => "No changes were applied to the document before the forcesave command was received",
-            CommandResponse::Command => "Command not correct",
-            CommandResponse::Token => "Invalid token", 
-        };
+        switch ($code) {
+            case self::NO :
+                return "No errors";
+            case self::KEY :
+                return "Document key is missing or no document with such key could be found";
+            case self::CALLBACK_URL :
+                return "Callback url not correct";
+            case self::FORCE_SAVE :
+                return "No changes were applied to the document before the forcesave command was received";
+            case self::INTERNAL_SERVER :
+                return "Internal server error";
+            case self::COMMAND :
+                return "Command not correct";
+            case self::TOKEN :
+                return "Invalid token";
+            default:
+                return "Unknown error";
+        }
     }
 }

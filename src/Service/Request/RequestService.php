@@ -89,29 +89,29 @@ use GuzzleHttp\Client;
         $errorMessage = '';
 
         switch ($errorCode) {
-            case ConvertResponse::Unknown->value:
-                $errorMessage = ConvertResponse::Unknown->message();
+            case ConvertResponse::UNKNOWN:
+                $errorMessage = ConvertResponse::message(ConvertResponse::UNKNOWN);
                 break;
-            case ConvertResponse::Timeout->value:
-                $errorMessage = ConvertResponse::Timeout->message();
+            case ConvertResponse::TIMEOUT:
+                $errorMessage = ConvertResponse::message(ConvertResponse::TIMEOUT);
                 break;
-            case ConvertResponse::Conversion->value:
-                $errorMessage = ConvertResponse::Conversion->message();
+            case ConvertResponse::CONVERSION:
+                $errorMessage = ConvertResponse::message(ConvertResponse::CONVERSION);
                 break;
-            case ConvertResponse::Downloading->value:
-                $errorMessage = ConvertResponse::Downloading->message();
+            case ConvertResponse::DOWNLOADING:
+                $errorMessage = ConvertResponse::message(ConvertResponse::DOWNLOADING);
                 break;
-            case ConvertResponse::Password->value:
-                $errorMessage = ConvertResponse::Password->message();
+            case ConvertResponse::PASSWORD:
+                $errorMessage = ConvertResponse::message(ConvertResponse::PASSWORD);
                 break;
-            case ConvertResponse::Database->value:
-                $errorMessage = ConvertResponse::Database->message();
+            case ConvertResponse::DATABASE:
+                $errorMessage = ConvertResponse::message(ConvertResponse::DATABASE);
                 break;
-            case ConvertResponse::Input->value:
-                $errorMessage = ConvertResponse::Input->message();
+            case ConvertResponse::INPUT:
+                $errorMessage = ConvertResponse::message(ConvertResponse::INPUT);
                 break;
-            case ConvertResponse::Token->value:
-                $errorMessage = ConvertResponse::Token->message();
+            case ConvertResponse::TOKEN:
+                $errorMessage = ConvertResponse::message(ConvertResponse::TOKEN);
                 break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
@@ -132,25 +132,25 @@ use GuzzleHttp\Client;
         $errorMessage = '';
 
         switch ($errorCode) {
-            case CommandResponse::No->value:
+            case CommandResponse::NO:
                 return;
-            case CommandResponse::Key->value:
-                $errorMessage = CommandResponse::Key->message();
+            case CommandResponse::KEY:
+                $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
-            case CommandResponse::CallbackUrl->value:
-                $errorMessage = CommandResponse::CallbackUrl->message();
+            case CommandResponse::CALLBACK_URL:
+                $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
-            case CommandResponse::InternalServer->value:
-                $errorMessage = CommandResponse::InternalServer->message();
+            case CommandResponse::INTERNAL_SERVER:
+                $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
-            case CommandResponse::ForceSave->value:
-                $errorMessage = CommandResponse::ForceSave->message();
+            case CommandResponse::FORCE_SAVE:
+                $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
-            case CommandResponse::Command->value:
-                $errorMessage = CommandResponse::Command->message();
+            case CommandResponse::COMMAND:
+                $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
-            case CommandResponse::Token->value:
-                $errorMessage = CommandResponse::Token->message();
+            case CommandResponse::TOKEN:
+                $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
@@ -170,7 +170,7 @@ use GuzzleHttp\Client;
     public function healthcheckRequest() : bool {
         $healthcheckUrl = $this->settingsManager->getDocumentServerHealthcheckUrl();
         if (empty($healthcheckUrl)) {
-            throw new \Exception(CommonError::NoHealthcheckEndpoint->message());
+            throw new \Exception(CommonError::message(CommonError::NO_HEALTHCHECK_ENDPOINT));
         }
 
         $response = $this->request($healthcheckUrl);
@@ -194,7 +194,7 @@ use GuzzleHttp\Client;
     public function sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, $isAsync, $region = null) {
         $urlToConverter = $this->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
-            throw new \Exception(CommonError::NoConvertServiceEndpoint->message());
+            throw new \Exception(CommonError::message(CommonError::NO_CONVERT_SERVICE_ENDPOINT));
         }
 
         if (empty($documentRevisionId)) {
@@ -240,9 +240,9 @@ use GuzzleHttp\Client;
             $jwtPrefix = $this->settingsManager->getJwtPrefix();
 
             if (empty($jwtHeader)) {
-                throw new \Exception(CommonError::NoJwtHeader->message());
+                throw new \Exception(CommonError::message(CommonError::NO_JWT_HEADER));
             } elseif (empty($jwtPrefix)) {
-                throw new \Exception(CommonError::NoJwtPrefix->message());
+                throw new \Exception(CommonError::message(CommonError::NO_JWT_PREFIX));
             }
 
             $opts['headers'][$jwtHeader] = $jwtPrefix . $token;
@@ -256,13 +256,13 @@ use GuzzleHttp\Client;
 
         //TODO: Use special lib for XML
         if (!function_exists('simplexml_load_file')) {
-             throw new \Exception(CommonError::ReadXml->message());
+             throw new \Exception(CommonError::message(CommonError::READ_XML));
         }
 
         $response_data = simplexml_load_string($response_xml_data);
         
         if (!$response_data) {
-            $exc = CommonError::BadResponseXml->message();
+            $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
             foreach(libxml_get_errors() as $error) {
                 $exc = $exc . PHP_EOL . $error->message;
             }
@@ -309,7 +309,7 @@ use GuzzleHttp\Client;
     public function commandRequest($method) {
         $urlCommand = $this->settingsManager->getCommandServiceUrl(true);
         if (empty($urlCommand)) {
-            throw new \Exception(CommonError::NoCommandEndpoint->message());
+            throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
         }
 
         $data = [
@@ -331,9 +331,9 @@ use GuzzleHttp\Client;
             $jwtHeader = $this->settingsManager->getJwtHeader();
             $jwtPrefix = $this->settingsManager->getJwtPrefix();
             if (empty($jwtHeader)) {
-                throw new \Exception(CommonError::NoJwtHeader->message());
+                throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
             } elseif (empty($jwtPrefix)) {
-                throw new \Exception(CommonError::NoJwtPrefix->message());
+                throw new \Exception(CommonError::message(CommonError::NO_JWT_PREFIX));
             }
 
             $opts["headers"][$jwtHeader] = $jwtPrefix . $token;
@@ -358,14 +358,14 @@ use GuzzleHttp\Client;
         $version = null;
         $documentServerUrl = $this->settingsManager->getDocumentServerUrl();
         if (empty($documentServerUrl)) {
-            throw new \Exception(CommonError::NoDocumentServerUrl->message());
+            throw new \Exception(CommonError::message(CommonError::NO_DOCUMENT_SERVER_URL));
         }
 
         try {
             if (isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on" || $_SERVER["HTTPS"] == 1)
             || isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https"
             && preg_match('/^http:\/\//i', $documentServerUrl)) {
-                throw new \Exception(CommonError::MixedContent->message());
+                throw new \Exception(CommonError::message(CommonError::MIXED_CONTENT));
             }
         } catch (\Exception $e) {
             return [$e->getMessage(), $version];
@@ -375,7 +375,7 @@ use GuzzleHttp\Client;
             $healthcheckResponse = $this->healthcheckRequest();
 
             if (!$healthcheckResponse) {
-                throw new \Exception(ConvertResponse::BadHealthcheckStatus->message());
+                throw new \Exception(CommonError::message(CommonError::BAD_HEALTHCHECK_STATUS));
             }
         } catch (\Exception $e) {
             return [$e->getMessage(), $version];
@@ -385,14 +385,14 @@ use GuzzleHttp\Client;
             $commandResponse = $this->commandRequest('version');
 
             if (empty($commandResponse)) {
-                throw new \Exception(ConvertResponse::BadHealthcheckStatus->message());
+                throw new \Exception(CommonError::message(CommonError::BAD_HEALTHCHECK_STATUS));
             }
 
             $version = $commandResponse->version;
             $versionF = floatval($version);
 
             if ($versionF > 0.0 && $versionF <= self::MIN_EDITORS_VERSION) {
-                throw new \Exception(ConvertResponse::NotSupportedVersion->message());
+                throw new \Exception(CommonError::message(CommonError::NOT_SUPPORTED_VERSION));
             }
         } catch (\Exception $e) {
             return [$e->getMessage(), $version];

@@ -27,42 +27,58 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
- enum CommonError : int {
-    case NoHealthcheckEndpoint = 1;
-    case NoDocumentServerUrl = 2;
-    case NoConvertServiceEndpoint = 3;
-    case NoJwtHeader = 4;
-    case NoJwtPrefix = 5;
-    case ReadXml = 6;
-    case BadResponseXml = 7;
-    case NoCommandEndpoint = 8;
-    case MixedContent = 9;
-    case BadHealthcheckStatus = 10;
-    case DocserviceError = 11;
-    case NotSupportedVersion = 12;
-    case EmptyFormatsAsset = 13;
-    case FormatsAssetJsonError = 14;
-    case UnknownExt = 15;
+ class CommonError {
+    const NO_HEALTHCHECK_ENDPOINT = 1;
+    const NO_DOCUMENT_SERVER_URL = 2;
+    const NO_CONVERT_SERVICE_ENDPOINT = 3;
+    const NO_JWT_HEADER = 4;
+    const NO_JWT_PREFIX = 5;
+    const READ_XML = 6;
+    const BAD_RESPONSE_XML = 7;
+    const NO_COMMAND_ENDPOINT = 8;
+    const MIXED_CONTENT = 9;
+    const BAD_HEALTHCHECK_STATUS = 10;
+    const DOC_SERVICE_ERROR = 11;
+    const NOT_SUPPORTED_VERSION = 12;
+    const EMPTY_FORMATS_ASSET = 13;
+    const FORMATS_ASSET_JSON_ERROR = 14;
+    const UNKNOWN_EXT = 15;
 
-    public function message(): string
+    public function message($code): string
     {
-        return match($this) 
-        {
-            CommonError::NoHealthcheckEndpoint => "There is no healthcheck endpoint in the application configuration",
-            CommonError::NoDocumentServerUrl => "There is no document server URL in the application configuration",
-            CommonError::NoConvertServiceEndpoint => "There is no convert service endpoint in the application configuration",
-            CommonError::NoJwtHeader => "There is no JWT header in the application configuration",
-            CommonError::NoJwtPrefix => "There is no JWT prefix in the application configuration",
-            CommonError::ReadXml => "Can't read XML",
-            CommonError::BadResponseXml => "Bad response",
-            CommonError::NoCommandEndpoint => "There is no command endpoint in the application configuration",
-            CommonError::MixedContent => "Mixed Active Content is not allowed. HTTPS address for ONLYOFFICE Docs is required",
-            CommonError::BadHealthcheckStatus => "Bad healthcheck status",
-            CommonError::DocserviceError => "Error occurred in the document service",
-            CommonError::NotSupportedVersion => "Not supported version",
-            CommonError::EmptyFormatsAsset => "formats submodule error",
-            CommonError::FormatsAssetJsonError => "Formats submodule JSON error",
-            CommonError::UnknownExt => "Unknown file extension",
-        };
+        switch ($code) {
+            case self::NO_HEALTHCHECK_ENDPOINT :
+                return "There is no healthcheck endpoint in the application configuration";
+            case self::NO_DOCUMENT_SERVER_URL :
+                return "There is no document server URL in the application configuration";
+            case self::NO_CONVERT_SERVICE_ENDPOINT :
+                return "There is no convert service endpoint in the application configuration";
+            case self::NO_JWT_HEADER :
+                return "There is no JWT header in the application configuration";
+            case self::NO_JWT_PREFIX :
+                return "There is no JWT prefix in the application configuration";
+            case self::READ_XML :
+                return "Can't read XML";
+            case self::BAD_RESPONSE_XML :
+                return "Bad response";
+            case self::NO_COMMAND_ENDPOINT :
+                return "There is no command endpoint in the application configuration";
+            case self::MIXED_CONTENT :
+                return "Mixed Active Content is not allowed. HTTPS address for ONLYOFFICE Docs is required";
+            case self::BAD_HEALTHCHECK_STATUS :
+                return "Bad healthcheck status";
+            case self::DOC_SERVICE_ERROR :
+                return "Error occurred in the document servic";
+            case self::NOT_SUPPORTED_VERSION :
+                return "Not supported version";
+            case self::EMPTY_FORMATS_ASSET :
+                return "Formats submodule error";
+            case self::FORMATS_ASSET_JSON_ERROR :
+                return "Formats submodule JSON error";
+            case self::UNKNOWN_EXT :
+                return "Unknown file extension";
+            default:
+                return "Unknown error";
+        }
     }
 }

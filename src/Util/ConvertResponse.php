@@ -27,28 +27,37 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
- enum ConvertResponse : int {
-    case Unknown = -1;
-    case Timeout = -2;
-    case Conversion = -3;
-    case Downloading = -4;
-    case Password = -5;
-    case Database = -6;
-    case Input = -7;
-    case Token = -8;
+ class ConvertResponse {
+    const UNKNOWN = -1;
+    const TIMEOUT = -2;
+    const CONVERSION = -3;
+    const DOWNLOADING = -4;
+    const PASSWORD = -5;
+    const DATABASE = -6;
+    const INPUT = -7;
+    const TOKEN = -8;
 
-    public function message(): string
+    public function message($code): string
     {
-        return match($this) 
-        {
-            ConvertResponse::Unknown => "Unknown error",
-            ConvertResponse::Timeout => "Timeout conversion error",
-            ConvertResponse::Conversion => "Conversion error",
-            ConvertResponse::Downloading => "Error while downloading the document file to be converted",
-            ConvertResponse::Password => "Incorrect password",
-            ConvertResponse::Database => "Error while accessing the conversion result database",
-            ConvertResponse::Input => "Error document request",
-            ConvertResponse::Token => "Invalid token",
-        };
+        switch ($code) {
+            case self::UNKNOWN :
+                return "Unknown error";
+            case self::TIMEOUT :
+                return "Timeout conversion error";
+            case self::CONVERSION :
+                return "Conversion error";
+            case self::DOWNLOADING :
+                return "Error while downloading the document file to be converted";
+            case self::PASSWORD :
+                return "Incorrect password";
+            case self::DATABASE :
+                return "Error while accessing the conversion result database";
+            case self::INPUT :
+                return "Error document request";
+            case self::TOKEN :
+                return "Invalid token";
+            default:
+                return "Undefined error";
+        }
     }
 }
