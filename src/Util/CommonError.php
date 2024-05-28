@@ -43,6 +43,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     const EMPTY_FORMATS_ASSET = 13;
     const FORMATS_ASSET_JSON_ERROR = 14;
     const UNKNOWN_EXT = 15;
+    const FILE_TEMPLATE_IS_NOT_EXISTS = 16;
 
     public function message($code): string
     {
@@ -77,6 +78,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
                 return "Formats submodule JSON error";
             case self::UNKNOWN_EXT :
                 return "Unknown file extension";
+            case self::FILE_TEMPLATE_IS_NOT_EXISTS :
+                return "File template is not exists";
             default:
                 return "Unknown error";
         }

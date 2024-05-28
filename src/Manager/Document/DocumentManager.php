@@ -25,7 +25,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
 use Onlyoffice\DocsIntegrationSdk\Manager\Formats\FormatsManager;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
- class DocumentManager implements DocumentManagerInterface
+ abstract class DocumentManager implements DocumentManagerInterface
  {
 
     private const PATHINFO_DIRNAME = "dirname";
@@ -44,11 +44,44 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      */
     public $formats;
 
-    public function __construct(FormatsManager $formats = null) {
+    private $locale;
+
+    public abstract function getDocumentKey($fileId);
+
+    public abstract function getDocumentName($fileId);
+
+    public abstract function getFileUrl($fileName, $filePath = null);
+
+    public function __construct(FormatsManager $formats = null, $locale = "en-US") {
         if ($formats === null) {
             $formats = new FormatsManager(true);
         }
         $this->formats = $formats;
+        $this->locale = $locale;
+    }
+
+    private function getEmptyTemplate($fileExt) {
+        $filePath = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "document-templates" . DIRECTORY_SEPARATOR . $this->locale . DIRECTORY_SEPARATOR . "new." . $fileExt;
+        if (!file_exists($filePath)) {
+            throw new \Exception(CommonError::message(CommonError::FILE_TEMPLATE_IS_NOT_EXISTS));
+        }
+        return $filePath;
+    }
+
+    /**
+     * Get temporary file
+     *
+     * @return array
+     */
+    private function getTempFile() {
+        $fileUrl = null;
+        $templatePath = $this->getEmptyTemplate("docx");
+        $fileUrl = $this->getFileUrl("new.docx", $templatePath);
+
+        return [
+            "fileUrl" => $fileUrl,
+            "filePath" => $templatePath
+        ];
     }
 
     private function getFormatInfo(string $extension, string $option = null)  {
