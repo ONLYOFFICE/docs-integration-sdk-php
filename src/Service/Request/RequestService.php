@@ -398,55 +398,7 @@ use GuzzleHttp\Client;
             return [$e->getMessage(), $version];
         }
 
-        $convertedFileUri = null;
-
-        try {
-            $emptyFile = DocumentManager::createTempFile();
-
-            if ($emptyFile['fileUrl'] !== null) {
-                // ... storage url logic
-                $convertedFileUri = $this->getConvertedUri($emptyFile['fileUrl'], 'docx', 'docx', 'check_' . rand());
-            }
-            
-            unlink($emptyFile['filePath']);
-        } catch (\Exception $e) {
-            if (isset($emptyFile['filePath'])) {
-                unlink($emptyFile['filePath']);
-            }
-            return [$e->getMessage(), $version];
-        }
-
-        try {
-            $this->request($convertedFileUri);
-        } catch (\Exception $e) {
-            return [$e->getMessage(), $version];
-        }
-
         return ['', $version];
-    }
-
-    /**
-     * Create temporary file for convert service testing
-     *
-     * @return array
-     */
-    private function createTempFile() {
-        /**TODO: need to rewrite */
-        $fileUrl = null;
-        $fileName = 'convert.docx';
-        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $baseName = strtolower(pathinfo($fileName, PATHINFO_FILENAME));
-        $templatePath = DocumentManager::getEmptyTemplate($fileExt);
-        $filePath = __DIR__ . '/' . $fileName;
-
-        if ($fp = @fopen($filePath, 'w')) {
-            /**... */
-        }
-
-        return [
-            "fileUrl" => "",
-            "filePath" => ""
-        ];
     }
 
 }
