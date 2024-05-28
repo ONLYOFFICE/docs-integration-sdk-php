@@ -79,4 +79,44 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
     public function getFormatsList() {
         return $this->formatsList;
     }
+
+    public function getViewableList() {
+        $viewableList = [];
+        foreach ($this->formatsList as $format) {
+            if ($format->isViewable()) {
+                array_push($viewableList, $format);
+            }
+        }
+        return $viewableList;
+    }
+
+    public function getEditableList() {
+        $editableList = [];
+        foreach ($this->formatsList as $format) {
+            if ($format->isEditable()) {
+                array_push($editableList, $format);
+            }
+        }
+        return $editableList;
+    }
+
+    public function getConvertableList() {
+        $convertableList = [];
+        foreach ($this->formatsList as $format) {
+            if ($format->isAutoConvertable()) {
+                array_push($convertableList, $format);
+            }
+        }
+        return $convertableList;
+    }
+
+    public function getFillableList() {
+        $fillableList = [];
+        foreach ($this->formatsList as $format) {
+            if ($format->isFillable()) {
+                array_push($fillableList, $format);
+            }
+        }
+        return $fillableList;
+    }
  }
