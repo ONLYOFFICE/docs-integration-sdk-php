@@ -12,6 +12,7 @@
             "Onlyoffice\\DocsIntegrationSdk\\Manager\\Settings\\": "src/manager/settings/",
             "Onlyoffice\\DocsIntegrationSdk\\Models\\": "src/models/",
             "Onlyoffice\\DocsIntegrationSdk\\Service\\Request\\": "src/service/request/",
+            "Onlyoffice\\DocsIntegrationSdk\\Service\\DocEditorConfig\\": "src/service/doceditorconfig/",
             "Onlyoffice\\DocsIntegrationSdk\\Util\\": "src/util/"
         }
     },
@@ -21,7 +22,7 @@
         }
     ],
     "require": {
-        "firebase/php-jwt": "^6.10",
+        "firebase/php-jwt": "^5.0",
         "vlucas/phpdotenv": "^5.6",
         "guzzlehttp/guzzle": "^7.8"
     },
