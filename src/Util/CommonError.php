@@ -44,6 +44,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     const FORMATS_ASSET_JSON_ERROR = 14;
     const UNKNOWN_EXT = 15;
     const FILE_TEMPLATE_IS_NOT_EXISTS = 16;
+    const NO_API_URL = 17;
 
     public function message($code): string
     {
@@ -80,6 +81,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
                 return "Unknown file extension";
             case self::FILE_TEMPLATE_IS_NOT_EXISTS :
                 return "File template is not exists";
+            case self::NO_API_URL :
+                return "There is no document server API URL in the application configuration";
             default:
                 return "Unknown error";
         }

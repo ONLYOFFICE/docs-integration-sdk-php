@@ -33,76 +33,76 @@ use Dotenv\Dotenv;
 
     public abstract function getSetting($settingName);
 
-    public abstract function setSetting($settingName, $value);
+    public abstract function setSetting($settingName, $value, $createSetting = false);
 
     /**
      * The settings key for the demo server
      *
      * @var string
      */
-    private const USE_DEMO = "demo";
+    protected const USE_DEMO = "demo";
 
     /**
      * The settings key for the document server address
      *
      * @var string
      */
-    private const DOCUMENT_SERVER_URL = "documentServerUrl";
+    protected const DOCUMENT_SERVER_URL = "documentServerUrl";
 
     /**
      * The config key for the document server address available from storage
      *
      * @var string
      */
-    private const DOCUMENT_SERVER_INTERNAL_URL = "documentServerInternalUrl";
+    protected const DOCUMENT_SERVER_INTERNAL_URL = "documentServerInternalUrl";
 
     /**
      * The config key for JWT header
      *
      * @var string
      */
-    private const JWT_HEADER = "jwtHeader";
+    protected const JWT_HEADER = "jwtHeader";
 
     /**
      * The config key for JWT secret key
      *
      * @var string
      */
-    private const JWT_KEY = "jwtKey";
+    protected const JWT_KEY = "jwtKey";
 
     /**
      * The config key for JWT prefix
      *
      * @var string
      */
-    private const JWT_PREFIX = "jwtPrefix";
+    protected const JWT_PREFIX = "jwtPrefix";
 
     /**
      * The config key for JWT leeway
      *
      * @var string
      */
-    private const JWT_LEEWAY = "jwtLeeway";
+    protected const JWT_LEEWAY = "jwtLeeway";
 
     /**
      * The config key for HTTP ignore SSL setting
      *
      * @var string
      */
-    private const HTTP_IGNORE_SSL = "ignoreSSL";
+    protected const HTTP_IGNORE_SSL = "ignoreSSL";
 
     /** The demo url. */
-    private const DEMO_URL = "https://onlinedocs.onlyoffice.com/";
+    protected const DEMO_URL = "https://onlinedocs.onlyoffice.com/";
     /** The demo security header. */
-    private const DEMO_JWT_HEADER = "AuthorizationJWT";
+    protected const DEMO_JWT_HEADER = "AuthorizationJWT";
     /** The demo security key. */
-    private const DEMO_JWT_KEY = "sn2puSUF7muF5Jas";
+    protected const DEMO_JWT_KEY = "sn2puSUF7muF5Jas";
     /** The demo security prefix. */
-    private const DEMO_JWT_PREFIX = "Bearer ";
+    protected const DEMO_JWT_PREFIX = "Bearer ";
     /** The number of days that the demo server can be used. */
-    private const DEMO_TRIAL_PERIOD = 30;
+    protected const DEMO_TRIAL_PERIOD = 30;
 
-    private const ENV_SETTINGS_PREFIX = "DOCS_INTEGRATION_SDK";
+    protected const ENV_SETTINGS_PREFIX = "DOCS_INTEGRATION_SDK";
 
     public function __construct() {
         self::loadEnvSettings();
@@ -118,12 +118,68 @@ use Dotenv\Dotenv;
     }
 
     /**
-     * Get demo data
+     * Get status of demo server
      *
      * @return bool
      */
     public function useDemo() {
-        return boolval($this->getSetting(self::USE_DEMO)) === true;
+        return $this->getDemoData()["enabled"] === true;
+    }
+
+    /**
+     * Get demo data
+     *
+     * @return array
+     */
+    public function getDemoData() {
+        $data = $this->getSetting(self::USE_DEMO);
+
+        if (empty($data)) {
+            $data = [
+                "available" => true,
+                "enabled" => false
+            ];
+            $this->setSetting(self::USE_DEMO, json_encode($data), true);
+            return $data;
+        }
+        $data = json_decode($data, true);
+
+        if (isset($data['start'])) {
+            $overdue = $data["start"];
+            $overdue += 24 * 60 * 60 *$this->getDemoParams()["TRIAL"];
+            if ($overdue > time()) {
+                $data["available"] = true;
+                $data["enabled"] = $data["enabled"] === true;
+            } else {
+                $data["available"] = false;
+                $data["enabled"] = false;
+                $this->setSetting(self::USE_DEMO, json_encode($data));
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Switch on demo server
+     *
+     * @param bool $value - select demo
+     *
+     * @return bool
+     */
+    public function selectDemo($value) {
+        $data = $this->getDemoData();
+
+        if ($value === true && !$data["available"]) {
+            return false;
+        }
+
+        $data["enabled"] = $value === true;
+
+        if (!isset($data["start"])) {
+            $data["start"] = time();
+        }
+        $this->setSetting(self::USE_DEMO, json_encode($data));
+        return true;
     }
 
     private function getBaseSettingValue(string $settingKey, string $envKey, string $demoKey = "") {
@@ -207,7 +263,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerApiUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_URL", $useInternalUrl);
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_URL", $useInternalUrl) ?: "/web-apps/apps/api/documents/api.js";
     }
 
     /**
@@ -216,7 +272,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerPreloaderUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_PRELOADER_URL", $useInternalUrl);
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_PRELOADER_URL", $useInternalUrl) ?: "/web-apps/apps/api/documents/cache-scripts.html";
     }
 
     /**
@@ -225,7 +281,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerHealthcheckUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_HEALTHCHECK_URL", $useInternalUrl);
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_HEALTHCHECK_URL", $useInternalUrl) ?: "/healthcheck";
     }
 
     /**
@@ -234,7 +290,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getConvertServiceUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("CONVERT_SERVICE_URL", $useInternalUrl);
+        return $this->getDocumentServerCustomUrl("CONVERT_SERVICE_URL", $useInternalUrl) ?: "/ConvertService.ashx";
     }
 
     /**
@@ -243,7 +299,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getCommandServiceUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("COMMAND_SERVICE_URL", $useInternalUrl);
+        return $this->getDocumentServerCustomUrl("COMMAND_SERVICE_URL", $useInternalUrl) ?: "/coauthoring/CommandService.ashx";
     }
 
     /**
@@ -297,6 +353,22 @@ use Dotenv\Dotenv;
         }
 
         return false;
+    }
+
+    /**
+     * Get demo params
+     *
+     * @return array
+     */
+    public function getDemoParams()
+    {
+        return [
+            "ADDR" => self::DEMO_URL,
+            "HEADER" => self::DEMO_JWT_HEADER,
+            "SECRET" => self::DEMO_JWT_KEY,
+            "PREFIX" => self::DEMO_JWT_PREFIX,
+            "TRIAL" => self::DEMO_TRIAL_PERIOD
+        ];
     }
 
     /**
