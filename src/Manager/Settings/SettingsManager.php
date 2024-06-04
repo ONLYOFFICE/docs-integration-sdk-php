@@ -40,56 +40,56 @@ use Dotenv\Dotenv;
      *
      * @var string
      */
-    protected const USE_DEMO = "demo";
+    protected $useDemoName = "demo";
 
     /**
      * The settings key for the document server address
      *
      * @var string
      */
-    protected const DOCUMENT_SERVER_URL = "documentServerUrl";
+    protected $documentServerUrl = "documentServerUrl";
 
     /**
      * The config key for the document server address available from storage
      *
      * @var string
      */
-    protected const DOCUMENT_SERVER_INTERNAL_URL = "documentServerInternalUrl";
+    protected $documentServerInternalUrl = "documentServerInternalUrl";
 
     /**
      * The config key for JWT header
      *
      * @var string
      */
-    protected const JWT_HEADER = "jwtHeader";
+    protected $jwtHeader = "jwtHeader";
 
     /**
      * The config key for JWT secret key
      *
      * @var string
      */
-    protected const JWT_KEY = "jwtKey";
+    protected $jwtKey = "jwtKey";
 
     /**
      * The config key for JWT prefix
      *
      * @var string
      */
-    protected const JWT_PREFIX = "jwtPrefix";
+    protected $jwtPrefix = "jwtPrefix";
 
     /**
      * The config key for JWT leeway
      *
      * @var string
      */
-    protected const JWT_LEEWAY = "jwtLeeway";
+    protected $jwtLeeway = "jwtLeeway";
 
     /**
      * The config key for HTTP ignore SSL setting
      *
      * @var string
      */
-    protected const HTTP_IGNORE_SSL = "ignoreSSL";
+    protected $httpIgnoreSSL = "ignoreSSL";
 
     /** The demo url. */
     protected const DEMO_URL = "https://onlinedocs.onlyoffice.com/";
@@ -109,7 +109,7 @@ use Dotenv\Dotenv;
     }
 
     protected function loadEnvSettings() {
-        $dotenv = Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
+        $dotenv = Dotenv::createImmutable(dirname(dirname(dirname(__DIR__))));
         $dotenv->safeLoad();
     }
 
@@ -132,14 +132,14 @@ use Dotenv\Dotenv;
      * @return array
      */
     public function getDemoData() {
-        $data = $this->getSetting(self::USE_DEMO);
+        $data = $this->getSetting($this->useDemoName);
 
         if (empty($data)) {
             $data = [
                 "available" => true,
                 "enabled" => false
             ];
-            $this->setSetting(self::USE_DEMO, json_encode($data), true);
+            $this->setSetting($this->useDemoName, json_encode($data), true);
             return $data;
         }
         $data = json_decode($data, true);
@@ -153,7 +153,7 @@ use Dotenv\Dotenv;
             } else {
                 $data["available"] = false;
                 $data["enabled"] = false;
-                $this->setSetting(self::USE_DEMO, json_encode($data));
+                $this->setSetting($this->useDemoName, json_encode($data));
             }
         }
         return $data;
@@ -178,7 +178,7 @@ use Dotenv\Dotenv;
         if (!isset($data["start"])) {
             $data["start"] = time();
         }
-        $this->setSetting(self::USE_DEMO, json_encode($data));
+        $this->setSetting($this->useDemoName, json_encode($data));
         return true;
     }
 
@@ -188,7 +188,7 @@ use Dotenv\Dotenv;
         }
 
         $settingValue = $this->getSetting($settingKey);
-        if (empty($url) && !empty($_ENV[$envKey])) {
+        if (empty($settingValue) && !empty($_ENV[$envKey])) {
             $settingValue = $_ENV[$envKey];
         }
 
@@ -201,7 +201,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerUrl() {
-        $url = $this->getBaseSettingValue(self::DOCUMENT_SERVER_URL, $this->envKey("DOCUMENT_SERVER_URL"), self::DEMO_URL);
+        $url = $this->getBaseSettingValue($this->documentServerUrl, $this->envKey("DOCUMENT_SERVER_URL"), self::DEMO_URL);
         $url = !empty($url) ? $this->normalizeUrl($url) : "";
         return (string)$url;
     }
@@ -211,7 +211,7 @@ use Dotenv\Dotenv;
             return $this->getDocumentServerUrl();
         }
 
-        $url = $this->getSetting(self::DOCUMENT_SERVER_INTERNAL_URL);
+        $url = $this->getSetting($this->documentServerInternalUrl);
         if (empty($url)) {
             return $this->getDocumentServerUrl();
         }
@@ -263,7 +263,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerApiUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_URL", $useInternalUrl) ?: "/web-apps/apps/api/documents/api.js";
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/web-apps/apps/api/documents/api.js");
     }
 
     /**
@@ -272,7 +272,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerPreloaderUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_PRELOADER_URL", $useInternalUrl) ?: "/web-apps/apps/api/documents/cache-scripts.html";
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_PRELOADER_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/web-apps/apps/api/documents/cache-scripts.html");
     }
 
     /**
@@ -281,7 +281,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerHealthcheckUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_HEALTHCHECK_URL", $useInternalUrl) ?: "/healthcheck";
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_HEALTHCHECK_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/healthcheck");
     }
 
     /**
@@ -290,7 +290,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getConvertServiceUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("CONVERT_SERVICE_URL", $useInternalUrl) ?: "/ConvertService.ashx";
+        return $this->getDocumentServerCustomUrl("CONVERT_SERVICE_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/ConvertService.ashx");
     }
 
     /**
@@ -299,7 +299,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getCommandServiceUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("COMMAND_SERVICE_URL", $useInternalUrl) ?: "/coauthoring/CommandService.ashx";
+        return $this->getDocumentServerCustomUrl("COMMAND_SERVICE_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/coauthoring/CommandService.ashx");
     }
 
     /**
@@ -308,7 +308,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtHeader() {
-        $jwtHeader = $this->getBaseSettingValue(self::JWT_HEADER, $this->envKey("JWT_HEADER"), self::DEMO_JWT_HEADER);
+        $jwtHeader = $this->getBaseSettingValue($this->jwtHeader, $this->envKey("JWT_HEADER"), self::DEMO_JWT_HEADER);
         return (string)$jwtHeader;
     }
 
@@ -318,7 +318,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtKey() {
-        $jwtKey = $this->getBaseSettingValue(self::JWT_KEY, $this->envKey("JWT_KEY"), self::DEMO_JWT_KEY);
+        $jwtKey = $this->getBaseSettingValue($this->jwtKey, $this->envKey("JWT_KEY"), self::DEMO_JWT_KEY);
         return (string)$jwtKey;
     }
 
@@ -328,7 +328,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtPrefix() {
-        $jwtPrefix = $this->getBaseSettingValue(self::JWT_PREFIX, $this->envKey("JWT_PREFIX"), self::DEMO_JWT_PREFIX);
+        $jwtPrefix = $this->getBaseSettingValue($this->jwtPrefix, $this->envKey("JWT_PREFIX"), self::DEMO_JWT_PREFIX);
         return (string)$jwtPrefix;
     }
 
@@ -338,7 +338,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtLeeway() {
-        $jwtLeeway = $this->getBaseSettingValue(self::JWT_LEEWAY, $this->envKey("JWT_LEEWAY"));
+        $jwtLeeway = $this->getBaseSettingValue($this->jwtLeeway, $this->envKey("JWT_LEEWAY"));
         return (string)$jwtLeeway;
     }
 
@@ -349,7 +349,7 @@ use Dotenv\Dotenv;
      */
     public function isIgnoreSSL() {
         if (!$this->useDemo()) {
-            return boolval($this->getBaseSettingValue(self::HTTP_IGNORE_SSL, $this->envKey("HTTP_IGNORE_SSL"))) === true;
+            return boolval($this->getBaseSettingValue($this->httpIgnoreSSL, $this->envKey("HTTP_IGNORE_SSL"))) === true;
         }
 
         return false;

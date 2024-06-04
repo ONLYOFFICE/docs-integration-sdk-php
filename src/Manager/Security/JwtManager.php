@@ -56,9 +56,12 @@ use Firebase\JWT\Key;
      *
      * @return string
      */
-    public function jwtEncode($payload)
+    public function jwtEncode($payload, $key = null)
     {
-        return JWT::encode($payload, $this->settingsManager->getJwtKey(), 'HS256');
+        if (empty($key)) {
+            $key = $this->settingsManager->getJwtKey();
+        }
+        return JWT::encode($payload, $key, 'HS256');
     }
 
     /**

@@ -43,8 +43,8 @@ use GuzzleHttp\Client;
      */
     private const MIN_EDITORS_VERSION = 6.0;
 
-    private SettingsManager $settingsManager;
-    private JwtManager $jwtManager;
+    protected SettingsManager $settingsManager;
+    protected JwtManager $jwtManager;
 
     public function __construct(SettingsManager $settingsManager) {
         $this->settingsManager = $settingsManager;
@@ -72,7 +72,7 @@ use GuzzleHttp\Client;
 
         $response = $client->request($method, $url, $opts);
         if ($response->getStatusCode() === 200) {
-            return $response->getBody();
+            return $response->getBody()->getContents();
         }
 
         return "";
@@ -128,7 +128,7 @@ use GuzzleHttp\Client;
      *
      * @throws Exception
      */
-    private function processCommandServResponceError($errorCode) {
+    protected function processCommandServResponceError($errorCode) {
         $errorMessage = '';
 
         switch ($errorCode) {
@@ -138,19 +138,19 @@ use GuzzleHttp\Client;
                 $errorMessage = CommandResponse::message(CommandResponse::KEY);
                 break;
             case CommandResponse::CALLBACK_URL:
-                $errorMessage = CommandResponse::message(CommandResponse::KEY);
+                $errorMessage = CommandResponse::message(CommandResponse::CALLBACK_URL);
                 break;
             case CommandResponse::INTERNAL_SERVER:
-                $errorMessage = CommandResponse::message(CommandResponse::KEY);
+                $errorMessage = CommandResponse::message(CommandResponse::INTERNAL_SERVER);
                 break;
             case CommandResponse::FORCE_SAVE:
-                $errorMessage = CommandResponse::message(CommandResponse::KEY);
+                $errorMessage = CommandResponse::message(CommandResponse::FORCE_SAVE);
                 break;
             case CommandResponse::COMMAND:
-                $errorMessage = CommandResponse::message(CommandResponse::KEY);
+                $errorMessage = CommandResponse::message(CommandResponse::COMMAND);
                 break;
             case CommandResponse::TOKEN:
-                $errorMessage = CommandResponse::message(CommandResponse::KEY);
+                $errorMessage = CommandResponse::message(CommandResponse::TOKEN);
                 break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
@@ -192,7 +192,7 @@ use GuzzleHttp\Client;
      * @return array
      */
     public function sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, $isAsync, $region = null) {
-        $urlToConverter = $this->getConvertServiceUrl(true);
+        $urlToConverter = $this->settingManager->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
             throw new \Exception(CommonError::message(CommonError::NO_CONVERT_SERVICE_ENDPOINT));
         }
