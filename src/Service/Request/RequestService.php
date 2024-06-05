@@ -251,7 +251,7 @@ use GuzzleHttp\Client;
             $opts['body'] = json_encode($data);
         }
 
-        $response_xml_data = $this->request($urlToConverter, 'POST', $opts);
+        $responseXmlData = $this->request($urlToConverter, 'POST', $opts);
         libxml_use_internal_errors(true);
 
         //TODO: Use special lib for XML
@@ -259,9 +259,9 @@ use GuzzleHttp\Client;
              throw new \Exception(CommonError::message(CommonError::READ_XML));
         }
 
-        $response_data = simplexml_load_string($response_xml_data);
+        $responseData = simplexml_load_string($responseXmlData);
         
-        if (!$response_data) {
+        if (!$responseData) {
             $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
             foreach(libxml_get_errors() as $error) {
                 $exc = $exc . PHP_EOL . $error->message;
@@ -269,7 +269,7 @@ use GuzzleHttp\Client;
             throw new \Exception ($exc);
         }
 
-        return $response_data;
+        return $responseData;
     }
 
     /**
@@ -284,16 +284,16 @@ use GuzzleHttp\Client;
      * @return string
      */
     public function getConvertedUri($documentUri, $fromExtension, $toExtension, $documentRevisionId, $region = null) {
-        $responceFromConvertService = $this->sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, false, $region);
-        $errorElement = $responceFromConvertService->Error;
+        $responseFromConvertService = $this->sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, false, $region);
+        $errorElement = $responseFromConvertService->Error;
         if ($errorElement->count() > 0) {
             $this->processConvServResponceError($errorElement);
         }
 
-        $isEndConvert = $responceFromConvertService->EndConvert;
+        $isEndConvert = $responseFromConvertService->EndConvert;
 
-        if ($isEndConvert !== null && strtolower($isEndConvert) === 'true') {
-            return $responceFromConvertService->FileUrl;
+        if ($isEndConvert !== null && strtolower($isEndConvert) === "true") {
+            return is_string($responseFromConvertService->FileUrl) ? $responseFromConvertService->FileUrl : $responseFromConvertService->FileUrl->__toString();
         }
 
         return "";
@@ -343,6 +343,7 @@ use GuzzleHttp\Client;
         }
 
         $response = $this->request($urlCommand, "post", $opts);
+
         $data = json_decode($response);
         $this->processCommandServResponceError($data->error);
 
