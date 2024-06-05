@@ -57,6 +57,13 @@ use Dotenv\Dotenv;
     protected $documentServerInternalUrl = "documentServerInternalUrl";
 
     /**
+     * The config key for the storage url
+     *
+     * @var string
+     */
+    protected $storageUrl = "storageUrl";
+
+    /**
      * The config key for JWT header
      *
      * @var string
@@ -217,6 +224,11 @@ use Dotenv\Dotenv;
         }
 
         return (string)$url;
+    }
+
+    public function getStorageUrl() {
+        $url = $this->getSetting($this->storageUrl);
+        return !empty($url) ? $url : "";
     }
 
     /**
