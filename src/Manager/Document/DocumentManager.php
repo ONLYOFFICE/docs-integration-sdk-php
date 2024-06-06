@@ -44,10 +44,11 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      */
     public $formats;
     public $locale;
+    public const app_name = "onlyoffice";
 
     public abstract static function getDocumentKey(array $docData) : string;
 
-    public abstract function getFileUrl(array $fileData);
+    public abstract static function getFileUrl(array $fileData) : string;
 
     public abstract static function getLangMapping() : array;
 

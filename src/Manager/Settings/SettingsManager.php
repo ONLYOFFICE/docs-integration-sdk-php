@@ -20,6 +20,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
  *
  */
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManagerInterface;
+use Onlyoffice\DocsIntegrationSdk\Util\EnvUtil;
 use Dotenv\Dotenv;
 
 /**
@@ -112,16 +113,7 @@ use Dotenv\Dotenv;
     protected const ENV_SETTINGS_PREFIX = "DOCS_INTEGRATION_SDK";
 
     public function __construct() {
-        self::loadEnvSettings();
-    }
-
-    protected function loadEnvSettings() {
-        $dotenv = Dotenv::createImmutable(dirname(dirname(dirname(__DIR__))));
-        $dotenv->safeLoad();
-    }
-
-    private function envKey($key) {
-        return mb_strtoupper(self::ENV_SETTINGS_PREFIX . "_" . $key);
+        EnvUtil::loadEnvSettings();
     }
 
     /**
@@ -208,7 +200,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getDocumentServerUrl() {
-        $url = $this->getBaseSettingValue($this->documentServerUrl, $this->envKey("DOCUMENT_SERVER_URL"), self::DEMO_URL);
+        $url = $this->getBaseSettingValue($this->documentServerUrl, EnvUtil::envKey("DOCUMENT_SERVER_URL"), self::DEMO_URL);
         $url = !empty($url) ? $this->normalizeUrl($url) : "";
         return (string)$url;
     }
@@ -261,8 +253,8 @@ use Dotenv\Dotenv;
         }
         $customUrl = "";
 
-        if (!empty($serverUrl) && !empty($_ENV[$this->envKey($settingKey)])) {
-            $customUrl = $_ENV[$this->envKey($settingKey)];
+        if (!empty($serverUrl) && !empty($_ENV[EnvUtil::envKey($settingKey)])) {
+            $customUrl = $_ENV[EnvUtil::envKey($settingKey)];
             $customUrl = $this->normalizeUrl($serverUrl .= $customUrl);
         }
 
@@ -320,7 +312,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtHeader() {
-        $jwtHeader = $this->getBaseSettingValue($this->jwtHeader, $this->envKey("JWT_HEADER"), self::DEMO_JWT_HEADER);
+        $jwtHeader = $this->getBaseSettingValue($this->jwtHeader, EnvUtil::envKey("JWT_HEADER"), self::DEMO_JWT_HEADER);
         return (string)$jwtHeader;
     }
 
@@ -330,7 +322,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtKey() {
-        $jwtKey = $this->getBaseSettingValue($this->jwtKey, $this->envKey("JWT_KEY"), self::DEMO_JWT_KEY);
+        $jwtKey = $this->getBaseSettingValue($this->jwtKey, EnvUtil::envKey("JWT_KEY"), self::DEMO_JWT_KEY);
         return (string)$jwtKey;
     }
 
@@ -340,7 +332,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtPrefix() {
-        $jwtPrefix = $this->getBaseSettingValue($this->jwtPrefix, $this->envKey("JWT_PREFIX"), self::DEMO_JWT_PREFIX);
+        $jwtPrefix = $this->getBaseSettingValue($this->jwtPrefix, EnvUtil::envKey("JWT_PREFIX"), self::DEMO_JWT_PREFIX);
         return (string)$jwtPrefix;
     }
 
@@ -350,7 +342,7 @@ use Dotenv\Dotenv;
      * @return string
      */
     public function getJwtLeeway() {
-        $jwtLeeway = $this->getBaseSettingValue($this->jwtLeeway, $this->envKey("JWT_LEEWAY"));
+        $jwtLeeway = $this->getBaseSettingValue($this->jwtLeeway, EnvUtil::envKey("JWT_LEEWAY"));
         return (string)$jwtLeeway;
     }
 
@@ -361,7 +353,7 @@ use Dotenv\Dotenv;
      */
     public function isIgnoreSSL() {
         if (!$this->useDemo()) {
-            return boolval($this->getBaseSettingValue($this->httpIgnoreSSL, $this->envKey("HTTP_IGNORE_SSL"))) === true;
+            return boolval($this->getBaseSettingValue($this->httpIgnoreSSL, EnvUtil::envKey("HTTP_IGNORE_SSL"))) === true;
         }
 
         return false;
