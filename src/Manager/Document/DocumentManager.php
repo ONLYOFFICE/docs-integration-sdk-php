@@ -43,24 +43,28 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      * Formats list
      */
     public $formats;
+    public $locale;
 
-    private $locale;
+    public abstract static function getDocumentKey(array $docData) : string;
 
-    public abstract function getDocumentKey($fileId);
+    public abstract function getFileUrl(array $fileData);
 
-    public abstract function getDocumentName($fileId);
+    public abstract static function getLangMapping() : array;
 
-    public abstract function getFileUrl($fileName, $filePath = null);
-
-    public function __construct(FormatsManager $formats = null, $locale = "en-US") {
-        if ($formats === null) {
+    public function __construct(FormatsManager $formats = null, $systemLangCode = "en") {
+        if (empty($formats)) {
             $formats = new FormatsManager(true);
+        }
+        if (isset(static::getLangMapping()[$systemLangCode]) && !empty(static::getLangMapping()[$systemLangCode])) {
+            $locale = static::getLangMapping()[$systemLangCode];
+        } else {
+            $locale = "en-US";
         }
         $this->formats = $formats;
         $this->locale = $locale;
     }
 
-    private function getEmptyTemplate($fileExt) {
+    public function getEmptyTemplate($fileExt) {
         $filePath = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "document-templates" . DIRECTORY_SEPARATOR . $this->locale . DIRECTORY_SEPARATOR . "new." . $fileExt;
         if (!file_exists($filePath)) {
             throw new \Exception(CommonError::message(CommonError::FILE_TEMPLATE_IS_NOT_EXISTS));
@@ -73,10 +77,10 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      *
      * @return array
      */
-    private function getTempFile() {
+    public function getTempFile() {
         $fileUrl = null;
         $templatePath = $this->getEmptyTemplate("docx");
-        $fileUrl = $this->getFileUrl("new.docx", $templatePath);
+        $fileUrl = $this->getFileUrl(["new.docx", $templatePath]);
 
         return [
             "fileUrl" => $fileUrl,
@@ -84,7 +88,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         ];
     }
 
-    private function getFormatInfo(string $extension, string $option = null)  {
+    public function getFormatInfo(string $extension, string $option = null)  {
         $search= null;
         $formats = $this->formats->getFormatsList();
         if (!array_key_exists($extension, $formats)) {
@@ -217,6 +221,17 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
     public function isDocumentFillable(string $filePath): bool {
         return $this->getFormatInfo($this->getExt($filePath))->isFillable();
+    }
+
+    /**
+     * Translation key to a supported form
+     */
+    public static function generateRevisionId(string $expectedKey): string
+    {
+        if (strlen($expectedKey) > 20) $expectedKey = crc32( $expectedKey);
+        $key = preg_replace("[^0-9-.a-zA-Z_=]", "_", $expectedKey);
+        $key = substr($key, 0, min(array(strlen($key), 20)));
+        return $key;
     }
 
  }

@@ -200,7 +200,7 @@ use GuzzleHttp\Client;
         if (empty($documentRevisionId)) {
             $documentRevisionId = $documentUri;
         }
-        $documentRevisionId = FileUtility::GenerateRevisionId($documentRevisionId);
+        $documentRevisionId = DocumentManager::generateRevisionId($documentRevisionId);
 
         if (empty($fromExtension)) {
             // TODO: Use special methods in FileUtility
