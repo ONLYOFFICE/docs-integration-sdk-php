@@ -44,15 +44,20 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      */
     public $formats;
     public $locale;
+    public $lang;
+    public $docData;
     public const app_name = "onlyoffice";
 
-    public abstract static function getDocumentKey(array $docData) : string;
+    public abstract function getDocumentKey() : string;
 
-    public abstract static function getFileUrl(array $fileData) : string;
+    public abstract function getFileUrl() : string;
 
     public abstract static function getLangMapping() : array;
 
-    public function __construct(FormatsManager $formats = null, $systemLangCode = "en") {
+    public abstract function getCallbackUrl() : string;
+
+    public function __construct(FormatsManager $formats = null, $systemLangCode = "en", $docData = []) {
+        $this->lang = $systemLangCode;
         if (empty($formats)) {
             $formats = new FormatsManager(true);
         }
@@ -63,6 +68,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         }
         $this->formats = $formats;
         $this->locale = $locale;
+        $this->docData = $docData;
     }
 
     public function getEmptyTemplate($fileExt) {
@@ -222,6 +228,14 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
     public function isDocumentFillable(string $filePath): bool {
         return $this->getFormatInfo($this->getExt($filePath))->isFillable();
+    }
+
+    public function isDocumentReadOnly() {
+        return false;
+    }
+
+    public function getDocumentAccessRights() {
+        return true;
     }
 
     /**

@@ -32,6 +32,8 @@ use Dotenv\Dotenv;
  abstract class SettingsManager implements SettingsManagerInterface
  {
 
+    public abstract function getServerUrl();
+
     public abstract function getSetting($settingName);
 
     public abstract function setSetting($settingName, $value, $createSetting = false);
