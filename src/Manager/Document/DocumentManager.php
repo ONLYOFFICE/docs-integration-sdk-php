@@ -51,6 +51,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     public abstract function getDocumentKey() : string;
 
     public abstract function getFileUrl() : string;
+    public abstract function getFilePath() : string;
 
     public abstract static function getLangMapping() : array;
 

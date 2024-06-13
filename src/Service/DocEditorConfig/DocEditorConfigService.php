@@ -36,7 +36,6 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
    public $docManager;
    public $user;
 
-   public abstract function getFilePath();
    public abstract function processNoModeWarning();
 
    public function __construct($request, SettingsManager $settingsManager, DocumentManager $docManager, User $user)
@@ -75,7 +74,7 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
 
       $fileId = $request["fileId"] ?? "";
 
-      $filePath = $this->getFilePath();
+      $filePath = $this->docManager->getFilePath();
       $extension = $this->docManager->getExt($filePath);
       $fileUrl = $this->docManager->getFileUrl();
       if (!empty($this->settingsManager->getStorageUrl())) {
