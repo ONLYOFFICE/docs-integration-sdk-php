@@ -46,7 +46,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     public $locale;
     public $lang;
     public $docData;
-    public const app_name = "onlyoffice";
+    public const APP_NAME = "onlyoffice";
 
     public abstract function getDocumentKey() : string;
 
