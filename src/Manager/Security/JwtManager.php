@@ -84,4 +84,26 @@ use Firebase\JWT\Key;
 
         return $payload;
     }
+
+    /**
+     * Create an object from the token
+     *
+     * @param string $token - token
+     *
+     * @return array
+     */
+    public static function readHash($token, $securityKey)
+    {
+        $result = null;
+        $error = null;
+        if ($token === null) {
+            return [$result, "Token is empty"];
+        }
+        try {
+            $result = JWT::decode($token, $securityKey, ["HS256"]);
+        } catch (\UnexpectedValueException $e) {
+            $error = $e->getMessage();
+        }
+        return [$result, $error];
+    }
  }
