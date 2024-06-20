@@ -74,9 +74,14 @@ use Firebase\JWT\Key;
     public function jwtDecode($token)
     {
         try {
-            $payload = JWT::decode(
+            /*$payload = JWT::decode(
                 $token,
                 new Key($this->settingsManager->getJwtKey(), 'HS256')
+            );*/
+            $payload = JWT::decode(
+                $token,
+                $this->settingsManager->getJwtKey(),
+                ["HS256"]
             );
         } catch (\UnexpectedValueException $e) {
             $payload = "";

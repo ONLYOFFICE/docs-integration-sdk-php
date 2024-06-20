@@ -30,11 +30,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     
 
     public function __construct(string $id, string $name, string $group = "", string $image = "") {
+        $this->id = $id;
         $this->name = $name;
-        $this->type = $type;
-        $this->actions = $actions;
-        $this->convert = $convert;
-        $this->mime = $mime;
+        $this->group = $group;
+        $this->image = $image;
     }
 
     public function getGroup() {
