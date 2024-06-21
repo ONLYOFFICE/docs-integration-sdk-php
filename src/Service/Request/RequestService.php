@@ -34,7 +34,7 @@ use GuzzleHttp\Client;
  * @package Onlyoffice\DocsIntegrationSdk\Service\Request
  */
 
- class RequestService implements RequestServiceInterface {
+ abstract class RequestService implements RequestServiceInterface {
 
     /**
      * Minimum supported version of editors
@@ -45,6 +45,8 @@ use GuzzleHttp\Client;
 
     protected SettingsManager $settingsManager;
     protected JwtManager $jwtManager;
+
+    abstract function getFileUrlForConvert();
 
     public function __construct(SettingsManager $settingsManager) {
         $this->settingsManager = $settingsManager;
@@ -395,6 +397,25 @@ use GuzzleHttp\Client;
             if ($versionF > 0.0 && $versionF <= self::MIN_EDITORS_VERSION) {
                 throw new \Exception(CommonError::message(CommonError::NOT_SUPPORTED_VERSION));
             }
+        } catch (\Exception $e) {
+            return [$e->getMessage(), $version];
+        }
+
+        try {
+            $fileUrl = $this->getFileUrlForConvert();
+
+            if (!empty($fileUrl)) {
+                if (!empty($this->settingsManager->getStorageUrl())) {
+                    $fileUrl = str_replace($this->settingsManager->getServerUrl(), $this->settingsManager->getStorageUrl(), $fileUrl);
+                   }
+                $convertedFileUri = $this->getConvertedUri($fileUrl, 'docx', 'docx', 'check_' . rand());
+            }
+        } catch (\Exception $e) {
+            return [$e->getMessage(), $version];
+        }
+
+        try {
+            $this->request($convertedFileUri);
         } catch (\Exception $e) {
             return [$e->getMessage(), $version];
         }
