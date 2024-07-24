@@ -49,17 +49,17 @@ abstract class CallbackService implements CallbackServiceInterface
     abstract function processTrackerStatusForcesave($trackResult, $data) : array;
     abstract function processTrackerStatusCorruptedForcesave($trackResult, $data) : array;
 
-    public function __construct ($request, SettingsManager $settingsManager, DocumentManager $docManager) {
+    public function __construct ($request, SettingsManager $settingsManager, DocumentManager $docManager, JwtManager $jwtManager) {
         $this->callbackResponse = [];
         $this->settingsManager = $settingsManager;
         $this->docManager = $docManager;
-        $this->jwtManager = new JwtManager($this->settingsManager);
+        $this->jwtManager = $jwtManager;
         if (isset($request["hash"]) && !empty($request["hash"])) {
             @header( 'Content-Type: application/json; charset==utf-8');
             @header( 'X-Robots-Tag: noindex' );
             @header( 'X-Content-Type-Options: nosniff' );
 
-            list ($hashData, $error) = JwtManager::readHash($_GET["hash"], $this->getSecurityKey());
+            list ($hashData, $error) = $this->jwtManager->readHash($_GET["hash"], $this->getSecurityKey());
             if (empty($hashData)) {
                 $this->callbackResponse["status"] = "error";
                 $this->callbackResponse["error"] = $error;

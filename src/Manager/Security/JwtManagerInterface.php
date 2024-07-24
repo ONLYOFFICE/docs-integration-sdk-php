@@ -30,10 +30,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Security;
  interface JwtManagerInterface
  {
 
-    public function isJwtEnabled();
-
-    public function jwtEncode($payload);
-
-    public function jwtDecode($token);
+   public function encode($payload, $key, $algorithm = "HS256");
+   public function decode($token, $key, $algorithm = "HS256");
+   public function isJwtEnabled();
+   public function jwtEncode($payload);
+   public function jwtDecode($token);
 
  }

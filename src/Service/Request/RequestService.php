@@ -48,9 +48,9 @@ use GuzzleHttp\Client;
 
     abstract function getFileUrlForConvert();
 
-    public function __construct(SettingsManager $settingsManager) {
+    public function __construct(SettingsManager $settingsManager, JwtManager $jwtManager) {
         $this->settingsManager = $settingsManager;
-        $this->jwtManager = new JwtManager($this->settingsManager);
+        $this->jwtManager = $jwtManager;
     }
 
      /**

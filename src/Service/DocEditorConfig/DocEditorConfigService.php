@@ -35,14 +35,16 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
    public $settingsManager;
    public $docManager;
    public $user;
+   public $jwtManager;
 
    public abstract function processNoModeWarning();
 
-   public function __construct($request, SettingsManager $settingsManager, DocumentManager $docManager, User $user)
+   public function __construct($request, SettingsManager $settingsManager, JwtManager $jwtManager, DocumentManager $docManager, User $user)
    {
       EnvUtil::loadEnvSettings();
       $this->request = $request;
       $this->settingsManager = $settingsManager;
+      $this->jwtManager = $jwtManager;
       $this->docManager = $docManager;
       $this->user = $user;      
       $this->config = null;
@@ -68,7 +70,6 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       }
 
       $docApiUrl = $this->settingsManager->getDocumentServerApiUrl();
-      $jwtManager = new JwtManager($this->settingsManager);
 
       $config = [];
 
@@ -133,7 +134,7 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       $config["document"]["permissions"]["edit"] = $accessRights && !$isReadonly;
 
       if (!empty($this->settingsManager->getJwtKey())) {
-         $token = $jwtManager->jwtEncode($config, $this->settingsManager->getJwtKey());
+         $token = $this->jwtManager->jwtEncode($config, $this->settingsManager->getJwtKey());
          $config["token"] = $token;
       }
 

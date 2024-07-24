@@ -30,7 +30,7 @@ use Firebase\JWT\Key;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Security
  */
 
- class JwtManager implements JwtManagerInterface
+ abstract class JwtManager implements JwtManagerInterface
  {
 
     private SettingsManager $settingsManager;
@@ -38,6 +38,9 @@ use Firebase\JWT\Key;
     public function __construct(SettingsManager $settingsManager) {
         $this->settingsManager = $settingsManager;
     }
+
+    public abstract function encode($payload, $key, $algorithm = "HS256");
+    public abstract function decode($token, $key, $algorithm = "HS256");
 
     /**
      * Check if a secret key to generate token exists or not.
@@ -61,7 +64,7 @@ use Firebase\JWT\Key;
         if (empty($key)) {
             $key = $this->settingsManager->getJwtKey();
         }
-        return JWT::encode($payload, $key, 'HS256');
+        return $this->encode($payload, $key);
     }
 
     /**
@@ -74,19 +77,10 @@ use Firebase\JWT\Key;
     public function jwtDecode($token)
     {
         try {
-            /*$payload = JWT::decode(
-                $token,
-                new Key($this->settingsManager->getJwtKey(), 'HS256')
-            );*/
-            $payload = JWT::decode(
-                $token,
-                $this->settingsManager->getJwtKey(),
-                ["HS256"]
-            );
+            $payload = $this->decode($token, $this->settingsManager->getJwtKey());
         } catch (\UnexpectedValueException $e) {
             $payload = "";
         }
-
         return $payload;
     }
 
@@ -97,7 +91,7 @@ use Firebase\JWT\Key;
      *
      * @return array
      */
-    public static function readHash($token, $securityKey)
+    public function readHash($token, $securityKey)
     {
         $result = null;
         $error = null;
@@ -105,7 +99,7 @@ use Firebase\JWT\Key;
             return [$result, "Token is empty"];
         }
         try {
-            $result = JWT::decode($token, $securityKey, ["HS256"]);
+            $result = $this->decode($token, $securityKey);
         } catch (\UnexpectedValueException $e) {
             $error = $e->getMessage();
         }
