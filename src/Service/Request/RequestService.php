@@ -23,10 +23,10 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\RequestServiceInterface;
+use Onlyoffice\DocsIntegrationSdk\Service\Request\HttpClientInterface;
 use Onlyoffice\DocsIntegrationSdk\Util\CommandResponse;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
-use GuzzleHttp\Client;
 
 /**
  * Default Document service.
@@ -48,9 +48,10 @@ use GuzzleHttp\Client;
 
     abstract function getFileUrlForConvert();
 
-    public function __construct(SettingsManager $settingsManager, JwtManager $jwtManager) {
+    public function __construct(SettingsManager $settingsManager, JwtManager $jwtManager, HttpClientInterface $httpClient) {
         $this->settingsManager = $settingsManager;
         $this->jwtManager = $jwtManager;
+        $this->httpClient = $httpClient;
     }
 
      /**
@@ -63,7 +64,6 @@ use GuzzleHttp\Client;
      * @return string
      */
     public function request($url, $method = "GET", $opts = []) {
-        $client = new Client();
         if ($this->settingsManager->isIgnoreSSL()) {
             $opts["verify"] = false;
         }
@@ -72,9 +72,9 @@ use GuzzleHttp\Client;
             $opts["timeout"] = 60;
         }
 
-        $response = $client->request($method, $url, $opts);
+        $response = $this->httpClient->request($method, $url, $opts);
         if ($response->getStatusCode() === 200) {
-            return $response->getBody()->getContents();
+            return $response->getBody();
         }
 
         return "";
