@@ -26,9 +26,9 @@ class CoEditing
     private $mode;
     private $change;
 
-    public function __construct (CoEditingMode $mode, string $change)
+    public function __construct (CoEditingMode $mode = null, bool $change = true)
     {
-        $this->mode = $mode;
+        $this->mode = $mode !== null ? $mode : new CoEditingMode;
         $this->change = $change;
     }
 

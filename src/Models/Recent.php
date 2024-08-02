@@ -27,7 +27,7 @@ class Recent
     private $title;
     private $url;
 
-    public function __construct (string $folder, string $title, string $url)
+    public function __construct (string $folder = "", string $title = "", string $url = "")
     {
         $this->folder = $folder;
         $this->title = $title;

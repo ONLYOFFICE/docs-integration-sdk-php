@@ -2,6 +2,7 @@
 
 abstract class BasicEnum {
     private static $constCacheArray = NULL;
+    private $value;
 
     private static function getConstants() {
         if (self::$constCacheArray == NULL) {
@@ -29,5 +30,21 @@ abstract class BasicEnum {
     public static function isValidValue($value, $strict = true) {
         $values = array_values(self::getConstants());
         return in_array($value, $values, $strict);
+    }
+
+    /**
+     * Get the value of value
+     */ 
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set the value of value
+     */ 
+    public function setValue($value)
+    {
+        $this->value = $value;
     }
 }

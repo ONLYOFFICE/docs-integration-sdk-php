@@ -29,7 +29,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     private $image;
     
 
-    public function __construct(string $id, string $name, string $group = "", string $image = "") {
+    public function __construct(string $id = "", string $name = "", string $group = "", string $image = "") {
         $this->id = $id;
         $this->name = $name;
         $this->group = $group;

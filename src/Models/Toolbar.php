@@ -19,20 +19,19 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  * limitations under the License.
  *
  */
-use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
-class EditorsMode extends BasicEnum
+class Toolbar extends BasicEnum
 {
-    const VIEW = "view";
-    const EDIT = "edit";
-    const ALLOWED = [self::VIEW, self::EDIT];
+    const TOP = "top";
+    const BOTTOM = "bottom";
+    const ALLOWED = [self::TOP, self::BOTTOM];
 
-    public function __construct($editorsMode = null)
+    public function __construct($toolbar = null)
     {
-        if (!in_array($editorsMode, ALLOWED) && $editorsMode !== null) {
-            throw new Exception("Unknown editors mode");
+        if (!in_array($toolbar, ALLOWED) && $toolbar !== null) {
+            throw new Exception("Unknown toolbar type");
         } else {
-            $this->value = $editorsMode !== null ? $editorsMode : self::EDIT;
+            $this->value = $toolbar !== null ? $toolbar : self::TOP;
         }
     }
 }

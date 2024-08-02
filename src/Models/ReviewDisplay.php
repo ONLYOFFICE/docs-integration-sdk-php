@@ -29,8 +29,6 @@ class ReviewDisplay extends BasicEnum
     const ORIGINAL = "original";
     const ALLOWED = [self::MARKUP, self::SIMPLE, self::FINAL, self::ORIGINAL];
 
-    private $value;
-
     public function __construct($reviewDisplay = null)
     {
         if (!in_array($reviewDisplay, ALLOWED) && $reviewDisplay !== null) {
@@ -38,21 +36,5 @@ class ReviewDisplay extends BasicEnum
         } else {
             $this->value = $reviewDisplay !== null ? $reviewDisplay : self::ORIGINAL;
         }
-    }
-
-    /**
-     * Get the value of value
-     */ 
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Set the value of value
-     */ 
-    public function setValue($value)
-    {
-        $this->value = $value;
     }
 }

@@ -42,22 +42,31 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     private $customization;
     private $embedded;
 
-    public function __construct (string $callbackUrl, CoEditing $coEditing, string $createUrl, string $lang,
-                                string $location, EditorsMode $mode, array $recent, string $region, array $templates,
-                                User $user, Customization $customization, Embedded $embedded)
+    public function __construct (string $callbackUrl = "",
+                                CoEditing $coEditing = null,
+                                string $createUrl = "",
+                                string $lang = "en",
+                                string $location = "",
+                                EditorsMode $mode,
+                                array $recent = [],
+                                string $region = "en-US",
+                                array $templates = [],
+                                User $user = null,
+                                Customization $customization = null,
+                                Embedded $embedded = null)
     {
         $this->callbackUrl = $callbackUrl;
-        $this->coEditing = $coEditing;
+        $this->coEditing = $coEditing !== null ? $coEditing : new CoEditing;
         $this->createUrl = $createUrl;
         $this->lang = $lang;
         $this->location = $location;
-        $this->mode = $mode;
+        $this->mode = $mode !== null ? $mode : new EditorsMode;
         $this->recent = $recent;
         $this->region = $region;
         $this->templates = $templates;
-        $this->user = $user;
-        $this->customization = $customization;
-        $this->embedded = $embedded;
+        $this->user = $user !== null ? $user : new User;
+        $this->customization = $customization !== null ? $customization : new Customization;
+        $this->embedded = $embedded !== null ? $embedded : new Embedded;
     }
 
     /**

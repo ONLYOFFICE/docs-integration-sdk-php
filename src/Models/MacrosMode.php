@@ -28,8 +28,6 @@ class MacrosMode extends BasicEnum
     const WARN = "warn";
     const ALLOWED = [self::DISABLE, self::ENABLE, self::WARN];
 
-    private $value;
-
     public function __construct($macrosMode = null)
     {
         if (!in_array($macrosMode, ALLOWED) && $macrosMode !== null) {
@@ -39,19 +37,4 @@ class MacrosMode extends BasicEnum
         }
     }
 
-    /**
-     * Get the value of value
-     */ 
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Set the value of value
-     */ 
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
 }
