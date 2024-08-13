@@ -395,8 +395,6 @@ use Dotenv\Dotenv;
     public function normalizeUrl($url) {
         $url = preg_replace('/([^:])(\/{2,})/', '$1/', $url);
         $url = filter_var($url, FILTER_SANITIZE_URL);
-        // TODO: additional processing
-        //...
         return $url;
     }
 

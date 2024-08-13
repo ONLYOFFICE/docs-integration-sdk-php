@@ -2,7 +2,7 @@
 
 abstract class BasicEnum {
     private static $constCacheArray = NULL;
-    private $value;
+    protected $value;
 
     private static function getConstants() {
         if (self::$constCacheArray == NULL) {
