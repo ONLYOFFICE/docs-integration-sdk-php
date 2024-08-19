@@ -26,7 +26,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     private $remove;
     private $view;
 
-    public function __construct (array $edit, array $remove, array $view)
+    public function __construct (array $edit = [], array $remove = [], array $view = [])
     {
         $this->edit = $edit;
         $this->remove = $remove;

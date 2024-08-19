@@ -41,14 +41,28 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
     private $reviewGroups; //string array
     private $userInfoGroups; //string array
 
-    public function __construct (bool $chat, bool $comment, CommentGroups $commentGroups, bool $copy,
-    bool $deleteCommentAuthorOnly, bool $download, bool $edit, bool $editCommentAuthorOnly, bool $fillForms,
-    bool $modifyContentControl, bool $modifyFilter, bool $print, bool $protect, bool $rename, bool $review,
-    array $reviewGroups, array $userInfoGroups)
+    public function __construct (bool $chat = true,
+                                bool $comment = true,
+                                ?CommentGroups $commentGroups = null,
+                                bool $copy = true,
+                                bool $deleteCommentAuthorOnly = false,
+                                bool $download = true,
+                                bool $edit = true,
+                                bool $editCommentAuthorOnly = false,
+                                bool $fillForms = true,
+                                bool $modifyContentControl = true,
+                                bool $modifyFilter = true,
+                                bool $print = true,
+                                bool $protect = true,
+                                bool $rename = false,
+                                bool $review = false,
+                                ?array $reviewGroups = null,
+                                ?array $userInfoGroups = null
+                                )
     {
         $this->chat = $chat;
         $this->comment = $comment;
-        $this->commentGroups = $commentGroups;
+        $this->commentGroups = $commentGroups !== null ? $commentGroups : new CommentGroups;
         $this->copy = $copy;
         $this->deleteCommentAuthorOnly = $deleteCommentAuthorOnly;
         $this->download = $download;

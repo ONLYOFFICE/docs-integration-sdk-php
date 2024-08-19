@@ -25,11 +25,11 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
  {
     const EDITING = 1;
     const SAVE = 2;
-    const CLICK_FORCESAVE = 3;
+    const SAVE_CORRUPTED = 3;
     const CLOSED = 4;
     const FORCESAVE = 6;
     const FORCESAVE_CORRUPTED = 7;
-    const ALLOWED = [self::EDITING, self::SAVE, self::CLICK_FORCESAVE, self::CLOSED, self::FORCESAVE, self::FORCESAVE_CORRUPTED];
+    const ALLOWED = [self::EDITING, self::SAVE, self::SAVE_CORRUPTED, self::CLOSED, self::FORCESAVE, self::FORCESAVE_CORRUPTED];
 
     public function __construct($status = null)
     {

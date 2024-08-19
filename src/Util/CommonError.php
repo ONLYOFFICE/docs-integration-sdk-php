@@ -70,7 +70,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
             case self::BAD_HEALTHCHECK_STATUS :
                 return "Bad healthcheck status";
             case self::DOC_SERVICE_ERROR :
-                return "Error occurred in the document servic";
+                return "Error occurred in the document service";
             case self::NOT_SUPPORTED_VERSION :
                 return "Not supported version";
             case self::EMPTY_FORMATS_ASSET :
@@ -83,6 +83,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
                 return "File template is not exists";
             case self::NO_API_URL :
                 return "There is no document server API URL in the application configuration";
+            case self::CALLBACK_NO_AUTH_TOKEN :
+                return "Not found authorization token";
+            case self::CALLBACK_NO_STATUS :
+                return "Callback has no status";
             default:
                 return "Unknown error";
         }

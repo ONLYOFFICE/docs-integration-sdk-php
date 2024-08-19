@@ -19,22 +19,21 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  * limitations under the License.
  *
  */
-
 use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
- class Type extends BasicEnum
- {
-    const DESKTOP = "desktop";
-    const MOBILE = "mobile";
-    const EMBEDDED = "embedded";
-    const ALLOWED = [self::DESKTOP, self::MOBILE, self::EMBEDDED];
+class SharingSettingsPermissions extends BasicEnum
+{
+    const FULL_ACCESS = "Full Access";
+    const READ_ONLY = "Read Only";
+    const DENY_ACCESS = "Deny Access";
+    const ALLOWED = [self::FULL_ACCESS, self::READ_ONLY, self::DENY_ACCESS];
 
     public function __construct($type = null)
     {
         if (!in_array($type, ALLOWED) && $type !== null) {
-            throw new Exception("Unknown editors type");
+            throw new Exception("Unknown sharing settings permission type");
         } else {
-            $this->value = $type !== null ? $type : self::DESKTOP;
+            $this->value = $type !== null ? $type : self::FULL_ACCESS;
         }
     }
- }
+}

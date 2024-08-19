@@ -26,7 +26,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     private $instanceId;
     private $key;
 
-    public function __construct (string $fileKey, string $instanceId, string $key)
+    public function __construct (?string $fileKey = "", ?string $instanceId = "", ?string $key ="")
     {
         $this->fileKey = $fileKey;
         $this->instanceId = $instanceId;

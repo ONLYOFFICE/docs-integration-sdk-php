@@ -22,6 +22,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Callback;
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
+use Onlyoffice\DocsIntegrationSdk\Models\Callback;
+use Radebatz\ObjectMapper\ObjectMapper;
 
 abstract class CallbackService implements CallbackServiceInterface
 {
@@ -33,169 +35,85 @@ abstract class CallbackService implements CallbackServiceInterface
     private const TRACKERSTATUS_FORCESAVE = 6;
     private const TRACKERSTATUS_CORRUPTEDFORCESAVE = 7;
 
-    protected $hashData;
-    private $callbackResponse;
-    private $callbackResponseJSON;
     protected $settingsManager;
     protected $jwtManager;
-    protected $docManager;
 
-    abstract function getSecurityKey();
-    abstract function processHashData();
-    abstract function processTrackerStatusEditing($trackResult, $data) : array;
-    abstract function processTrackerStatusMustsave($trackResult, $data) : array;
-    abstract function processTrackerStatusCorrupted($trackResult, $data) : array;
-    abstract function processTrackerStatusClosed($trackResult, $data) : array;
-    abstract function processTrackerStatusForcesave($trackResult, $data) : array;
-    abstract function processTrackerStatusCorruptedForcesave($trackResult, $data) : array;
+    abstract function processTrackerStatusEditing($callback, $fileid);
+    abstract function processTrackerStatusMustsave($callback, $fileid);
+    abstract function processTrackerStatusCorrupted($callback, $fileid);
+    abstract function processTrackerStatusClosed($callback, $fileid);
+    abstract function processTrackerStatusForcesave($callback, $fileid);
 
-    public function __construct ($request, SettingsManager $settingsManager, DocumentManager $docManager, JwtManager $jwtManager) {
-        $this->callbackResponse = [];
+
+    public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager = null)
+    {
         $this->settingsManager = $settingsManager;
-        $this->docManager = $docManager;
-        $this->jwtManager = $jwtManager;
-        if (isset($request["hash"]) && !empty($request["hash"])) {
-            @header( 'Content-Type: application/json; charset==utf-8');
-            @header( 'X-Robots-Tag: noindex' );
-            @header( 'X-Content-Type-Options: nosniff' );
+        $this->jwtManager = $jwtManager !== null ? $jwtManager : new JwtManager($settingsManager);
+    }
 
-            list ($hashData, $error) = $this->jwtManager->readHash($_GET["hash"], $this->getSecurityKey());
-            if (empty($hashData)) {
-                $this->callbackResponse["status"] = "error";
-                $this->callbackResponse["error"] = $error;
-                $this->callbackResponseJSON = json_encode($this->callbackResponse);
-                return;
-            }
-            $this->hashData = $hashData;
-            $error = $this->processHashData();
-            if (!empty($error)) {
-                $this->callbackResponse["status"] = "error";
-                $this->callbackResponse["error"] = $error;
-                $this->callbackResponseJSON = json_encode($this->callbackResponse);
-                return;
-            }
-
-            if (isset($this->hashData->type) && !empty($this->hashData->type)) {
-                switch($this->hashData->type) {
-                    case "track":
-                        $this->callbackResponse = $this->track();
-                        break;
-                    case "download":
-                        $this->callbackResponse = $this->download();
-                        break;
-                    default:
-                        $this->callbackResponse["status"] = "error";
-                        $this->callbackResponse["error"] = "404 Method not found";
+    public function verifyCallback(Callback $callback, string $authorizationHeader = "")
+    {
+        if ($this->jwtManager->isJwtEnabled())
+        {
+            $token = $callback->getToken();
+            $payload = null;
+            $fromHeader = false;
+ 
+            if (!empty($authorizationHeader) )
+            {
+                $compareHeaders = substr($authorizationHeader, 0, strlen($this->settingsManager->getJwtPrefix()));
+                if ($compareHeaders === $this->settingsManager->getJwtPrefix())
+                {
+                    $token = $compareHeaders;
+                    $fromHeader = true;
                 }
             }
-        }
-        $this->callbackResponseJSON = json_encode($this->callbackResponse);
-    }
 
-    public function getCallbackResponse() {
-        return $this->callbackResponse;
-    }
-
-    public function getCallbackResponseJSON() {
-        return $this->callbackResponseJSON;
-    }
-
-    public function track() {
-        $result = [];
-        if (($body_stream = file_get_contents("php://input")) === false) {
-            $result["error"] = "Bad Request";
-            return $result;
-        }
-
-        $data = json_decode($body_stream, true);
-        if ($data === null) {
-            $result["error"] = "Bad Response";
-            return $result;
-        }
-
-        if (!empty($this->settingsManager->getJwtKey())) {
-            if (!empty($data["token"])) {
-                try {
-                    $payload = $this->jwtManager->jwtDecode($data["token"]);
-                } catch (\UnexpectedValueException $e) {
-                    $result["status"] = "error";
-                    $result["error"] = "403 Access denied";
-                    return $result;
-                }
-            } else {
-                $token = substr(getallheaders()[$this->settingsManager->getJwtHeader()], strlen("Bearer "));
-                try {
-                    $decodedToken = $this->jwtManager->jwtDecode($token);
-                    $payload = $decodedToken->payload;
-                } catch (\UnexpectedValueException $e) {
-                    $result["status"] = "error";
-                    $result["error"] = "403 Access denied";
-                    return $result;
-                }
+            if (empty($token)) 
+            {
+                throw new \Exception(CommonError::message(CommonError::CALLBACK_NO_AUTH_TOKEN));
             }
-            $data["url"] = isset($payload->url) ? $payload->url : null;
-            $data["status"] = $payload->status;
-        }
-        $status = $data["status"];
-        $trackResult = 1;
-        $error = null;
 
-        switch ($status) {
-            case self::TRACKERSTATUS_EDITING:
-                list ($trackResult, $error) = $this->processTrackerStatusEditing($trackResult, $data);
-                break;
-            case self::TRACKERSTATUS_MUSTSAVE:
-                list ($trackResult, $error) = $this->processTrackerStatusMustsave($trackResult, $data);
-                break;
-            case self::TRACKERSTATUS_CORRUPTED:
-                list ($trackResult, $error) = $this->processTrackerStatusCorrupted($trackResult, $data);
-                break;
-            case self::TRACKERSTATUS_CLOSED:
-                list ($trackResult, $error) = $this->processTrackerStatusClosed($trackResult, $data);
-                break;
-            case self::TRACKERSTATUS_FORCESAVE:
-                list ($trackResult, $error) = $this->processTrackerStatusForcesave($trackResult, $data);
-                break;
-            case self::TRACKERSTATUS_CORRUPTEDFORCESAVE:
-                list ($trackResult, $error) = $this->processTrackerStatusCorruptedForcesave($trackResult, $data);
-                break;
-        }
-        if (!empty($error)) {
-            $result["error"] = $error;
-        } else {
-            $result["error"] = $trackResult;
-        }
-        return $result;
-    }
-
-    public function download() {
-        if (!empty($this->settingsManager->getJwtKey())) {
-            $token = substr(getallheaders()[$this->settingsManager->getJwtHeader()], strlen("Bearer "));
-            try {
-                $payload = $this->jwtManager->jwtDecode($token);
-            } catch (\UnexpectedValueException $e) {
-                $result["status"] = "error";
-                $result["error"] = "403 Access denied";
-                return $result;
+            $payload = $this->jwtManager->jwtDecode($token);
+            $callbackFromToken = json_decode($token, true);
+            if ($fromHeader)
+            {
+                $callbackFromToken = $callbackFromToken["payload"];
             }
-        }
 
-        $filePath = $this->getFilePath();
-        if (empty($filePath)) {
-            $result["status"] = "error";
-            $result["error"] = "File not found";
-            return $result;
+            $objectMapper = new ObjectMapper();
+            return $objectMapper->map($callbackFromToken, \Callback::class);
         }
-        $fileName = $this->docManager->getFileName($filePath);
-        @header("Content-Type: application/octet-stream");
-        @header("Content-Disposition: attachment; filename=" . $fileName);
-
-        $this->readFile($filePath);
+        return $callback;
     }
 
-    public function readfile($filePath) {
-        readfile($filePath);
-        exit();
+    public function processCallback(Callback $callback, string $fileId)
+    {
+        switch ($callback->getStatus()) {
+            case CallbackDocStatus::EDITING :
+                $this->processTrackerStatusEditing($callback, $fileId);
+            break;
+            case CallbackDocStatus::SAVE :
+                $this->processTrackerStatusMustsave($callback, $fileId);
+            break;
+            case CallbackDocStatus::SAVE_CORRUPTED :
+                $this->processTrackerStatusCorrupted($callback, $fileId);
+            break;
+            case CallbackDocStatus::CLOSED :
+                $this->processTrackerStatusClosed($callback, $fileId);
+            break;
+            case CallbackDocStatus::FORCESAVE :
+                $this->processTrackerStatusForcesave($callback, $fileId);
+            break;
+            case CallbackDocStatus::FORCESAVE_CORRUPTED :
+                $this->processTrackerStatusCorruptedForcesave($callback, $fileId);
+            break;
+            default:
+                throw new \Exception(CommonError::message(CommonError::CALLBACK_NO_STATUS));
+        }
     }
-    
+
+    public function processTrackerStatusCorruptedForcesave($callback, $fileid) {
+        $this->processTrackerStatusForcesave($callback, $fileid);
+    }
 }

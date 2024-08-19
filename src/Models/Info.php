@@ -26,10 +26,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
     private $favorite;
     private $folder;
     private $owner;
-    private $sharingSettings;
+    private $sharingSettings; // array of SharingSettings
     private $uploaded;
 
-    public function __construct(bool $favorite, string $folder, string $owner, array $sharingSettings, string $uploaded)
+    public function __construct(bool $favorite = false,
+                                string $folder = "",
+                                string $owner = "",
+                                array $sharingSettings = [],
+                                string $uploaded = ""
+                                )
     {
         $this->favorite = $favorite;
         $this->folder = $folder;

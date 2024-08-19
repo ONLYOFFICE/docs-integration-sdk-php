@@ -20,6 +20,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
  *
  */
 
+use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsInreface;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManagerInreface;
 use Onlyoffice\DocsIntegrationSdk\Models\Format;
 use Onlyoffice\DocsIntegrationSdk\Manager\Formats\FormatsManager;
@@ -45,19 +46,21 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     public $formats;
     public $locale;
     public $lang;
-    public $docData;
+    public $settingsManager;
     public const APP_NAME = "onlyoffice";
 
-    public abstract function getDocumentKey() : string;
+    public abstract function getDocumentKey(string $fileId, bool $embedded);
+    public abstract function getDocumentName(string $fileId);
+    public abstract function getFilePath();
+    public abstract static function getLangMapping();
 
-    public abstract function getFileUrl() : string;
-    public abstract function getFilePath() : string;
+    public abstract function getFileUrl(string $fileId);
+    public abstract function getCallbackUrl(string $fileId);
+    public abstract function getGobackUrl(string $fileId);
+    public abstract function getCreateUrl(string $fileId);
 
-    public abstract static function getLangMapping() : array;
-
-    public abstract function getCallbackUrl() : string;
-
-    public function __construct(FormatsManager $formats = null, $systemLangCode = "en", $docData = []) {
+    public function __construct(SettingsManager $settingsManager, FormatsManager $formats = null, $systemLangCode = "en") {
+        $this->lang = $systemLangCode;
         $this->lang = $systemLangCode;
         if (empty($formats)) {
             $formats = new FormatsManager(true);
@@ -68,8 +71,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
             $locale = "en-US";
         }
         $this->formats = $formats;
-        $this->locale = $locale;
-        $this->docData = $docData;
+        $this->settingsManager = $settingsManager;
     }
 
     public function getEmptyTemplate($fileExt) {
