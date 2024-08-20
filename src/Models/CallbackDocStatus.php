@@ -29,13 +29,24 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
     const CLOSED = 4;
     const FORCESAVE = 6;
     const FORCESAVE_CORRUPTED = 7;
+    protected $status;
 
     public function __construct($status = null)
     {
         if (!self::isValidValue($status) && $status !== null) {
             throw new Exception("Unknown callback document status");
         } else {
-            $this->{self::getClassName()} = $status;
+            $this->status= $status;
         }
+    }
+
+    public function getValue()
+    {
+        return $this->status;
+    }
+
+    public function setValue($value)
+    {
+        $this->status = $value;
     }
  }
