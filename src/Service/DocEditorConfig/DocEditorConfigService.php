@@ -25,10 +25,12 @@ use Onlyoffice\DocsIntegrationSdk\Service\DocEditorConfig\DocEditorConfigService
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 use Onlyoffice\DocsIntegrationSdk\Models\Config;
+use Onlyoffice\DocsIntegrationSdk\Models\CoEditing;
 use Onlyoffice\DocsIntegrationSdk\Models\DocEditorConfig;
 use Onlyoffice\DocsIntegrationSdk\Models\Document;
 use Onlyoffice\DocsIntegrationSdk\Models\DocumentType;
 use Onlyoffice\DocsIntegrationSdk\Models\EditorsMode;
+use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
 use Onlyoffice\DocsIntegrationSdk\Models\GoBack;
 use Onlyoffice\DocsIntegrationSdk\Models\Permissions;
 use Onlyoffice\DocsIntegrationSdk\Models\ReferenceData;
@@ -78,9 +80,28 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       return preg_match($agentList, $userAgent);
    }
 
-   public function getDocEditorConfig($fileId, $mode, $type) { //TODO!!!!!!
+   public function getDocEditorConfig(string $fileId, EditorsMode $mode, Type $type) {
       $permissions = $this->getPermissions($fileId);
       $editorConfig = new DocEditorConfig;
+      $editorConfig->setCoEditing($this->getCoEditing($fileId, $mode, $type));
+      $editorConfig->setCreateUrl($this->documentManager->getCreateUrl($fileId));
+      $editorConfig->setMode($this->getUser());
+      $editorConfig->setRecent($this->getRecent());
+      $editorConfig->setTemplates($this->getTemplates($fileId));
+      $editorConfig->setCustomization($this->getCustomization($fileId));
+
+      if (($permissions.getEdit() || $permissions.getFillForms() ||
+         $permissions.getComment() ||$permissions.getReview())
+         && $mode->getValue() === EditorsMode::EDIT)
+         {
+            $editorConfig->setCallbackUrl($this->documentManager->getCallbackUrl($fileId));
+         }
+
+      if ($type->getValue() === Type::EMBEDDED) {
+         $editorConfig->setEmbedded($this->getEmbedded($fileId));
+      }
+
+      return $editorConfig;
    }
 
    public function getDocument(string $fileId, Type $type) {
@@ -95,6 +116,8 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
                               $permissions
 
    );
+   
+   return $document;
    }
 
    public function getCustomization(string $fileId) {
@@ -110,19 +133,41 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       return $customization;
    }
 
-   public function getPermissions(string $fileId) {
+   public function getPermissions(string $fileId = "") {
       return new Permissions;
    }
 
-   public function getReferenceData(string $fileId) {
+   public function getReferenceData(string $fileId = "") {
       return new ReferenceData;
    }
 
-   public function getIndo(string $fileId) {
+   public function getInfo(string $fileId = "") {
       return new Info;
+   }
+
+   public function getCoEditing(string $fileId = "", EditorsMode $mode = null, Type $type) {
+      return new CoEditing;
    }
 
    public function getType(string $userAgent = "") {
       return $this->isMobileAgent($userAgent) ? new Type(Type::MOBILE) : new Type(Type::DESKTOP);
+   }
+
+   public function getUser() {
+      return new User;
+   }
+
+   public function getRecent() {
+      $recent = new Recent;
+      return [$recent];
+   }
+
+   public function getTemplates($fileId) {
+      $template = new Template;
+      return [$template];
+   }
+
+   public function getEmbedded($fileId) {
+      return new Embedded;
    }
 }

@@ -27,7 +27,7 @@ class Template
     private $title;
     private $url;
 
-    public function __construct (string $image, string $title, string $url)
+    public function __construct (string $image = "", string $title = "", string $url = "")
     {
         $this->image = $image;
         $this->title = $title;
