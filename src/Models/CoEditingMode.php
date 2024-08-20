@@ -31,7 +31,7 @@ class CoEditingMode extends BasicEnum
         if (!self::isValidValue($сoEditingMode) && $сoEditingMode !== null) {
             throw new Exception("Unknown co-editing mode");
         } else {
-            $this->value = $сoEditingMode !== null ? $сoEditingMode : self::FAST;
+            $this->{self::getClassName()} = $сoEditingMode !== null ? $сoEditingMode : self::FAST;
         }
     }
 }

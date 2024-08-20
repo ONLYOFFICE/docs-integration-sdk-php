@@ -2,7 +2,6 @@
 
 abstract class BasicEnum {
     private static $constCacheArray = NULL;
-    protected $value;
 
     private static function getConstants() {
         if (self::$constCacheArray == NULL) {
@@ -31,20 +30,14 @@ abstract class BasicEnum {
         $values = array_values(self::getConstants());
         return in_array($value, $values, $strict);
     }
-
-    /**
-     * Get the value of value
-     */ 
-    public function getValue()
+    
+    public function getClassName()
     {
-        return $this->value;
+       return self::camelize(static::class);
     }
 
-    /**
-     * Set the value of value
-     */ 
-    public function setValue($value)
+    public function camelize($input, $separator = '_')
     {
-        $this->value = $value;
+        return lcfirst(str_replace($separator, '', ucwords($input, $separator)));
     }
 }

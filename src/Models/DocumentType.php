@@ -32,7 +32,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
         if (!self::isValidValue($type) && $type !== null) {
             throw new Exception("Unknown document type");
         } else {
-            $this->value = $type;
+            $this->{self::getClassName()} = $type;
         }
     }
  }
