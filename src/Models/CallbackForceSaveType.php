@@ -26,11 +26,10 @@ class CallbackForceSaveType extends BasicEnum
     const COMMAND_SERVICE = 0;
     const SAVE_BUTTON = 1;
     const TIMER = 2;
-    const ALLOWED = [self::COMMAND_SERVICE, self::SAVE_BUTTON, self::TIMER];
 
     public function __construct($type = null)
     {
-        if (!in_array($type, ALLOWED) && $type !== null) {
+        if (!self::isValidValue($type)) {
             throw new Exception("Unknown callback forcesave type");
         } else {
             $this->value = $type;

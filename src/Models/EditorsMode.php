@@ -25,11 +25,10 @@ class EditorsMode extends BasicEnum
 {
     const VIEW = "view";
     const EDIT = "edit";
-    const ALLOWED = [self::VIEW, self::EDIT];
 
     public function __construct($editorsMode = null)
     {
-        if (!in_array($editorsMode, ALLOWED) && $editorsMode !== null) {
+        if (!self::isValidValue($editorsMode)) {
             throw new Exception("Unknown editors mode");
         } else {
             $this->value = $editorsMode !== null ? $editorsMode : self::EDIT;

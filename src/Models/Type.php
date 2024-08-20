@@ -27,11 +27,10 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
     const DESKTOP = "desktop";
     const MOBILE = "mobile";
     const EMBEDDED = "embedded";
-    const ALLOWED = [self::DESKTOP, self::MOBILE, self::EMBEDDED];
 
     public function __construct($type = null)
     {
-        if (!in_array($type, ALLOWED) && $type !== null) {
+        if (!self::isValidValue($type)) {
             throw new Exception("Unknown editors type");
         } else {
             $this->value = $type !== null ? $type : self::DESKTOP;

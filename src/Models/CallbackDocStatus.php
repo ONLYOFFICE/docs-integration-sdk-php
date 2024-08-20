@@ -29,11 +29,10 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
     const CLOSED = 4;
     const FORCESAVE = 6;
     const FORCESAVE_CORRUPTED = 7;
-    const ALLOWED = [self::EDITING, self::SAVE, self::SAVE_CORRUPTED, self::CLOSED, self::FORCESAVE, self::FORCESAVE_CORRUPTED];
 
     public function __construct($status = null)
     {
-        if (!in_array($status, ALLOWED) && $status !== null) {
+        if (!self::isValidValue($status)) {
             throw new Exception("Unknown callback document status");
         } else {
             $this->value = $status;

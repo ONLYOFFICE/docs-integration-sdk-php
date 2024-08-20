@@ -24,11 +24,10 @@ class Toolbar extends BasicEnum
 {
     const TOP = "top";
     const BOTTOM = "bottom";
-    const ALLOWED = [self::TOP, self::BOTTOM];
 
     public function __construct($toolbar = null)
     {
-        if (!in_array($toolbar, ALLOWED) && $toolbar !== null) {
+        if (!self::isValidValue($toolbar)) {
             throw new Exception("Unknown toolbar type");
         } else {
             $this->value = $toolbar !== null ? $toolbar : self::TOP;

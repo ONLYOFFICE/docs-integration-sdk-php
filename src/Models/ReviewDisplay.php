@@ -31,7 +31,7 @@ class ReviewDisplay extends BasicEnum
 
     public function __construct($reviewDisplay = null)
     {
-        if (!in_array($reviewDisplay, ALLOWED) && $reviewDisplay !== null) {
+        if (!self::isValidValue($reviewDisplay)) {
             throw new Exception("Unknown review display type");
         } else {
             $this->value = $reviewDisplay !== null ? $reviewDisplay : self::ORIGINAL;
