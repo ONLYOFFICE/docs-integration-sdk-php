@@ -31,7 +31,7 @@ class EditorsMode extends BasicEnum
         if (!self::isValidValue($editorsMode) && $editorsMode !== null) {
             throw new Exception("Unknown editors mode");
         } else {
-            $this->value = $editorsMode !== null ? $editorsMode : self::EDIT;
+            $this->{self::getClassName()} = $editorsMode !== null ? $editorsMode : self::EDIT;
         }
     }
 }

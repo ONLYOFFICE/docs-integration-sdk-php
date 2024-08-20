@@ -60,7 +60,7 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
                            "100%",
                            "100%",
                            "",
-                           $type->getValue(),
+                           $type,
                            $editorConfig,
                            $document
                         );

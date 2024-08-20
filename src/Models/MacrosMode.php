@@ -32,7 +32,7 @@ class MacrosMode extends BasicEnum
         if (!self::isValidValue($macrosMode) && $macrosMode !== null) {
             throw new Exception("Unknown macros mode");
         } else {
-            $this->value = $macrosMode !== null ? $macrosMode : self::WARN;
+            $this->{self::getClassName()} = $macrosMode !== null ? $macrosMode : self::WARN;
         }
     }
 

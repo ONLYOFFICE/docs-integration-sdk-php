@@ -35,7 +35,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
         if (!self::isValidValue($status) && $status !== null) {
             throw new Exception("Unknown callback document status");
         } else {
-            $this->value = $status;
+            $this->{self::getClassName()} = $status;
         }
     }
  }
