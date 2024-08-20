@@ -24,7 +24,11 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Service\DocEditorConfig\DocEditorConfigServiceInterface;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
+use Onlyoffice\DocsIntegrationSdk\Models\Config;
+use Onlyoffice\DocsIntegrationSdk\Models\DocEditorConfig;
 use Onlyoffice\DocsIntegrationSdk\Models\Document;
+use Onlyoffice\DocsIntegrationSdk\Models\DocumentType;
+use Onlyoffice\DocsIntegrationSdk\Models\EditorsMode;
 use Onlyoffice\DocsIntegrationSdk\Models\GoBack;
 use Onlyoffice\DocsIntegrationSdk\Models\Permissions;
 use Onlyoffice\DocsIntegrationSdk\Models\ReferenceData;
@@ -46,6 +50,27 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       $this->documentManager = $documentManager !== null ? $documentManager : new DocumentManager($settingsManager);
    }
 
+   public function createConfig(string $fileId, EditorsMode $mode, Type $type) {
+      $documentName = $this->documentManager->getDocumentName($fileId);
+      $ext = $this->documentManager->getExt($documentName);
+      $documentType = new DocumentType($this->documentManager->getDocType($ext));
+      $document = $this->getDocument($fileId, $type);
+      $editorConfig = $this->getDocEditorConfig($fileId, $mode, $type);
+      $config = new Config($documentType,
+                           "100%",
+                           "100%",
+                           "",
+                           $type->getValue(),
+                           $editorConfig,
+                           $document
+                        );
+
+      if ($this->jwtManager->isJwtEnabled()) {
+         $config->setToken($this->jwtManager->jwtEncode($config));
+      }
+      return $config;
+   }
+
    public function isMobileAgent(string $userAgent = "") {
       $userAgent = !empty($userAgent) ? $userAgent : $_SERVER["HTTP_USER_AGENT"];
       $envKey = EnvUtil::envKey("EDITING_SERVICE_MOBILE_USER_AGENT");
@@ -53,15 +78,16 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       return preg_match($agentList, $userAgent);
    }
 
-   public function getDocEditorConfig() {
-      $customization = $this->getCustomization();
+   public function getDocEditorConfig($fileId, $mode, $type) { //TODO!!!!!!
+      $permissions = $this->getPermissions($fileId);
+      $editorConfig = new DocEditorConfig;
    }
 
    public function getDocument(string $fileId, Type $type) {
       $documentName = $this->documentManager->getDocumentName($fileId);
       $permissions = $this->getPermissions($fileId);
       $document = new Document($this->documentManager->getExt($documentName),
-                              $this->documentManager->getDocumentKey($fileId, $type->value === Type::EMBEDDED),
+                              $this->documentManager->getDocumentKey($fileId, $type->getValue() === Type::EMBEDDED),
                               $this->getReferenceData($fileId),
                               $documentName,
                               $this->documentManager->getFileUrl($fileId),

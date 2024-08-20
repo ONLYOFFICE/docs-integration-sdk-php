@@ -26,11 +26,10 @@ class MacrosMode extends BasicEnum
     const DISABLE = "disable";
     const ENABLE = "enable";
     const WARN = "warn";
-    const ALLOWED = [self::DISABLE, self::ENABLE, self::WARN];
 
     public function __construct($macrosMode = null)
     {
-        if (!in_array($macrosMode, ALLOWED) && $macrosMode !== null) {
+        if (!self::isValidValue($macrosMode) && $macrosMode !== null) {
             throw new Exception("Unknown macros mode");
         } else {
             $this->value = $macrosMode !== null ? $macrosMode : self::WARN;
