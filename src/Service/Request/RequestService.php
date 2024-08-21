@@ -22,11 +22,12 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
+use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequest;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\RequestServiceInterface;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\HttpClientInterface;
-use Onlyoffice\DocsIntegrationSdk\Util\CommandResponse;
+use Onlyoffice\DocsIntegrationSdk\Util\CommandResponseError;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
-use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
+use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
 
 /**
  * Default Document service.
@@ -48,9 +49,9 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
 
     abstract function getFileUrlForConvert();
 
-    public function __construct(SettingsManager $settingsManager, JwtManager $jwtManager, HttpClientInterface $httpClient) {
+    public function __construct(SettingsManager $settingsManager, HttpClientInterface $httpClient, JwtManager $jwtManager = null) {
         $this->settingsManager = $settingsManager;
-        $this->jwtManager = $jwtManager;
+        $this->jwtManager = $jwtManager !== null ? $thumbnail : new JwtManager($settingsManager);
         $this->httpClient = $httpClient;
     }
 
@@ -91,29 +92,29 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
         $errorMessage = '';
 
         switch ($errorCode) {
-            case ConvertResponse::UNKNOWN:
-                $errorMessage = ConvertResponse::message(ConvertResponse::UNKNOWN);
+            case ConvertResponseError::UNKNOWN:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::UNKNOWN);
                 break;
-            case ConvertResponse::TIMEOUT:
-                $errorMessage = ConvertResponse::message(ConvertResponse::TIMEOUT);
+            case ConvertResponseError::TIMEOUT:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::TIMEOUT);
                 break;
-            case ConvertResponse::CONVERSION:
-                $errorMessage = ConvertResponse::message(ConvertResponse::CONVERSION);
+            case ConvertResponseError::CONVERSION:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::CONVERSION);
                 break;
-            case ConvertResponse::DOWNLOADING:
-                $errorMessage = ConvertResponse::message(ConvertResponse::DOWNLOADING);
+            case ConvertResponseError::DOWNLOADING:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::DOWNLOADING);
                 break;
-            case ConvertResponse::PASSWORD:
-                $errorMessage = ConvertResponse::message(ConvertResponse::PASSWORD);
+            case ConvertResponseError::PASSWORD:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::PASSWORD);
                 break;
-            case ConvertResponse::DATABASE:
-                $errorMessage = ConvertResponse::message(ConvertResponse::DATABASE);
+            case ConvertResponseError::DATABASE:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::DATABASE);
                 break;
-            case ConvertResponse::INPUT:
-                $errorMessage = ConvertResponse::message(ConvertResponse::INPUT);
+            case ConvertResponseError::INPUT:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::INPUT);
                 break;
-            case ConvertResponse::TOKEN:
-                $errorMessage = ConvertResponse::message(ConvertResponse::TOKEN);
+            case ConvertResponseError::TOKEN:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::TOKEN);
                 break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
@@ -131,28 +132,28 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
      * @throws Exception
      */
     protected function processCommandServResponceError($errorCode) {
-        $errorMessage = '';
+        $errorMessage = "";
 
         switch ($errorCode) {
-            case CommandResponse::NO:
+            case CommandResponseError::NO:
                 return;
-            case CommandResponse::KEY:
-                $errorMessage = CommandResponse::message(CommandResponse::KEY);
+            case CommandResponseError::KEY:
+                $errorMessage = CommandResponseError::message(CommandResponseError::KEY);
                 break;
-            case CommandResponse::CALLBACK_URL:
-                $errorMessage = CommandResponse::message(CommandResponse::CALLBACK_URL);
+            case CommandResponseError::CALLBACK_URL:
+                $errorMessage = CommandResponseError::message(CommandResponseError::CALLBACK_URL);
                 break;
-            case CommandResponse::INTERNAL_SERVER:
-                $errorMessage = CommandResponse::message(CommandResponse::INTERNAL_SERVER);
+            case CommandResponseError::INTERNAL_SERVER:
+                $errorMessage = CommandResponseError::message(CommandResponseError::INTERNAL_SERVER);
                 break;
-            case CommandResponse::FORCE_SAVE:
-                $errorMessage = CommandResponse::message(CommandResponse::FORCE_SAVE);
+            case CommandResponseError::FORCE_SAVE:
+                $errorMessage = CommandResponseError::message(CommandResponseError::FORCE_SAVE);
                 break;
-            case CommandResponse::COMMAND:
-                $errorMessage = CommandResponse::message(CommandResponse::COMMAND);
+            case CommandResponseError::COMMAND:
+                $errorMessage = CommandResponseError::message(CommandResponseError::COMMAND);
                 break;
-            case CommandResponse::TOKEN:
-                $errorMessage = CommandResponse::message(CommandResponse::TOKEN);
+            case CommandResponseError::TOKEN:
+                $errorMessage = CommandResponseError::message(CommandResponseError::TOKEN);
                 break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
@@ -205,37 +206,34 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
         $documentRevisionId = DocumentManager::generateRevisionId($documentRevisionId);
 
         if (empty($fromExtension)) {
-            // TODO: Use special methods in FileUtility
-            $fromExtension = pathinfo($documentUri)['extension'];
+            $fromExtension = pathinfo($documentUri)["extension"];
         } else {
-            $fromExtension = trim($fromExtension, '.');
+            $fromExtension = trim($fromExtension, ".");
         }
 
-        $data = [
-            'async' => $isAsync,
-            'url' => $documentUri,
-            'outputtype' => trim($toExtension, '.'),
-            'filetype' => $fromExtension,
-            'title' => $documentRevisionId . '.' . $fromExtension,
-            'key' => $documentRevisionId
-        ];
+        $data = new ConvertRequest;
+        $data.setAsync($isAsync);
+        $data.setUrl($documentUri);
+        $data.setOutputtype(trim($toExtension, "."));
+        $data.setFiletype($fromExtension);
+        $data.setTitle($documentRevisionId . "." . $fromExtension);
+        $data.setKey($documentRevisionId);
 
         if (!is_null($region)) {
-            $data['region'] = $region;
+            $data.setRegion($region);
         }
 
-        //TODO: remove hardcode
         $opts = [
-            'timeout' => '120',
-            'headers' => [
+            "timeout" => "120",
+            "headers" => [
                 'Content-type' => 'application/json'
             ],
-            'body' => json_encode($data)
+            "body" => json_encode($data)
         ];
 
         if ($this->jwtManager->isJwtEnabled()) {
             $params = [
-                'payload' => $data
+                "payload" => (array)$data
             ];
             $token = $this->jwtManager->jwtEncode($params);
             $jwtHeader = $this->settingsManager->getJwtHeader();
@@ -247,17 +245,16 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
                 throw new \Exception(CommonError::message(CommonError::NO_JWT_PREFIX));
             }
 
-            $opts['headers'][$jwtHeader] = $jwtPrefix . $token;
-            $token = $this->jwtManager->jwtEncode($data);
-            $data['token'] = $token;
-            $opts['body'] = json_encode($data);
+            $opts["headers"][$jwtHeader] = $jwtPrefix . $token;
+            $token = $this->jwtManager->jwtEncode((array)$data);
+            $data.setToken($token);
+            $opts["body"] = json_encode($data);
         }
 
-        $responseXmlData = $this->request($urlToConverter, 'POST', $opts);
+        $responseXmlData = $this->request($urlToConverter, "POST", $opts);
         libxml_use_internal_errors(true);
 
-        //TODO: Use special lib for XML
-        if (!function_exists('simplexml_load_file')) {
+        if (!function_exists("simplexml_load_file")) {
              throw new \Exception(CommonError::message(CommonError::READ_XML));
         }
 
@@ -317,7 +314,6 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
         $data = [
             "c" => $method
         ];
-        //TODO: remove hardcode
         $opts = [
             "headers" => [
                 "Content-type" => "application/json"
@@ -408,7 +404,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
                 if (!empty($this->settingsManager->getStorageUrl())) {
                     $fileUrl = str_replace($this->settingsManager->getServerUrl(), $this->settingsManager->getStorageUrl(), $fileUrl);
                    }
-                $convertedFileUri = $this->getConvertedUri($fileUrl, 'docx', 'docx', 'check_' . rand());
+                $convertedFileUri = $this->getConvertedUri($fileUrl, "docx", "docx", "check_" . rand());
             }
         } catch (\Exception $e) {
             return [$e->getMessage(), $version];
@@ -420,7 +416,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponse;
             return [$e->getMessage(), $version];
         }
 
-        return ['', $version];
+        return ["", $version];
     }
 
 }

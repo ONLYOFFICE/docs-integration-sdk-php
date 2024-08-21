@@ -27,34 +27,37 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
-class CommandResponse {
-    const NO = 0;
-    const KEY = 1;
-    const CALLBACK_URL = 2;
-    const INTERNAL_SERVER = 3;
-    const FORCE_SAVE = 4;
-    const COMMAND = 5;
-    const TOKEN = 6;
+ class ConvertResponseError {
+    const UNKNOWN = -1;
+    const TIMEOUT = -2;
+    const CONVERSION = -3;
+    const DOWNLOADING = -4;
+    const PASSWORD = -5;
+    const DATABASE = -6;
+    const INPUT = -7;
+    const TOKEN = -8;
 
     public function message($code): string
     {
         switch ($code) {
-            case self::NO :
-                return "No errors";
-            case self::KEY :
-                return "Document key is missing or no document with such key could be found";
-            case self::CALLBACK_URL :
-                return "Callback url not correct";
-            case self::FORCE_SAVE :
-                return "No changes were applied to the document before the forcesave command was received";
-            case self::INTERNAL_SERVER :
-                return "Internal server error";
-            case self::COMMAND :
-                return "Command not correct";
+            case self::UNKNOWN :
+                return "Unknown error";
+            case self::TIMEOUT :
+                return "Timeout conversion error";
+            case self::CONVERSION :
+                return "Conversion error";
+            case self::DOWNLOADING :
+                return "Error while downloading the document file to be converted";
+            case self::PASSWORD :
+                return "Incorrect password";
+            case self::DATABASE :
+                return "Error while accessing the conversion result database";
+            case self::INPUT :
+                return "Error document request";
             case self::TOKEN :
                 return "Invalid token";
             default:
-                return "Unknown error";
+                return "Undefined error";
         }
     }
 }
