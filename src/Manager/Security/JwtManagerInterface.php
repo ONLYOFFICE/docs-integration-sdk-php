@@ -29,11 +29,32 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Security;
 
  interface JwtManagerInterface
  {
-
-   public function encode($payload, $key, $algorithm = "HS256");
-   public function decode($token, $key, $algorithm = "HS256");
+    /**
+    * Checks is JWT enabled or not.
+    * 
+    * @throws Exception If the processing fails unexpectedly.
+    * @return bool True if JWT is enabled.
+    */
    public function isJwtEnabled();
-   public function jwtEncode($payload);
-   public function jwtDecode($token);
+
+    /**
+     * Encode a payload object into a token using a secret key
+     *
+     * @param array $payload
+     * @param string $key
+     *
+     * @return string
+     */
+   public function jwtEncode($payload, $key);
+
+    /**
+     * Create an object from the token
+     *
+     * @param string $token
+     * @param string $securityKey
+     *
+     * @return array
+     */
+   public function readHash($token, $securityKey);
 
  }

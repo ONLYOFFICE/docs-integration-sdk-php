@@ -19,8 +19,80 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Callback;
  * limitations under the License.
  *
  */
+use Onlyoffice\DocsIntegrationSdk\Models\Callback;
 
- interface CallbackServiceInterface
- {
-    
- }
+interface CallbackServiceInterface
+{
+   /**
+    * Verifies the Callback object.
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $authorizationHeader The authorization header from the callback request.
+    * @throws Exception If authorization token is not found.
+    * @return Callback
+    */
+   public function verifyCallback(Callback $callback, string $authorizationHeader);
+
+   /**
+    * Starts the callback handler.
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processCallback(Callback $callback, string $fileId);
+
+   /**
+    * Starts the handler that is called if the callback status is 1 (EDITING).
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processTrackerStatusEditing(Callback $callback, string $fileId);
+
+   /**
+    * Starts the handler that is called if the callback status is 2 (SAVE).
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processTrackerStatusMustsave(Callback $callback, string $fileId);
+
+   /**
+    * Starts the handler that is called if the callback status is 3 (SAVE_CORRUPTED).
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processTrackerStatusCorrupted(Callback $callback, string $fileId);
+
+   /**
+    * Starts the handler that is called if the callback status is 4 (CLOSED).
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processTrackerStatusClosed(Callback $callback, string $fileId);
+
+   /**
+    * Starts the handler that is called if the callback status is 6 (FORCESAVE).
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processTrackerStatusForcesave(Callback $callback, string $fileId);
+
+   /**
+    * Starts the handler that is called if the callback status is 7 (FORCESAVE_CORRUPTED).
+    * 
+    * @param Callback $callback Object with the callback handler parameters.
+    * @param string $fileId The file ID.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+   public function processTrackerStatusCorruptedForcesave(Callback $callback, string $fileId);
+}

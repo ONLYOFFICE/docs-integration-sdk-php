@@ -47,7 +47,7 @@ use Firebase\JWT\Key;
      *
      * @return bool
      */
-    public function isJwtEnabled(): bool
+    public function isJwtEnabled()
     {
         return !empty($this->settingsManager->getJwtKey());
     }

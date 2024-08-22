@@ -81,7 +81,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
         return "";
     }
 
-        /**
+    /**
      * Generate an error code table of convertion
      *
      * @param int $errorCode - Error code

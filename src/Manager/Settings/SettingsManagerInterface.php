@@ -30,32 +30,122 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
  interface SettingsManagerInterface
  {
 
+   /**
+    * Get the setting value by setting name.
+    * 
+    * @param string $settingName Name of setting.
+    * @throws Exception If the processing fails unexpectedly.
+    */
     public function getSetting($settingName);
 
-    public function setSetting($settingName, $value);
+   /**
+    * Set the setting value.
+    * 
+    * @param string $settingName Name of setting.
+    * @param $value Value of setting.
+    * @param bool $createSetting If True, then create a new setting with the value.
+    * @throws Exception If the processing fails unexpectedly.
+    */
+    public function setSetting($settingName, $value, $createSetting);
 
+   /**
+   * Get status of demo server
+   *
+   * @return bool
+    */
     public function useDemo();
 
+   /**
+   * Get the data for demo connection
+   *
+   * @return array
+    */
+    public function getDemoData();
+
+   /**
+   * Switch on demo server
+   *
+   * @param bool $value - select demo
+   *
+   * @return bool
+   */
+    public function selectDemo();
+
+   /**
+   * Get the document service address from the application configuration
+   *
+   * @return string
+   */
     public function getDocumentServerUrl();
 
+   /**
+   * Get the document server API URL from the application configuration
+   *
+   * @return string
+   */
     public function getDocumentServerApiUrl();
 
+   /**
+   * Get the preloader URL from the application configuration
+   *
+   * @return string
+   */
     public function getDocumentServerPreloaderUrl();
 
+   /**
+   * Get the healthcheck URL from the application configuration
+   *
+   * @return string
+   */
     public function getDocumentServerHealthcheckUrl();
 
+   /**
+   * Get the convert service URL from the application configuration
+   *
+   * @return string
+   */
     public function getConvertServiceUrl();
 
+   /**
+   * Get the command service URL from the application configuration
+   *
+   * @return string
+   */
     public function getCommandServiceUrl();
 
+   /**
+   * Get the JWT Header
+   *
+   * @return string
+   */
     public function getJwtHeader();
 
+   /**
+   * Get the JWT Key
+   *
+   * @return string
+   */
     public function getJwtKey();
 
+   /**
+   * Get the JWT prefix
+   *
+   * @return string
+   */
     public function getJwtPrefix();
 
+   /**
+   * Get the JWT Leeway
+   *
+   * @return string
+   */
     public function getJwtLeeway();
 
+   /**
+   * Checks whether the setting to ignore SSL certificate is enabled.
+   *
+   * @return bool True if the setting to ignore SSL certificate is enabled.
+   */
     public function isIgnoreSSL();
 
  }

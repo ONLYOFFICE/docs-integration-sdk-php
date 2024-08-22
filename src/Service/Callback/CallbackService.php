@@ -19,6 +19,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Callback;
  * limitations under the License.
  *
  */
+
+/**
+ * Callback service Interface.
+ *
+ * @package Onlyoffice\DocsIntegrationSdk\Service\Callback
+ */
+
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
@@ -38,11 +45,11 @@ abstract class CallbackService implements CallbackServiceInterface
     protected $settingsManager;
     protected $jwtManager;
 
-    abstract function processTrackerStatusEditing($callback, $fileid);
-    abstract function processTrackerStatusMustsave($callback, $fileid);
-    abstract function processTrackerStatusCorrupted($callback, $fileid);
-    abstract function processTrackerStatusClosed($callback, $fileid);
-    abstract function processTrackerStatusForcesave($callback, $fileid);
+    abstract function processTrackerStatusEditing(Callback $callback, string $fileid);
+    abstract function processTrackerStatusMustsave(Callback $callback, string $fileid);
+    abstract function processTrackerStatusCorrupted(Callback $callback, string $fileid);
+    abstract function processTrackerStatusClosed(Callback $callback, string $fileid);
+    abstract function processTrackerStatusForcesave(Callback $callback, string $fileid);
 
 
     public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager = null)
@@ -113,7 +120,7 @@ abstract class CallbackService implements CallbackServiceInterface
         }
     }
 
-    public function processTrackerStatusCorruptedForcesave($callback, $fileid) {
+    public function processTrackerStatusCorruptedForcesave(Callback $callback, string $fileid) {
         $this->processTrackerStatusForcesave($callback, $fileid);
     }
 }

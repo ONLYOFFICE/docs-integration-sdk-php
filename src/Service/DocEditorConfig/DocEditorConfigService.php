@@ -52,8 +52,9 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       $this->documentManager = $documentManager !== null ? $documentManager : new DocumentManager($settingsManager);
    }
 
-   public function createConfig(string $fileId, EditorsMode $mode, Type $type) {
+   public function createConfig(string $fileId, EditorsMode $mode, string $userAgent) {
       $documentName = $this->documentManager->getDocumentName($fileId);
+      $type = $this->getType($userAgent);
       $ext = $this->documentManager->getExt($documentName);
       $documentType = new DocumentType($this->documentManager->getDocType($ext));
       $document = $this->getDocument($fileId, $type);

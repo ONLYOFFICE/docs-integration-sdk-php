@@ -19,9 +19,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
  * limitations under the License.
  *
  */
-
-use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsInreface;
-use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManagerInreface;
+use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManagerInterface;
 use Onlyoffice\DocsIntegrationSdk\Models\Format;
 use Onlyoffice\DocsIntegrationSdk\Manager\Formats\FormatsManager;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
@@ -51,7 +49,6 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
     public abstract function getDocumentKey(string $fileId, bool $embedded);
     public abstract function getDocumentName(string $fileId);
-    public abstract function getFilePath();
     public abstract static function getLangMapping();
 
     public abstract function getFileUrl(string $fileId);
@@ -90,7 +87,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     public function getTempFile() {
         $fileUrl = null;
         $templatePath = $this->getEmptyTemplate("docx");
-        $fileUrl = $this->getFileUrl(["new.docx", $templatePath]);
+        $fileUrl = $this->getFileUrl("new.docx");
 
         return [
             "fileUrl" => $fileUrl,
@@ -99,7 +96,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     }
 
     public function getFormatInfo(string $extension, string $option = null)  {
-        $search= null;
+        $search = null;
         $formats = $this->formats->getFormatsList();
         if (!array_key_exists($extension, $formats)) {
             foreach ($formats as $format) {
@@ -134,35 +131,35 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     /**
      * Return file type by extension
      */
-    public function getDocType(string $extension): string {
+    public function getDocType(string $extension) {
         return $this->getFormatInfo($extension, self::FORMATINFO_TYPE);
     }
 
     /**
      * Return actions for file by extension
      */
-    public function getDocActions(string $extension): array {
+    public function getDocActions(string $extension) {
         return $this->getFormatInfo($extension, self::FORMATINFO_ACTIONS);
     }
 
     /**
      * Return convert extensions for file by current extension
      */
-    public function getDocConvert(string $extension): array {
+    public function getDocConvert(string $extension) {
         return $this->getFormatInfo($extension, self::FORMATINFO_CONVERT);
     }
 
     /**
      * Return array of all mime types for file by extension
      */
-    public function getDocMimes(string $extension): array {
+    public function getDocMimes(string $extension) {
         return $this->getFormatInfo($extension, self::FORMATINFO_MIMES);
     }
 
     /**
      * Return mime type of the file by extension
      */
-    public function getDocMimeType(string $extension): string {
+    public function getDocMimeType(string $extension) {
         return $this->getFormatInfo($extension, self::FORMATINFO_MIME);
     }
 
@@ -217,34 +214,34 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         return $this->getPathInfo($filePath, self::PATHINFO_FILENAME);
     }
 
-    public function isDocumentViewable(string $filePath): bool {
+    public function isDocumentViewable(string $filePath) {
         return $this->getFormatInfo($this->getExt($filePath))->isViewable();
     }
 
-    public function isDocumentEditable(string $filePath): bool {
+    public function isDocumentEditable(string $filePath) {
         return $this->getFormatInfo($this->getExt($filePath))->isEditable();
     }
 
-    public function isDocumentConvertable(string $filePath): bool {
+    public function isDocumentConvertable(string $filePath) {
         return $this->getFormatInfo($this->getExt($filePath))->isAutoConvertable();
     }
 
-    public function isDocumentFillable(string $filePath): bool {
+    public function isDocumentFillable(string $filePath) {
         return $this->getFormatInfo($this->getExt($filePath))->isFillable();
     }
 
-    public function isDocumentReadOnly() {
+    public function isDocumentReadOnly(string $filePath = "") {
         return false;
     }
 
-    public function getDocumentAccessRights() {
+    public function getDocumentAccessRights(string $filePath = "") {
         return true;
     }
 
     /**
      * Translation key to a supported form
      */
-    public static function generateRevisionId(string $expectedKey): string
+    public static function generateRevisionId(string $expectedKey)
     {
         if (strlen($expectedKey) > 20) $expectedKey = crc32( $expectedKey);
         $key = preg_replace("[^0-9-.a-zA-Z_=]", "_", $expectedKey);
