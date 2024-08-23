@@ -20,11 +20,11 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class ReferenceData
+ class ReferenceData extends JsonSerializable
  {
-    private $fileKey;
-    private $instanceId;
-    private $key;
+    protected $fileKey;
+    protected $instanceId;
+    protected $key;
 
     public function __construct (?string $fileKey = "", ?string $instanceId = "", ?string $key ="")
     {

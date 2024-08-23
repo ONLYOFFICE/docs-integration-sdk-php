@@ -21,11 +21,11 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\SharingSettingsPermissions;
 
-class SharingSettings
+class SharingSettings extends JsonSerializable
 {
-    private $isLink;
-    private $sharingSettingsPermissions;
-    private $user;
+    protected $isLink;
+    protected $sharingSettingsPermissions;
+    protected $user;
 
     public function __construct (bool $isLink = false,
                             SharingSettingsPermissions $sharingSettingsPermissions = null,

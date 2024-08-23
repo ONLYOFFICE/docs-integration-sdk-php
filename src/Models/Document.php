@@ -25,16 +25,16 @@ use Onlyoffice\DocsIntegrationSdk\Models\ReferenceData;
 use Onlyoffice\DocsIntegrationSdk\Models\Info;
 use Onlyoffice\DocsIntegrationSdk\Models\Permissions;
 
-class Document
+class Document extends JsonSerializable
 {
 
-    private $fileType;
-    private $key;
-    private $referenceData;
-    private $title;
-    private $url;
-    private $info;
-    private $permissions;
+    protected $fileType;
+    protected $key;
+    protected $referenceData;
+    protected $title;
+    protected $url;
+    protected $info;
+    protected $permissions;
 
     public function __construct(string $fileType, string $key, ReferenceData $referenceData, string $title, string $url, Info $info, Permissions $permissions)
     {

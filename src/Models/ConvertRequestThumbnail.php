@@ -20,13 +20,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
-class ConvertRequestThumbnail
+class ConvertRequestThumbnail extends JsonSerializable
 {
 
-    private $aspect;
-    private $first;
-    private $height;
-    private $width;
+    protected $aspect;
+    protected $first;
+    protected $height;
+    protected $width;
 
     public function __construct(int $aspect = 2, bool $first = true, int $height = 100, int $width = 100)
     {

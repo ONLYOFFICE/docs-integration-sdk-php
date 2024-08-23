@@ -21,13 +21,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
- class Info
+ class Info extends JsonSerializable
  {
-    private $favorite;
-    private $folder;
-    private $owner;
-    private $sharingSettings; // array of SharingSettings
-    private $uploaded;
+    protected $favorite;
+    protected $folder;
+    protected $owner;
+    protected $sharingSettings; // array of SharingSettings
+    protected $uploaded;
 
     public function __construct(bool $favorite = false,
                                 string $folder = "",

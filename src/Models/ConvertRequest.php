@@ -21,20 +21,20 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
- class ConvertRequest
+ class ConvertRequest extends JsonSerializable
  {
-    private $async;
-    private $codePage;
-    private $delimiter;
-    private $filetype;
-    private $key;
-    private $outputtype;
-    private $password;
-    private $region;
-    private $thumbnail;
-    private $title;
-    private $token;
-    private $url;
+    protected $async;
+    protected $codePage;
+    protected $delimiter;
+    protected $filetype;
+    protected $key;
+    protected $outputtype;
+    protected $password;
+    protected $region;
+    protected $thumbnail;
+    protected $title;
+    protected $token;
+    protected $url;
 
     public function __construct(bool $async = false,
                                 int $codepage = 65001,

@@ -26,37 +26,37 @@ use Onlyoffice\DocsIntegrationSdk\Models\Logo;
 use Onlyoffice\DocsIntegrationSdk\Models\Review;
 use Onlyoffice\DocsIntegrationSdk\Models\Unit;
 
-class Customization
+class Customization extends JsonSerializable
 {
-    private $anonymous;
-    private $autosave;
-    private $comments;
-    private $compactHeader;
-    private $compactToolbar;
-    private $compatibleFeatures;
-    private $customer;
-    private $features;
-    private $feedback;
-    private $forcesave;
-    private $goback;
-    private $help;
-    private $hideNotes;
-    private $hideRightMenu;
-    private $hideRulers;
-    private $integrationMode;
-    private $logo;
-    private $macros;
-    private $macrosMode;
-    private $mentionShare;
-    private $mobileForceView;
-    private $plugins;
-    private $review;
-    private $submitForm;
-    private $toolbarHideFileName;
-    private $toolbarNoTabs;
-    private $uiTheme;
-    private $unit;
-    private $zoom;
+    protected $anonymous;
+    protected $autosave;
+    protected $comments;
+    protected $compactHeader;
+    protected $compactToolbar;
+    protected $compatibleFeatures;
+    protected $customer;
+    protected $features;
+    protected $feedback;
+    protected $forcesave;
+    protected $goback;
+    protected $help;
+    protected $hideNotes;
+    protected $hideRightMenu;
+    protected $hideRulers;
+    protected $integrationMode;
+    protected $logo;
+    protected $macros;
+    protected $macrosMode;
+    protected $mentionShare;
+    protected $mobileForceView;
+    protected $plugins;
+    protected $review;
+    protected $submitForm;
+    protected $toolbarHideFileName;
+    protected $toolbarNoTabs;
+    protected $uiTheme;
+    protected $unit;
+    protected $zoom;
 
     public function __construct (Anonymous $anonymous = null,
                                 bool $autosave = true,

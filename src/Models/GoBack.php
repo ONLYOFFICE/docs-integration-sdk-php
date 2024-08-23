@@ -20,12 +20,12 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class GoBack
+ class GoBack extends JsonSerializable
  {
-    private $blank;
-    private $requestClose;
-    private $text;
-    private $url;
+    protected $blank;
+    protected $requestClose;
+    protected $text;
+    protected $url;
 
     public function __construct(bool $blank = true, bool $requestClose = false, string $text = "", string $url = "")
     {

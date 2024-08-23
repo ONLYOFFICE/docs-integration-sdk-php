@@ -33,7 +33,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
         if (!self::isValidValue($type) && $type !== null) {
             throw new Exception("Unknown unit type");
         } else {
-            $this->{self::getClassName()} = $type !== null ? $type : self::CM;
+            $this->value = $type !== null ? $type : self::CM;
         }
     }
  }

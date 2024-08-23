@@ -20,9 +20,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Features
+ class Features extends JsonSerializable
  {
-    private $spellcheck;
+    protected $spellcheck;
 
     public function __construct (bool $spellcheck = true)
     {

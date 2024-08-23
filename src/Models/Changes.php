@@ -21,10 +21,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Util\User;
 
-class Changes
+class Changes extends JsonSerializable
 {
-    private $created;
-    private $user;
+    protected $created;
+    protected $user;
 
     public function __construct (string $created = "", User $user = null)
     {

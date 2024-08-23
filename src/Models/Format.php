@@ -20,13 +20,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Format
+ class Format extends JsonSerializable
  {
-    private $name;
-    private $type;
-    private $actions;
-    private $convert;
-    private $mime;
+    protected $name;
+    protected $type;
+    protected $actions;
+    protected $convert;
+    protected $mime;
 
     public function __construct(string $name, string $type = "", array $actions = [], array $convert = [], array $mime = []) {
         $this->name = $name;
@@ -76,7 +76,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
         $this->mime = $mime;
     }
 
-    private function hasAction(string $search) {
+    protected function hasAction(string $search) {
         return in_array($search, $this->actions);
     }
 

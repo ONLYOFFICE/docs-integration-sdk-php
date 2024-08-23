@@ -21,10 +21,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 
 
-class Anonymous
+class Anonymous extends JsonSerializable
 {
-    private $request;
-    private $label;
+    protected $request;
+    protected $label;
 
     public function __construct(bool $request = true, string $label = "Guest")
     {

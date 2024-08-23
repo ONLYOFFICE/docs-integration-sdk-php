@@ -26,24 +26,13 @@ class CallbackActionType extends BasicEnum
     const DISCONNECTED = 0;
     const CONNECTED = 1;
     const CLICK_FORCESAVE = 2;
-    protected $type;
 
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
             throw new Exception("Unknown callback action type");
         } else {
-            $this->type = $type;
+            $this->value = $type;
         }
-    }
-
-    public function getValue()
-    {
-        return $this->type;
-    }
-
-    public function setValue($value)
-    {
-        $this->type = $value;
     }
 }

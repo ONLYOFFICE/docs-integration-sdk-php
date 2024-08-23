@@ -25,15 +25,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\DocEditorConfig;
 use Onlyoffice\DocsIntegrationSdk\Models\Document;
 use Onlyoffice\DocsIntegrationSdk\Models\Type;
 
-class Config
+class Config extends JsonSerializable
 {
-    private $documentType;
-    private $height;
-    private $width;
-    private $token;
-    private $type;
-    private $editorConfig;
-    private $document;
+    protected $documentType;
+    protected $height;
+    protected $width;
+    protected $token;
+    protected $type;
+    protected $editorConfig;
+    protected $document;
     
 
     public function __construct(DocumentType $documentType, string $height, string $width, string $token, Type $type, DocEditorConfig $editorConfig, Document $document)

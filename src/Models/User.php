@@ -20,13 +20,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class User
+ class User extends JsonSerializable
  {
     
-    private $id;
-    private $name;
-    private $group;
-    private $image;
+    protected $id;
+    protected $name;
+    protected $group;
+    protected $image;
     
 
     public function __construct(string $id = "", string $name = "", string $group = "", string $image = "") {

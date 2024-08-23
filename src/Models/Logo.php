@@ -20,12 +20,12 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Logo
+ class Logo extends JsonSerializable
  {
-    private $image;
-    private $imageDark;
-    private $url;
-    private $visible;
+    protected $image;
+    protected $imageDark;
+    protected $url;
+    protected $visible;
 
     public function __construct(string $image = "", string $imageDark = "", string $url = "", bool $visible = true)
     {

@@ -51,23 +51,13 @@ abstract class BasicEnum {
         return in_array($value, $values, $strict);
     }
     
-    public function getClassName()
-    {
-       return self::camelize(static::class);
-    }
-
-    public function camelize($input, $separator = '_')
-    {
-        return lcfirst(str_replace($separator, '', ucwords($input, $separator)));
-    }
-
     public function getValue()
     {
-        return $this->{self::getClassName()};
+        return $this->value;
     }
 
     public function setValue($value)
     {
-        $this->{self::getClassName()} = $value;
+        $this->value = $value;
     }
 }

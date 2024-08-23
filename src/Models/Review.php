@@ -21,13 +21,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\ReviewDisplay;
 
-class Review
+class Review extends JsonSerializable
 {
-    private $hideReviewDisplay;
-    private $hoverMode;
-    private $reviewDisplay;
-    private $showReviewChanges;
-    private $trackChanges;
+    protected $hideReviewDisplay;
+    protected $hoverMode;
+    protected $reviewDisplay;
+    protected $showReviewChanges;
+    protected $trackChanges;
 
     public function __construct (bool $hideReviewDisplay = false,
                                 bool $hoverMode = false,

@@ -33,7 +33,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
         if (!self::isValidValue($type) && $type !== null) {
             throw new Exception("Unknown editors type");
         } else {
-            $this->{self::getClassName()} = $type !== null ? $type : self::DESKTOP;
+            $this->value = $type !== null ? $type : self::DESKTOP;
         }
     }
  }

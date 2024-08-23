@@ -21,10 +21,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Util\Changes;
 
-class History
+class History extends JsonSerializable
 {
-    private $serverVersion;
-    private $changes; // array of Changes
+    protected $serverVersion;
+    protected $changes; // array of Changes
 
     public function __construct (string $serverVersion = "", array $changes = [])
     {

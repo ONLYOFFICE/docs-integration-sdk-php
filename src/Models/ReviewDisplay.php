@@ -27,14 +27,13 @@ class ReviewDisplay extends BasicEnum
     const SIMPLE = "simple";
     const FINAL = "final";
     const ORIGINAL = "original";
-    const ALLOWED = [self::MARKUP, self::SIMPLE, self::FINAL, self::ORIGINAL];
 
     public function __construct($reviewDisplay = null)
     {
         if (!self::isValidValue($reviewDisplay) && $reviewDisplay !== null) {
             throw new Exception("Unknown review display type");
         } else {
-            $this->{self::getClassName()} = $reviewDisplay !== null ? $reviewDisplay : self::ORIGINAL;
+            $this->value = $reviewDisplay !== null ? $reviewDisplay : self::ORIGINAL;
         }
     }
 }

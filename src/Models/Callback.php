@@ -24,18 +24,18 @@ use Onlyoffice\DocsIntegrationSdk\Models\CallbackForceSaveType;
 use Onlyoffice\DocsIntegrationSdk\Models\CallbackDocStatus;
 use Onlyoffice\DocsIntegrationSdk\Models\History;
 
- class Callback
+ class Callback extends JsonSerializable
  {
-    private $actions; //array of CallbackAction
-    private $changesurl;
-    private $fileType;
-    private $forceSaveType;
-    private $history;
-    private $key;
-    private $status;
-    private $url;
-    private $users;
-    private $token;
+    protected $actions; //array of CallbackAction
+    protected $changesurl;
+    protected $fileType;
+    protected $forceSaveType;
+    protected $history;
+    protected $key;
+    protected $status;
+    protected $url;
+    protected $users;
+    protected $token;
 
     public function __construct (array $actions = [],
                                 string $changesurl = "",

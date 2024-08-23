@@ -21,11 +21,11 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 
 
-class Template
+class Template extends JsonSerializable
 {
-    private $image;
-    private $title;
-    private $url;
+    protected $image;
+    protected $title;
+    protected $url;
 
     public function __construct (string $image = "", string $title = "", string $url = "")
     {

@@ -21,25 +21,25 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
- class Permissions
+ class Permissions extends JsonSerializable
  {
-    private $chat;
-    private $comment;
-    private $commentGroups;
-    private $copy;
-    private $deleteCommentAuthorOnly;
-    private $download;
-    private $edit;
-    private $editCommentAuthorOnly;
-    private $fillForms;
-    private $modifyContentControl;
-    private $modifyFilter;
-    private $print;
-    private $protect;
-    private $rename;
-    private $review;
-    private $reviewGroups; //string array
-    private $userInfoGroups; //string array
+    protected $chat;
+    protected $comment;
+    protected $commentGroups;
+    protected $copy;
+    protected $deleteCommentAuthorOnly;
+    protected $download;
+    protected $edit;
+    protected $editCommentAuthorOnly;
+    protected $fillForms;
+    protected $modifyContentControl;
+    protected $modifyFilter;
+    protected $print;
+    protected $protect;
+    protected $rename;
+    protected $review;
+    protected $reviewGroups; //string array
+    protected $userInfoGroups; //string array
 
     public function __construct (bool $chat = true,
                                 bool $comment = true,

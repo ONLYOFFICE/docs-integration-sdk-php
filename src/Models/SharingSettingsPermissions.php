@@ -26,24 +26,13 @@ class SharingSettingsPermissions extends BasicEnum
     const FULL_ACCESS = "Full Access";
     const READ_ONLY = "Read Only";
     const DENY_ACCESS = "Deny Access";
-    protected $permissions;
 
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
             throw new Exception("Unknown sharing settings permission type");
         } else {
-            $this->permissions = $type !== null ? $type : self::FULL_ACCESS;
+            $this->value = $type !== null ? $type : self::FULL_ACCESS;
         }
-    }
-
-    public function getValue()
-    {
-        return $this->permissions;
-    }
-
-    public function setValue($value)
-    {
-        $this->permissions = $value;
     }
 }

@@ -21,10 +21,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\CoEditingMode;
 
-class CoEditing
+class CoEditing extends JsonSerializable
 {
-    private $mode;
-    private $change;
+    protected $mode;
+    protected $change;
 
     public function __construct (CoEditingMode $mode = null, bool $change = true)
     {

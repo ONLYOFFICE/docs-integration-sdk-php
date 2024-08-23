@@ -30,7 +30,7 @@ class Toolbar extends BasicEnum
         if (!self::isValidValue($toolbar) && $toolbar !== null) {
             throw new Exception("Unknown toolbar type");
         } else {
-            $this->{self::getClassName()} = $toolbar !== null ? $toolbar : self::TOP;
+            $this->value = $toolbar !== null ? $toolbar : self::TOP;
         }
     }
 }

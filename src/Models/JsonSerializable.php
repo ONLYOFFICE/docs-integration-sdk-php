@@ -19,23 +19,17 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  * limitations under the License.
  *
  */
-use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
- class CallbackDocStatus extends BasicEnum
- {
-    const EDITING = 1;
-    const SAVE = 2;
-    const SAVE_CORRUPTED = 3;
-    const CLOSED = 4;
-    const FORCESAVE = 6;
-    const FORCESAVE_CORRUPTED = 7;
-
-    public function __construct($status = null)
+ abstract class JsonSerializable implements \JsonSerializable
+ {    
+    public function jsonSerialize()
     {
-        if (!self::isValidValue($status) && $status !== null) {
-            throw new Exception("Unknown callback document status");
-        } else {
-            $this->value= $status;
+        $vars = get_object_vars($this);
+        foreach ($vars as $key => $var) {
+            if (is_object($var) && property_exists($var, "value")) {
+                $vars[$key] = $var->value;
+            }
         }
+        return $vars;
     }
  }

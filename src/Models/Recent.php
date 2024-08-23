@@ -21,11 +21,11 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 
 
-class Recent
+class Recent extends JsonSerializable
 {
-    private $folder;
-    private $title;
-    private $url;
+    protected $folder;
+    protected $title;
+    protected $url;
 
     public function __construct (string $folder = "", string $title = "", string $url = "")
     {

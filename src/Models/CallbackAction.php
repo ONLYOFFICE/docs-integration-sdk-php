@@ -21,10 +21,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\CallbackActionType;
 
- class CallbackAction
+ class CallbackAction extends JsonSerializable
  {
-    private $type;
-    private $userId;
+    protected $type;
+    protected $userId;
 
     public function __construct (CallbackActionType $type = null, string $userId = "")
     {

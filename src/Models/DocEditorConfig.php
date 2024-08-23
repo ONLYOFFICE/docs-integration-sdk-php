@@ -27,20 +27,20 @@ use Onlyoffice\DocsIntegrationSdk\Models\User;
 use Onlyoffice\DocsIntegrationSdk\Models\Customization;
 use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
 
- class DocEditorConfig
+ class DocEditorConfig extends JsonSerializable
  {
-    private $callbackUrl;
-    private $coEditing;
-    private $createUrl;
-    private $lang;
-    private $location;
-    private $mode;
-    private $recent; // array of Recent
-    private $region;
-    private $templates; // aray of Template
-    private $user;
-    private $customization;
-    private $embedded;
+    protected $callbackUrl;
+    protected $coEditing;
+    protected $createUrl;
+    protected $lang;
+    protected $location;
+    protected $mode;
+    protected $recent; // array of Recent
+    protected $region;
+    protected $templates; // aray of Template
+    protected $user;
+    protected $customization;
+    protected $embedded;
 
     public function __construct (string $callbackUrl = "",
                                 CoEditing $coEditing = null,

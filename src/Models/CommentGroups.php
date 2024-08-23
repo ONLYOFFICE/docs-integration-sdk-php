@@ -20,11 +20,11 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class CommentGroups
+ class CommentGroups extends JsonSerializable
  {
-    private $edit;
-    private $remove;
-    private $view;
+    protected $edit;
+    protected $remove;
+    protected $view;
 
     public function __construct (array $edit = [], array $remove = [], array $view = [])
     {

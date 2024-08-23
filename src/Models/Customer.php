@@ -20,16 +20,16 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Customer
+ class Customer extends JsonSerializable
  {
-    private $address;
-    private $info;
-    private $logo;
-    private $logoDark;
-    private $mail;
-    private $name;
-    private $phone;
-    private $www;
+    protected $address;
+    protected $info;
+    protected $logo;
+    protected $logoDark;
+    protected $mail;
+    protected $name;
+    protected $phone;
+    protected $www;
 
     public function __construct (string $address = "",
                                 string $info = "",

@@ -21,13 +21,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\Toolbar;
 
-class Embedded
+class Embedded extends JsonSerializable
 {
-    private $embedUrl;
-    private $fullscreenUrl;
-    private $saveUrl;
-    private $shareUrl;
-    private $toolbarDocked;
+    protected $embedUrl;
+    protected $fullscreenUrl;
+    protected $saveUrl;
+    protected $shareUrl;
+    protected $toolbarDocked;
 
     public function __construct (string $embedUrl = "", string $fullscreenUrl = "", string $saveUrl = "", string $shareUrl = "", Toolbar $toolbarDocked = null)
     {
