@@ -24,6 +24,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\Customer;
 use Onlyoffice\DocsIntegrationSdk\Models\Features;
 use Onlyoffice\DocsIntegrationSdk\Models\Logo;
 use Onlyoffice\DocsIntegrationSdk\Models\Review;
+use Onlyoffice\DocsIntegrationSdk\Models\Unit;
 
 class Customization
 {
@@ -84,13 +85,12 @@ class Customization
                                 bool $toolbarHideFileName = false,
                                 bool $toolbarNoTabs = false,
                                 string $uiTheme = "",
-                                string $unit = "cm",
+                                Unit $unit = null,
                                 int $zoom = 100
                                 )
     {
         $this->anonymous =  $anonymous !== null ? $anonymous : new Anonymous;
         $this->autosave = $autosave;
-        $this->chat = $chat;
         $this->comments = $comments;
         $this->compactHeader = $compactHeader;
         $this->compactToolbar = $compactToolbar;
@@ -116,7 +116,7 @@ class Customization
         $this->toolbarHideFileName = $toolbarHideFileName;
         $this->toolbarNoTabs = $toolbarNoTabs;
         $this->uiTheme = $uiTheme;
-        $this->unit = $unit;
+        $this->unit = $unit !== null ? $unit : new Unit;
         $this->zoom = $zoom;
     }
 
