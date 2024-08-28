@@ -69,7 +69,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
    *
    * @return bool
    */
-    public function selectDemo();
+    public function selectDemo($value);
 
    /**
    * Get the document service address from the application configuration
