@@ -36,7 +36,7 @@ class CommandResponseError {
     const COMMAND = 5;
     const TOKEN = 6;
 
-    public function message($code): string
+    public static function message($code): string
     {
         switch ($code) {
             case self::NO :

@@ -21,7 +21,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 
  abstract class JsonSerializable implements \JsonSerializable
- {    
+ {
     public function jsonSerialize()
     {
         $vars = get_object_vars($this);
@@ -40,5 +40,16 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
             }
         }
         return $vars;
+    }
+
+    public function mapFromArray(array $values){
+        foreach ($values as $key => $value){
+            try {
+                $mapperFunction = "set" . lcfirst($key);
+                $this->{$mapperFunction}($value);
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
     }
  }
