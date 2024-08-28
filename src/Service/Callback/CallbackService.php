@@ -52,10 +52,10 @@ abstract class CallbackService implements CallbackServiceInterface
     abstract function processTrackerStatusForcesave(Callback $callback, string $fileid);
 
 
-    public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager = null)
+    public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager)
     {
         $this->settingsManager = $settingsManager;
-        $this->jwtManager = $jwtManager !== null ? $jwtManager : new JwtManager($settingsManager);
+        $this->jwtManager;
     }
 
     public function verifyCallback(Callback $callback, string $authorizationHeader = "")

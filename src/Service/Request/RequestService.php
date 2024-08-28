@@ -49,9 +49,9 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
 
     abstract function getFileUrlForConvert();
 
-    public function __construct(SettingsManager $settingsManager, HttpClientInterface $httpClient, JwtManager $jwtManager = null) {
+    public function __construct(SettingsManager $settingsManager, HttpClientInterface $httpClient, JwtManager $jwtManager) {
         $this->settingsManager = $settingsManager;
-        $this->jwtManager = $jwtManager !== null ? $thumbnail : new JwtManager($settingsManager);
+        $this->jwtManager = $jwtManager;
         $this->httpClient = $httpClient;
     }
 

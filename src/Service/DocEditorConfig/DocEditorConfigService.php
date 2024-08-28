@@ -45,11 +45,11 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
    private $jwtManager;
    private $settingsManager;
 
-   public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager = null, DocumentManager $documentManager = null) {
+   public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager, DocumentManager $documentManager) {
       EnvUtil::loadEnvSettings();
       $this->settingsManager = $settingsManager;
-      $this->jwtManager = $jwtManager !== null ? $jwtManager : new JwtManager($settingsManager);
-      $this->documentManager = $documentManager !== null ? $documentManager : new DocumentManager($settingsManager);
+      $this->jwtManager = $jwtManager;
+      $this->documentManager = $documentManager;
    }
 
    public function createConfig(string $fileId, EditorsMode $mode, string $userAgent) {
