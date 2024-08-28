@@ -45,8 +45,10 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     const UNKNOWN_EXT = 15;
     const FILE_TEMPLATE_IS_NOT_EXISTS = 16;
     const NO_API_URL = 17;
+    const CALLBACK_NO_AUTH_TOKEN = 18;
+    const CALLBACK_NO_STATUS = 18;
 
-    public function message($code): string
+    public static function message($code): string
     {
         switch ($code) {
             case self::NO_HEALTHCHECK_ENDPOINT :

@@ -73,9 +73,9 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
             $opts["timeout"] = 60;
         }
 
-        $response = $this->httpClient->request($method, $url, $opts);
-        if ($response->getStatusCode() === 200) {
-            return $response->getBody();
+        $this->httpClient->request($url, $method, $opts);
+        if ($this->httpClient->getStatusCode() === 200) {
+            return $this->httpClient->getBody();
         }
 
         return "";
@@ -88,7 +88,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @throws Exception
      */
-    private function processConvServResponceError($errorCode) {
+    public function processConvServResponceError($errorCode) {
         $errorMessage = '';
 
         switch ($errorCode) {
@@ -131,7 +131,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @throws Exception
      */
-    protected function processCommandServResponceError($errorCode) {
+    public function processCommandServResponceError($errorCode) {
         $errorMessage = "";
 
         switch ($errorCode) {
@@ -195,7 +195,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      * @return array
      */
     public function sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, $isAsync, $region = null) {
-        $urlToConverter = $this->settingManager->getConvertServiceUrl(true);
+        $urlToConverter = $this->settingsManager->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
             throw new \Exception(CommonError::message(CommonError::NO_CONVERT_SERVICE_ENDPOINT));
         }
@@ -212,15 +212,15 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
         }
 
         $data = new ConvertRequest;
-        $data.setAsync($isAsync);
-        $data.setUrl($documentUri);
-        $data.setOutputtype(trim($toExtension, "."));
-        $data.setFiletype($fromExtension);
-        $data.setTitle($documentRevisionId . "." . $fromExtension);
-        $data.setKey($documentRevisionId);
+        $data->setAsync($isAsync);
+        $data->setUrl($documentUri);
+        $data->setOutputtype(trim($toExtension, "."));
+        $data->setFiletype($fromExtension);
+        $data->setTitle($documentRevisionId . "." . $fromExtension);
+        $data->setKey($documentRevisionId);
 
         if (!is_null($region)) {
-            $data.setRegion($region);
+            $data->setRegion($region);
         }
 
         $opts = [
@@ -247,7 +247,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
 
             $opts["headers"][$jwtHeader] = $jwtPrefix . $token;
             $token = $this->jwtManager->jwtEncode((array)$data);
-            $data.setToken($token);
+            $data->setToken($token);
             $opts["body"] = json_encode($data);
         }
 
@@ -328,8 +328,9 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
             $token = $this->jwtManager->jwtEncode($params);
             $jwtHeader = $this->settingsManager->getJwtHeader();
             $jwtPrefix = $this->settingsManager->getJwtPrefix();
+
             if (empty($jwtHeader)) {
-                throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
+                throw new \Exception(CommonError::message(CommonError::NO_JWT_HEADER));
             } elseif (empty($jwtPrefix)) {
                 throw new \Exception(CommonError::message(CommonError::NO_JWT_PREFIX));
             }

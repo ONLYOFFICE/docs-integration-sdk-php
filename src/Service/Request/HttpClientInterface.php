@@ -32,5 +32,4 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
     public function request($method, $url, $options);
     public function getStatusCode();
     public function getBody();
-    public function getHeader();
  }

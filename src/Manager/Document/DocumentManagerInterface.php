@@ -210,5 +210,5 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
     * @param string $expectedKey The expected key for document.
     * @return string Generated key
     */
-    public function generateRevisionId(string $expectedKey);
+    public static function generateRevisionId(string $expectedKey);
  }

@@ -37,7 +37,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     const INPUT = -7;
     const TOKEN = -8;
 
-    public function message($code): string
+    public static function message($code): string
     {
         switch ($code) {
             case self::UNKNOWN :

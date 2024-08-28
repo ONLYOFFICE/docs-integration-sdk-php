@@ -30,7 +30,7 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Models\Callback;
-use Radebatz\ObjectMapper\ObjectMapper;
+use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
 abstract class CallbackService implements CallbackServiceInterface
 {
@@ -55,7 +55,7 @@ abstract class CallbackService implements CallbackServiceInterface
     public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager)
     {
         $this->settingsManager = $settingsManager;
-        $this->jwtManager;
+        $this->jwtManager = $jwtManager;
     }
 
     public function verifyCallback(Callback $callback, string $authorizationHeader = "")
@@ -88,8 +88,8 @@ abstract class CallbackService implements CallbackServiceInterface
                 $callbackFromToken = $callbackFromToken["payload"];
             }
 
-            $objectMapper = new ObjectMapper();
-            return $objectMapper->map($callbackFromToken, \Callback::class);
+            $callback = new Callback;
+            $callback->mapFromArray($callbackFromToken);
         }
         return $callback;
     }
