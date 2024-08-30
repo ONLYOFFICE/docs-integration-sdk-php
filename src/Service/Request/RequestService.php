@@ -233,7 +233,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
 
         if ($this->jwtManager->isJwtEnabled()) {
             $params = [
-                "payload" => (array)$data
+                "payload" => json_decode(json_encode($data), true)
             ];
             $token = $this->jwtManager->jwtEncode($params);
             $jwtHeader = $this->settingsManager->getJwtHeader();
@@ -245,11 +245,12 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
                 throw new \Exception(CommonError::message(CommonError::NO_JWT_PREFIX));
             }
 
-            $opts["headers"][$jwtHeader] = $jwtPrefix . $token;
-            $token = $this->jwtManager->jwtEncode((array)$data);
+            $opts["headers"][$jwtHeader] = (string)$jwtPrefix . $token;
+            $token = $this->jwtManager->jwtEncode(json_decode(json_encode($data), true));
             $data->setToken($token);
             $opts["body"] = json_encode($data);
         }
+
 
         $responseXmlData = $this->request($urlToConverter, "POST", $opts);
         libxml_use_internal_errors(true);
