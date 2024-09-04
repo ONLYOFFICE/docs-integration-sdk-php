@@ -30,6 +30,7 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Models\Callback;
+use Onlyoffice\DocsIntegrationSdk\Models\CallbackDocStatus;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
 abstract class CallbackService implements CallbackServiceInterface
@@ -82,7 +83,7 @@ abstract class CallbackService implements CallbackServiceInterface
             }
 
             $payload = $this->jwtManager->jwtDecode($token);
-            $callbackFromToken = json_decode($token, true);
+            $callbackFromToken = json_decode($payload, true);
             if ($fromHeader)
             {
                 $callbackFromToken = $callbackFromToken["payload"];
@@ -96,31 +97,25 @@ abstract class CallbackService implements CallbackServiceInterface
 
     public function processCallback(Callback $callback, string $fileId)
     {
-        switch ($callback->getStatus()) {
+        switch ($callback->getStatus()->getValue()) {
             case CallbackDocStatus::EDITING :
-                $this->processTrackerStatusEditing($callback, $fileId);
-            break;
+                return $this->processTrackerStatusEditing($callback, $fileId);
             case CallbackDocStatus::SAVE :
-                $this->processTrackerStatusMustsave($callback, $fileId);
-            break;
+                return $this->processTrackerStatusMustsave($callback, $fileId);
             case CallbackDocStatus::SAVE_CORRUPTED :
-                $this->processTrackerStatusCorrupted($callback, $fileId);
-            break;
+                return $this->processTrackerStatusCorrupted($callback, $fileId);
             case CallbackDocStatus::CLOSED :
-                $this->processTrackerStatusClosed($callback, $fileId);
-            break;
+                return $this->processTrackerStatusClosed($callback, $fileId);
             case CallbackDocStatus::FORCESAVE :
-                $this->processTrackerStatusForcesave($callback, $fileId);
-            break;
+                return $this->processTrackerStatusForcesave($callback, $fileId);
             case CallbackDocStatus::FORCESAVE_CORRUPTED :
-                $this->processTrackerStatusCorruptedForcesave($callback, $fileId);
-            break;
+                return $this->processTrackerStatusCorruptedForcesave($callback, $fileId);
             default:
                 throw new \Exception(CommonError::message(CommonError::CALLBACK_NO_STATUS));
         }
     }
 
     public function processTrackerStatusCorruptedForcesave(Callback $callback, string $fileid) {
-        $this->processTrackerStatusForcesave($callback, $fileid);
+        return $this->processTrackerStatusForcesave($callback, $fileid);
     }
 }
