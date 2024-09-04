@@ -47,7 +47,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
                                 string $createUrl = "",
                                 string $lang = "en",
                                 string $location = "",
-                                EditorsMode $mode,
+                                EditorsMode $mode = null,
                                 array $recent = [],
                                 string $region = "en-US",
                                 array $templates = [],

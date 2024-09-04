@@ -48,7 +48,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
         return $this->id;
     }
 
-    public function setId(string $type) {
+    public function setId(string $id) {
         $this->id = $id;
     }
 
@@ -64,7 +64,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
         return $this->name;
     }
 
-    public function setName(array $name) {
+    public function setName(string $name) {
         $this->name = $name;
     }
  }

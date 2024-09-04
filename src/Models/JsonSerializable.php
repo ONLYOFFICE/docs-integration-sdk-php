@@ -26,15 +26,15 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $var) {
-            if (empty($var))
+            if (is_string($var) && empty($var))
             {
                 unset($vars[$key]);
             } else {
                 if (is_object($var) && property_exists($var, "value")) {
-                    if (!empty($var->value)) {
-                        $vars[$key] = $var->value;
-                    } else {
+                    if (is_string($var) && empty($var->value)) {
                         unset($vars[$key]);
+                    } else {
+                        $vars[$key] = $var->value;
                     }
                 }
             }

@@ -26,14 +26,18 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 use Onlyoffice\DocsIntegrationSdk\Models\Config;
 use Onlyoffice\DocsIntegrationSdk\Models\CoEditing;
+use Onlyoffice\DocsIntegrationSdk\Models\Customization;
 use Onlyoffice\DocsIntegrationSdk\Models\DocEditorConfig;
 use Onlyoffice\DocsIntegrationSdk\Models\Document;
 use Onlyoffice\DocsIntegrationSdk\Models\DocumentType;
 use Onlyoffice\DocsIntegrationSdk\Models\EditorsMode;
 use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
 use Onlyoffice\DocsIntegrationSdk\Models\GoBack;
+use Onlyoffice\DocsIntegrationSdk\Models\Info;
 use Onlyoffice\DocsIntegrationSdk\Models\Permissions;
+use Onlyoffice\DocsIntegrationSdk\Models\Recent;
 use Onlyoffice\DocsIntegrationSdk\Models\ReferenceData;
+use Onlyoffice\DocsIntegrationSdk\Models\Template;
 use Onlyoffice\DocsIntegrationSdk\Models\Type;
 use Onlyoffice\DocsIntegrationSdk\Models\User;
 use Onlyoffice\DocsIntegrationSdk\Util\EnvUtil;
@@ -41,9 +45,9 @@ use Onlyoffice\DocsIntegrationSdk\Util\EnvUtil;
 abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
 {
 
-   private $documentManager;
-   private $jwtManager;
-   private $settingsManager;
+   protected $documentManager;
+   protected $jwtManager;
+   protected $settingsManager;
 
    public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager, DocumentManager $documentManager) {
       EnvUtil::loadEnvSettings();
@@ -86,13 +90,15 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       $editorConfig = new DocEditorConfig;
       $editorConfig->setCoEditing($this->getCoEditing($fileId, $mode, $type));
       $editorConfig->setCreateUrl($this->documentManager->getCreateUrl($fileId));
-      $editorConfig->setMode($this->getUser());
+      $editorConfig->setUser($this->getUser());
       $editorConfig->setRecent($this->getRecent());
       $editorConfig->setTemplates($this->getTemplates($fileId));
       $editorConfig->setCustomization($this->getCustomization($fileId));
+      $editorConfig->setLang($this->getLang());
+      $editorConfig->setRegion($this->getRegion());
 
-      if (($permissions.getEdit() || $permissions.getFillForms() ||
-         $permissions.getComment() ||$permissions.getReview())
+      if (($permissions->getEdit() || $permissions->getFillForms() ||
+         $permissions->getComment() ||$permissions->getReview())
          && $mode->getValue() === EditorsMode::EDIT)
          {
             $editorConfig->setCallbackUrl($this->documentManager->getCallbackUrl($fileId));
@@ -129,7 +135,7 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
       }
 
       $customization = new Customization;
-      $customization.setGoback($goback);
+      $customization->setGoback($goback);
 
       return $customization;
    }
@@ -160,15 +166,23 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
 
    public function getRecent() {
       $recent = new Recent;
-      return [$recent];
+      return $recent;
    }
 
    public function getTemplates($fileId) {
       $template = new Template;
-      return [$template];
+      return $template;
    }
 
    public function getEmbedded($fileId) {
       return new Embedded;
+   }
+
+   public function getLang() {
+      return "en";
+   }
+
+   public function getRegion() {
+      return "en-US";
    }
 }

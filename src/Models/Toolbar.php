@@ -19,6 +19,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  * limitations under the License.
  *
  */
+use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
 class Toolbar extends BasicEnum
 {

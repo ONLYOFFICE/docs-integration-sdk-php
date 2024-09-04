@@ -19,6 +19,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
  * limitations under the License.
  *
  */
+use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManagerInterface;
 use Onlyoffice\DocsIntegrationSdk\Models\Format;
 use Onlyoffice\DocsIntegrationSdk\Manager\Formats\FormatsManager;
