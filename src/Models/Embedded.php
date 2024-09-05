@@ -29,8 +29,13 @@ class Embedded extends JsonSerializable
     protected $shareUrl;
     protected $toolbarDocked;
 
-    public function __construct (string $embedUrl = "", string $fullscreenUrl = "", string $saveUrl = "", string $shareUrl = "", Toolbar $toolbarDocked = null)
-    {
+    public function __construct(
+        string $embedUrl = "",
+        string $fullscreenUrl = "",
+        string $saveUrl = "",
+        string $shareUrl = "",
+        Toolbar $toolbarDocked = null
+    ) {
         $this->embedUrl = $embedUrl;
         $this->fullscreenUrl = $fullscreenUrl;
         $this->saveUrl = $saveUrl;
@@ -41,7 +46,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Get the value of embedUrl
-     */ 
+     */
     public function getEmbedUrl()
     {
         return $this->embedUrl;
@@ -49,7 +54,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Set the value of embedUrl
-     */ 
+     */
     public function setEmbedUrl($embedUrl)
     {
         $this->embedUrl = $embedUrl;
@@ -57,7 +62,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Get the value of fullscreenUrl
-     */ 
+     */
     public function getFullscreenUrl()
     {
         return $this->fullscreenUrl;
@@ -65,7 +70,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Set the value of fullscreenUrl
-     */ 
+     */
     public function setFullscreenUrl($fullscreenUrl)
     {
         $this->fullscreenUrl = $fullscreenUrl;
@@ -73,7 +78,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Get the value of saveUrl
-     */ 
+     */
     public function getSaveUrl()
     {
         return $this->saveUrl;
@@ -81,7 +86,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Set the value of saveUrl
-     */ 
+     */
     public function setSaveUrl($saveUrl)
     {
         $this->saveUrl = $saveUrl;
@@ -89,7 +94,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Get the value of toolbarDocked
-     */ 
+     */
     public function getToolbarDocked()
     {
         return $this->toolbarDocked;
@@ -97,7 +102,7 @@ class Embedded extends JsonSerializable
 
     /**
      * Set the value of toolbarDocked
-     */ 
+     */
     public function setToolbarDocked($toolbarDocked)
     {
         $this->toolbarDocked = $toolbarDocked;

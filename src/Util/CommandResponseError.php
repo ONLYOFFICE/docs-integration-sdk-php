@@ -27,7 +27,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
-class CommandResponseError {
+class CommandResponseError
+{
     const NO = 0;
     const KEY = 1;
     const CALLBACK_URL = 2;
@@ -39,19 +40,19 @@ class CommandResponseError {
     public static function message($code): string
     {
         switch ($code) {
-            case self::NO :
+            case self::NO:
                 return "No errors";
-            case self::KEY :
+            case self::KEY:
                 return "Document key is missing or no document with such key could be found";
-            case self::CALLBACK_URL :
+            case self::CALLBACK_URL:
                 return "Callback url not correct";
-            case self::FORCE_SAVE :
+            case self::FORCE_SAVE:
                 return "No changes were applied to the document before the forcesave command was received";
-            case self::INTERNAL_SERVER :
+            case self::INTERNAL_SERVER:
                 return "Internal server error";
-            case self::COMMAND :
+            case self::COMMAND:
                 return "Command not correct";
-            case self::TOKEN :
+            case self::TOKEN:
                 return "Invalid token";
             default:
                 return "Unknown error";

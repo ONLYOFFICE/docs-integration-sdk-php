@@ -26,7 +26,7 @@ class Changes extends JsonSerializable
     protected $created;
     protected $user;
 
-    public function __construct (string $created = "", User $user = null)
+    public function __construct(string $created = "", User $user = null)
     {
         $this->created = $created;
         $this->user = $histuserory !== null ? $user : new User;
@@ -34,7 +34,7 @@ class Changes extends JsonSerializable
 
     /**
      * Get the value of created
-     */ 
+     */
     public function getCreated()
     {
         return $this->created;
@@ -42,7 +42,7 @@ class Changes extends JsonSerializable
 
     /**
      * Set the value of created
-     */ 
+     */
     public function setCreated($created)
     {
         $this->created = $created;
@@ -50,7 +50,7 @@ class Changes extends JsonSerializable
 
     /**
      * Get the value of user
-     */ 
+     */
     public function getUser()
     {
         return $this->user;
@@ -58,7 +58,7 @@ class Changes extends JsonSerializable
 
     /**
      * Set the value of user
-     */ 
+     */
     public function setUser($user)
     {
         $this->user = $user;

@@ -27,12 +27,12 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
  * @package Onlyoffice\DocsIntegrationSdk\Service\Request
  */
 
- interface RequestServiceInterface
- {
+interface RequestServiceInterface
+{
 
    /**
     * Returns url of file for convert
-    * 
+    *
     * @throws Exception If the processing fails unexpectedly.
     * @return string
     */
@@ -51,7 +51,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
    /**
     * Returns error text by code from converting service.
-    * 
+    *
     * @param int $errorCode Code of error (See ConvertResponseError Util).
     * @throws Exception If the processing fails unexpectedly.
     * @return string
@@ -60,7 +60,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
    /**
     * Returns error text by code from command service.
-    * 
+    *
     * @param int $errorCode Code of error (See CommandResponseError Util).
     * @throws Exception If the processing fails unexpectedly.
     * @return string
@@ -69,7 +69,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
    /**
     * Request health status of Document Server.
-    * 
+    *
     * @throws Exception If the processing fails unexpectedly.
     * @return bool
     */
@@ -87,13 +87,14 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
       * @throws Exception If the processing fails unexpectedly.
       * @return array
    */
-   public function sendRequestToConvertService(string $documentUri,
-                                             string $fromExtension,
-                                             string $toExtension,
-                                             string $documentRevisionId,
-                                             bool $isAsync,
-                                             string $region
-                                          );
+    public function sendRequestToConvertService(
+        string $documentUri,
+        string $fromExtension,
+        string $toExtension,
+        string $documentRevisionId,
+        bool $isAsync,
+        string $region
+    );
 
    /**
       * The method is to convert the file to the required format and return the result url.
@@ -106,16 +107,17 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
       * @throws Exception If the processing fails unexpectedly.
       * @return string
    */
-   public function getConvertedUri(string $documentUri,
-                                 string $fromExtension,
-                                 string $toExtension,
-                                 string $documentRevisionId,
-                                 string $region
-                              );
+    public function getConvertedUri(
+        string $documentUri,
+        string $fromExtension,
+        string $toExtension,
+        string $documentRevisionId,
+        string $region
+    );
 
    /**
     * Request health status of Document Server.
-    * 
+    *
     * @param string $method - type of command
     * @throws Exception If the processing fails unexpectedly.
     * @return array
@@ -124,9 +126,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
    /**
     * Checking document service location
-    * 
+    *
     * @throws Exception If the processing fails unexpectedly.
     * @return array
     */
     public function checkDocServiceUrl();
- }
+}

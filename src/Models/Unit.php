@@ -22,8 +22,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
 use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
- class Unit extends BasicEnum
- {
+class Unit extends BasicEnum
+{
     const CM = "cm";
     const PT = "pt";
     const INCH = "inch";
@@ -36,4 +36,4 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
             $this->value = $type !== null ? $type : self::CM;
         }
     }
- }
+}

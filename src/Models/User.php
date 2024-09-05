@@ -20,8 +20,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class User extends JsonSerializable
- {
+class User extends JsonSerializable
+{
     
     protected $id;
     protected $name;
@@ -29,42 +29,51 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     protected $image;
     
 
-    public function __construct(string $id = "", string $name = "", string $group = "", string $image = "") {
+    public function __construct(string $id = "", string $name = "", string $group = "", string $image = "")
+    {
         $this->id = $id;
         $this->name = $name;
         $this->group = $group;
         $this->image = $image;
     }
 
-    public function getGroup() {
+    public function getGroup()
+    {
         return $this->group;
     }
 
-    public function setGroup(string $group) {
+    public function setGroup(string $group)
+    {
         $this->group = $group;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId(string $id) {
+    public function setId(string $id)
+    {
         $this->id = $id;
     }
 
-    public function getImage() {
+    public function getImage()
+    {
         return $this->image;
     }
 
-    public function setImage(array $image) {
+    public function setImage(array $image)
+    {
         $this->image = $image;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setName(string $name) {
+    public function setName(string $name)
+    {
         $this->name = $name;
     }
- }
+}

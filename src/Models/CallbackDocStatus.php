@@ -21,8 +21,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
- class CallbackDocStatus extends BasicEnum
- {
+class CallbackDocStatus extends BasicEnum
+{
     const EDITING = 1;
     const SAVE = 2;
     const SAVE_CORRUPTED = 3;
@@ -38,4 +38,4 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
             $this->value= $status;
         }
     }
- }
+}

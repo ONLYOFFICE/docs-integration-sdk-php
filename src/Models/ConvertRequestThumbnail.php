@@ -39,7 +39,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Get the value of aspect
-     */ 
+     */
     public function getAspect()
     {
         return $this->aspect;
@@ -47,7 +47,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Set the value of aspect
-     */ 
+     */
     public function setAspect($aspect)
     {
         $this->aspect = $aspect;
@@ -55,7 +55,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Get the value of first
-     */ 
+     */
     public function getFirst()
     {
         return $this->first;
@@ -63,7 +63,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Set the value of first
-     */ 
+     */
     public function setFirst($first)
     {
         $this->first = $first;
@@ -71,7 +71,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Get the value of height
-     */ 
+     */
     public function getHeight()
     {
         return $this->height;
@@ -79,7 +79,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Set the value of height
-     */ 
+     */
     public function setHeight($height)
     {
         $this->height = $height;
@@ -87,7 +87,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Get the value of width
-     */ 
+     */
     public function getWidth()
     {
         return $this->width;
@@ -95,7 +95,7 @@ class ConvertRequestThumbnail extends JsonSerializable
 
     /**
      * Set the value of width
-     */ 
+     */
     public function setWidth($width)
     {
         $this->width = $width;

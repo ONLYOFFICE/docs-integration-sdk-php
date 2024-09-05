@@ -36,8 +36,15 @@ class Config extends JsonSerializable
     protected $document;
     
 
-    public function __construct(DocumentType $documentType, string $height, string $width, string $token, Type $type, DocEditorConfig $editorConfig, Document $document)
-    {
+    public function __construct(
+        DocumentType $documentType,
+        string $height,
+        string $width,
+        string $token,
+        Type $type,
+        DocEditorConfig $editorConfig,
+        Document $document
+    ) {
         $this->documentType = $documentType;
         $this->height = $height;
         $this->width = $width;
@@ -48,7 +55,7 @@ class Config extends JsonSerializable
     }
     /**
      * Get the value of documentType
-     */ 
+     */
     public function getDocumentType()
     {
         return $this->documentType;
@@ -56,7 +63,7 @@ class Config extends JsonSerializable
 
     /**
      * Set the value of documentType
-     */ 
+     */
     public function setDocumentType($documentType)
     {
         $this->documentType = $documentType;
@@ -64,7 +71,7 @@ class Config extends JsonSerializable
 
     /**
      * Get the value of height
-     */ 
+     */
     public function getHeight()
     {
         return $this->height;
@@ -72,7 +79,7 @@ class Config extends JsonSerializable
 
     /**
      * Set the value of height
-     */ 
+     */
     public function setHeight($height)
     {
         $this->height = $height;
@@ -80,7 +87,7 @@ class Config extends JsonSerializable
 
     /**
      * Get the value of width
-     */ 
+     */
     public function getWidth()
     {
         return $this->width;
@@ -89,7 +96,7 @@ class Config extends JsonSerializable
     /**
      * Set the value of width
 
-     */ 
+     */
     public function setWidth($width)
     {
         $this->width = $width;
@@ -97,7 +104,7 @@ class Config extends JsonSerializable
 
     /**
      * Get the value of token
-     */ 
+     */
     public function getToken()
     {
         return $this->token;
@@ -105,7 +112,7 @@ class Config extends JsonSerializable
 
     /**
      * Set the value of token
-     */ 
+     */
     public function setToken($token)
     {
         $this->token = $token;
@@ -113,7 +120,7 @@ class Config extends JsonSerializable
 
     /**
      * Get the value of type
-     */ 
+     */
     public function getType()
     {
         return $this->type;
@@ -121,7 +128,7 @@ class Config extends JsonSerializable
 
     /**
      * Set the value of type
-     */ 
+     */
     public function setType($type)
     {
         $this->type = $type;
@@ -129,7 +136,7 @@ class Config extends JsonSerializable
 
     /**
      * Get the value of editorConfig
-     */ 
+     */
     public function getEditorConfig()
     {
         return $this->editorConfig;
@@ -137,16 +144,15 @@ class Config extends JsonSerializable
 
     /**
      * Set the value of editorConfig
-     */ 
+     */
     public function setEditorConfig($editorConfig)
     {
         $this->editorConfig = $editorConfig;
-
     }
 
     /**
      * Get the value of document
-     */ 
+     */
     public function getDocument()
     {
         return $this->document;
@@ -154,7 +160,7 @@ class Config extends JsonSerializable
 
     /**
      * Set the value of document
-     */ 
+     */
     public function setDocument($document)
     {
         $this->document = $document;

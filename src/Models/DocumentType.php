@@ -21,8 +21,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
- class DocumentType extends BasicEnum
- {
+class DocumentType extends BasicEnum
+{
     const WORD = "word";
     const CELL = "cell";
     const SLIDE = "slide";
@@ -35,4 +35,4 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
             $this->value = $type;
         }
     }
- }
+}

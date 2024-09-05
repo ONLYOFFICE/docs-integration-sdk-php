@@ -58,37 +58,37 @@ class Customization extends JsonSerializable
     protected $unit;
     protected $zoom;
 
-    public function __construct (?Anonymous $anonymous = null,
-                                ?bool $autosave = null,
-                                ?bool $comments = null,
-                                ?bool $compactHeader = null,
-                                ?bool $compactToolbar = null,
-                                ?bool $compatibleFeatures = null,
-                                ?Customer $customer = null,
-                                ?Features $features = null,
-                                ?bool $feedback = null,
-                                ?bool $forcesave = null,
-                                ?GoBack $goback = null,
-                                ?bool $help = true,
-                                ?bool $hideNotes = null,
-                                ?bool $hideRightMenu = null,
-                                ?bool $hideRulers = null,
-                                ?string $integrationMode = "embed",
-                                ?Logo $logo = null,
-                                ?bool $macros = null,
-                                ?MacrosMode $macrosMode = null,
-                                ?bool $mentionShare = null,
-                                ?bool $mobileForceView = null,
-                                ?bool $plugins = null,
-                                ?Review $review = null,
-                                ?bool $submitForm = null,
-                                ?bool $toolbarHideFileName = null,
-                                ?bool $toolbarNoTabs = null,
-                                ?string $uiTheme = "",
-                                ?Unit $unit = null,
-                                ?int $zoom = 100
-                                )
-    {
+    public function __construct(
+        ?Anonymous $anonymous = null,
+        ?bool $autosave = null,
+        ?bool $comments = null,
+        ?bool $compactHeader = null,
+        ?bool $compactToolbar = null,
+        ?bool $compatibleFeatures = null,
+        ?Customer $customer = null,
+        ?Features $features = null,
+        ?bool $feedback = null,
+        ?bool $forcesave = null,
+        ?GoBack $goback = null,
+        ?bool $help = true,
+        ?bool $hideNotes = null,
+        ?bool $hideRightMenu = null,
+        ?bool $hideRulers = null,
+        ?string $integrationMode = "embed",
+        ?Logo $logo = null,
+        ?bool $macros = null,
+        ?MacrosMode $macrosMode = null,
+        ?bool $mentionShare = null,
+        ?bool $mobileForceView = null,
+        ?bool $plugins = null,
+        ?Review $review = null,
+        ?bool $submitForm = null,
+        ?bool $toolbarHideFileName = null,
+        ?bool $toolbarNoTabs = null,
+        ?string $uiTheme = "",
+        ?Unit $unit = null,
+        ?int $zoom = 100
+    ) {
         $this->anonymous =  $anonymous;
         $this->autosave = $autosave;
         $this->comments = $comments;
@@ -122,7 +122,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of anonymous
-     */ 
+     */
     public function getAnonymous()
     {
         return $this->anonymous;
@@ -130,7 +130,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of anonymous
-     */ 
+     */
     public function setAnonymous($anonymous)
     {
         $this->anonymous = $anonymous;
@@ -138,7 +138,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of autosave
-     */ 
+     */
     public function getAutosave()
     {
         return $this->autosave;
@@ -146,7 +146,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of autosave
-     */ 
+     */
     public function setAutosave($autosave)
     {
         $this->autosave = $autosave;
@@ -154,7 +154,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of comments
-     */ 
+     */
     public function getComments()
     {
         return $this->comments;
@@ -162,7 +162,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of comments
-     */ 
+     */
     public function setComments($comments)
     {
         $this->comments = $comments;
@@ -170,7 +170,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of compactHeader
-     */ 
+     */
     public function getCompactHeader()
     {
         return $this->compactHeader;
@@ -178,7 +178,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of compactHeader
-     */ 
+     */
     public function setCompactHeader($compactHeader)
     {
         $this->compactHeader = $compactHeader;
@@ -186,7 +186,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of compactToolbar
-     */ 
+     */
     public function getCompactToolbar()
     {
         return $this->compactToolbar;
@@ -194,7 +194,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of compactToolbar
-     */ 
+     */
     public function setCompactToolbar($compactToolbar)
     {
         $this->compactToolbar = $compactToolbar;
@@ -202,7 +202,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of compatibleFeatures
-     */ 
+     */
     public function getCompatibleFeatures()
     {
         return $this->compatibleFeatures;
@@ -210,7 +210,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of compatibleFeatures
-     */ 
+     */
     public function setCompatibleFeatures($compatibleFeatures)
     {
         $this->compatibleFeatures = $compatibleFeatures;
@@ -218,7 +218,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of customer
-     */ 
+     */
     public function getCustomer()
     {
         return $this->customer;
@@ -226,7 +226,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of customer
-     */ 
+     */
     public function setCustomer($customer)
     {
         $this->customer = $customer;
@@ -234,7 +234,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of features
-     */ 
+     */
     public function getFeatures()
     {
         return $this->features;
@@ -242,7 +242,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of features
-     */ 
+     */
     public function setFeatures($features)
     {
         $this->features = $features;
@@ -250,7 +250,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of feedback
-     */ 
+     */
     public function getFeedback()
     {
         return $this->feedback;
@@ -258,7 +258,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of feedback
-     */ 
+     */
     public function setFeedback($feedback)
     {
         $this->feedback = $feedback;
@@ -266,7 +266,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of forcesave
-     */ 
+     */
     public function getForcesave()
     {
         return $this->forcesave;
@@ -274,7 +274,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of forcesave
-     */ 
+     */
     public function setForcesave($forcesave)
     {
         $this->forcesave = $forcesave;
@@ -282,7 +282,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of goback
-     */ 
+     */
     public function getGoback()
     {
         return $this->goback;
@@ -290,7 +290,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of goback
-     */ 
+     */
     public function setGoback($goback)
     {
         $this->goback = $goback;
@@ -298,7 +298,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of help
-     */ 
+     */
     public function getHelp()
     {
         return $this->help;
@@ -306,7 +306,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of help
-     */ 
+     */
     public function setHelp($help)
     {
         $this->help = $help;
@@ -314,7 +314,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of hideNotes
-     */ 
+     */
     public function getHideNotes()
     {
         return $this->hideNotes;
@@ -322,7 +322,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of hideNotes
-     */ 
+     */
     public function setHideNotes($hideNotes)
     {
         $this->hideNotes = $hideNotes;
@@ -330,7 +330,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of hideRightMenu
-     */ 
+     */
     public function getHideRightMenu()
     {
         return $this->hideRightMenu;
@@ -338,7 +338,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of hideRightMenu
-     */ 
+     */
     public function setHideRightMenu($hideRightMenu)
     {
         $this->hideRightMenu = $hideRightMenu;
@@ -346,7 +346,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of hideRulers
-     */ 
+     */
     public function getHideRulers()
     {
         return $this->hideRulers;
@@ -354,7 +354,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of hideRulers
-     */ 
+     */
     public function setHideRulers($hideRulers)
     {
         $this->hideRulers = $hideRulers;
@@ -362,7 +362,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of integrationMode
-     */ 
+     */
     public function getIntegrationMode()
     {
         return $this->integrationMode;
@@ -370,7 +370,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of integrationMode
-     */ 
+     */
     public function setIntegrationMode($integrationMode)
     {
         $this->integrationMode = $integrationMode;
@@ -378,7 +378,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of logo
-     */ 
+     */
     public function getLogo()
     {
         return $this->logo;
@@ -386,7 +386,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of logo
-     */ 
+     */
     public function setLogo($logo)
     {
         $this->logo = $logo;
@@ -394,7 +394,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of macros
-     */ 
+     */
     public function getMacros()
     {
         return $this->macros;
@@ -402,7 +402,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of macros
-     */ 
+     */
     public function setMacros($macros)
     {
         $this->macros = $macros;
@@ -410,7 +410,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of macrosMode
-     */ 
+     */
     public function getMacrosMode()
     {
         return $this->macrosMode;
@@ -418,7 +418,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of macrosMode
-     */ 
+     */
     public function setMacrosMode($macrosMode)
     {
         $this->macrosMode = $macrosMode;
@@ -426,7 +426,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of mentionShare
-     */ 
+     */
     public function getMentionShare()
     {
         return $this->mentionShare;
@@ -434,7 +434,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of mentionShare
-     */ 
+     */
     public function setMentionShare($mentionShare)
     {
         $this->mentionShare = $mentionShare;
@@ -442,7 +442,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of mobileForceView
-     */ 
+     */
     public function getMobileForceView()
     {
         return $this->mobileForceView;
@@ -450,7 +450,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of mobileForceView
-     */ 
+     */
     public function setMobileForceView($mobileForceView)
     {
         $this->mobileForceView = $mobileForceView;
@@ -458,7 +458,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of plugins
-     */ 
+     */
     public function getPlugins()
     {
         return $this->plugins;
@@ -466,7 +466,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of plugins
-     */ 
+     */
     public function setPlugins($plugins)
     {
         $this->plugins = $plugins;
@@ -474,7 +474,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of review
-     */ 
+     */
     public function getReview()
     {
         return $this->review;
@@ -482,7 +482,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of review
-     */ 
+     */
     public function setReview($review)
     {
         $this->review = $review;
@@ -490,7 +490,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of submitForm
-     */ 
+     */
     public function getSubmitForm()
     {
         return $this->submitForm;
@@ -498,7 +498,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of submitForm
-     */ 
+     */
     public function setSubmitForm($submitForm)
     {
         $this->submitForm = $submitForm;
@@ -506,7 +506,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of toolbarHideFileName
-     */ 
+     */
     public function getToolbarHideFileName()
     {
         return $this->toolbarHideFileName;
@@ -514,7 +514,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of toolbarHideFileName
-     */ 
+     */
     public function setToolbarHideFileName($toolbarHideFileName)
     {
         $this->toolbarHideFileName = $toolbarHideFileName;
@@ -522,7 +522,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of toolbarNoTabs
-     */ 
+     */
     public function getToolbarNoTabs()
     {
         return $this->toolbarNoTabs;
@@ -530,7 +530,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of toolbarNoTabs
-     */ 
+     */
     public function setToolbarNoTabs($toolbarNoTabs)
     {
         $this->toolbarNoTabs = $toolbarNoTabs;
@@ -538,7 +538,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of uiTheme
-     */ 
+     */
     public function getUiTheme()
     {
         return $this->uiTheme;
@@ -546,7 +546,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of uiTheme
-     */ 
+     */
     public function setUiTheme($uiTheme)
     {
         $this->uiTheme = $uiTheme;
@@ -554,7 +554,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of unit
-     */ 
+     */
     public function getUnit()
     {
         return $this->unit;
@@ -562,7 +562,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of unit
-     */ 
+     */
     public function setUnit($unit)
     {
         $this->unit = $unit;
@@ -570,7 +570,7 @@ class Customization extends JsonSerializable
 
     /**
      * Get the value of zoom
-     */ 
+     */
     public function getZoom()
     {
         return $this->zoom;
@@ -578,7 +578,7 @@ class Customization extends JsonSerializable
 
     /**
      * Set the value of zoom
-     */ 
+     */
     public function setZoom($zoom)
     {
         $this->zoom = $zoom;

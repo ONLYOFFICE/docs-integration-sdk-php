@@ -27,7 +27,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
- class ConvertResponseError {
+class ConvertResponseError
+{
     const UNKNOWN = -1;
     const TIMEOUT = -2;
     const CONVERSION = -3;
@@ -40,21 +41,21 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     public static function message($code): string
     {
         switch ($code) {
-            case self::UNKNOWN :
+            case self::UNKNOWN:
                 return "Unknown error";
-            case self::TIMEOUT :
+            case self::TIMEOUT:
                 return "Timeout conversion error";
-            case self::CONVERSION :
+            case self::CONVERSION:
                 return "Conversion error";
-            case self::DOWNLOADING :
+            case self::DOWNLOADING:
                 return "Error while downloading the document file to be converted";
-            case self::PASSWORD :
+            case self::PASSWORD:
                 return "Incorrect password";
-            case self::DATABASE :
+            case self::DATABASE:
                 return "Error while accessing the conversion result database";
-            case self::INPUT :
+            case self::INPUT:
                 return "Error document request";
-            case self::TOKEN :
+            case self::TOKEN:
                 return "Invalid token";
             default:
                 return "Undefined error";

@@ -25,8 +25,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
 use Onlyoffice\DocsIntegrationSdk\Manager\Formats\FormatsManager;
 use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
 
- abstract class DocumentManager implements DocumentManagerInterface
- {
+abstract class DocumentManager implements DocumentManagerInterface
+{
 
     private const PATHINFO_DIRNAME = "dirname";
     private const PATHINFO_BASENAME = "basename";
@@ -48,16 +48,20 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     public $settingsManager;
     public const APP_NAME = "onlyoffice";
 
-    public abstract function getDocumentKey(string $fileId, bool $embedded);
-    public abstract function getDocumentName(string $fileId);
-    public abstract static function getLangMapping();
+    abstract public function getDocumentKey(string $fileId, bool $embedded);
+    abstract public function getDocumentName(string $fileId);
+    abstract public static function getLangMapping();
 
-    public abstract function getFileUrl(string $fileId);
-    public abstract function getCallbackUrl(string $fileId);
-    public abstract function getGobackUrl(string $fileId);
-    public abstract function getCreateUrl(string $fileId);
+    abstract public function getFileUrl(string $fileId);
+    abstract public function getCallbackUrl(string $fileId);
+    abstract public function getGobackUrl(string $fileId);
+    abstract public function getCreateUrl(string $fileId);
 
-    public function __construct(SettingsManager $settingsManager, FormatsManager $formats = null, $systemLangCode = "en") {
+    public function __construct(
+        SettingsManager $settingsManager,
+        FormatsManager $formats = null,
+        $systemLangCode = "en"
+    ) {
         $this->lang = $systemLangCode;
         $this->lang = $systemLangCode;
         if (empty($formats)) {
@@ -72,8 +76,20 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         $this->settingsManager = $settingsManager;
     }
 
-    public function getEmptyTemplate($fileExt) {
-        $filePath = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "document-templates" . DIRECTORY_SEPARATOR . $this->locale . DIRECTORY_SEPARATOR . "new." . $fileExt;
+    public function getEmptyTemplate($fileExt)
+    {
+        $filePath = dirname(dirname(dirname(__DIR__)))
+        .DIRECTORY_SEPARATOR.
+        "resources".
+        DIRECTORY_SEPARATOR.
+        "assets".
+        DIRECTORY_SEPARATOR.
+        "document-templates".
+        DIRECTORY_SEPARATOR.
+        $this->locale.
+        DIRECTORY_SEPARATOR.
+        "new.".
+        $fileExt;
         if (!file_exists($filePath)) {
             throw new \Exception(CommonError::message(CommonError::FILE_TEMPLATE_IS_NOT_EXISTS));
         }
@@ -85,7 +101,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      *
      * @return array
      */
-    public function getTempFile() {
+    public function getTempFile()
+    {
         $fileUrl = null;
         $templatePath = $this->getEmptyTemplate("docx");
         $fileUrl = $this->getFileUrl("new.docx");
@@ -96,7 +113,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         ];
     }
 
-    public function getFormatInfo(string $extension, string $option = null)  {
+    public function getFormatInfo(string $extension, string $option = null)
+    {
         $search = null;
         $formats = $this->formats->getFormatsList();
         if (!array_key_exists($extension, $formats)) {
@@ -113,7 +131,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
             $search = $formats[$extension];
         }
 
-        switch($option) {
+        switch ($option) {
             case self::FORMATINFO_TYPE:
                 return $search->getType();
             case self::FORMATINFO_ACTIONS:
@@ -132,42 +150,48 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
     /**
      * Return file type by extension
      */
-    public function getDocType(string $extension) {
+    public function getDocType(string $extension)
+    {
         return $this->getFormatInfo($extension, self::FORMATINFO_TYPE);
     }
 
     /**
      * Return actions for file by extension
      */
-    public function getDocActions(string $extension) {
+    public function getDocActions(string $extension)
+    {
         return $this->getFormatInfo($extension, self::FORMATINFO_ACTIONS);
     }
 
     /**
      * Return convert extensions for file by current extension
      */
-    public function getDocConvert(string $extension) {
+    public function getDocConvert(string $extension)
+    {
         return $this->getFormatInfo($extension, self::FORMATINFO_CONVERT);
     }
 
     /**
      * Return array of all mime types for file by extension
      */
-    public function getDocMimes(string $extension) {
+    public function getDocMimes(string $extension)
+    {
         return $this->getFormatInfo($extension, self::FORMATINFO_MIMES);
     }
 
     /**
      * Return mime type of the file by extension
      */
-    public function getDocMimeType(string $extension) {
+    public function getDocMimeType(string $extension)
+    {
         return $this->getFormatInfo($extension, self::FORMATINFO_MIME);
     }
 
     /**
      * Return file path info
      */
-    public function getPathInfo(string $filePath, string $option = null) {
+    public function getPathInfo(string $filePath, string $option = null)
+    {
         $result = ["dirname" => "", "basename" => "", "extension" => "", "filename" => ""];
         $pathInfo = [];
         if (preg_match("#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m", $filePath, $pathInfo)) {
@@ -199,43 +223,53 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
         }
     }
 
-    public function getDirName(string $filePath) {
+    public function getDirName(string $filePath)
+    {
         return $this->getPathInfo($filePath, self::PATHINFO_DIRNAME);
     }
 
-    public function getBaseName(string $filePath) {
+    public function getBaseName(string $filePath)
+    {
         return $this->getPathInfo($filePath, self::PATHINFO_BASENAME);
     }
 
-    public function getExt(string $filePath) {
+    public function getExt(string $filePath)
+    {
         return $this->getPathInfo($filePath, self::PATHINFO_EXTENSION);
     }
 
-    public function getFileName(string $filePath) {
+    public function getFileName(string $filePath)
+    {
         return $this->getPathInfo($filePath, self::PATHINFO_FILENAME);
     }
 
-    public function isDocumentViewable(string $filePath) {
+    public function isDocumentViewable(string $filePath)
+    {
         return $this->getFormatInfo($this->getExt($filePath))->isViewable();
     }
 
-    public function isDocumentEditable(string $filePath) {
+    public function isDocumentEditable(string $filePath)
+    {
         return $this->getFormatInfo($this->getExt($filePath))->isEditable();
     }
 
-    public function isDocumentConvertable(string $filePath) {
+    public function isDocumentConvertable(string $filePath)
+    {
         return $this->getFormatInfo($this->getExt($filePath))->isAutoConvertable();
     }
 
-    public function isDocumentFillable(string $filePath) {
+    public function isDocumentFillable(string $filePath)
+    {
         return $this->getFormatInfo($this->getExt($filePath))->isFillable();
     }
 
-    public function isDocumentReadOnly(string $filePath = "") {
+    public function isDocumentReadOnly(string $filePath = "")
+    {
         return false;
     }
 
-    public function getDocumentAccessRights(string $filePath = "") {
+    public function getDocumentAccessRights(string $filePath = "")
+    {
         return true;
     }
 
@@ -244,10 +278,11 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
      */
     public static function generateRevisionId(string $expectedKey)
     {
-        if (strlen($expectedKey) > 20) $expectedKey = crc32( $expectedKey);
+        if (strlen($expectedKey) > 20) {
+            $expectedKey = crc32($expectedKey);
+        }
         $key = preg_replace("[^0-9-.a-zA-Z_=]", "_", $expectedKey);
         $key = substr($key, 0, min(array(strlen($key), 20)));
         return $key;
     }
-
- }
+}

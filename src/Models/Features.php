@@ -20,18 +20,18 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Features extends JsonSerializable
- {
+class Features extends JsonSerializable
+{
     protected $spellcheck;
 
-    public function __construct (bool $spellcheck = true)
+    public function __construct(bool $spellcheck = true)
     {
         $this->spellcheck = $spellcheck;
     }
 
     /**
      * Get the value of spellcheck
-     */ 
+     */
     public function getSpellcheck()
     {
         return $this->spellcheck;
@@ -39,9 +39,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of spellcheck
-     */ 
+     */
     public function setSpellcheck($spellcheck)
     {
         $this->spellcheck = $spellcheck;
     }
- }
+}

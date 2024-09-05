@@ -27,17 +27,20 @@ class SharingSettings extends JsonSerializable
     protected $sharingSettingsPermissions;
     protected $user;
 
-    public function __construct (bool $isLink = false,
-                            SharingSettingsPermissions $sharingSettingsPermissions = null,
-                            string $user = "") {
-    $this->isLink = $isLink;
-    $this->sharingSettingsPermissions = $sharingSettingsPermissions !== null ? $sharingSettingsPermissions : new SharingSettingsPermissions;
-    $this->user = $user;
-}
+    public function __construct(
+        bool $isLink = false,
+        SharingSettingsPermissions $sharingSettingsPermissions = null,
+        string $user = ""
+    ) {
+        $this->isLink = $isLink;
+        $this->sharingSettingsPermissions =
+        $sharingSettingsPermissions !== null ? $sharingSettingsPermissions : new SharingSettingsPermissions;
+        $this->user = $user;
+    }
 
     /**
      * Get the value of isLink
-     */ 
+     */
     public function getIsLink()
     {
         return $this->isLink;
@@ -45,7 +48,7 @@ class SharingSettings extends JsonSerializable
 
     /**
      * Set the value of isLink
-     */ 
+     */
     public function setIsLink($isLink)
     {
         $this->isLink = $isLink;
@@ -53,7 +56,7 @@ class SharingSettings extends JsonSerializable
 
     /**
      * Get the value of sharingSettingsPermissions
-     */ 
+     */
     public function getSharingSettingsPermissions()
     {
         return $this->sharingSettingsPermissions;
@@ -61,7 +64,7 @@ class SharingSettings extends JsonSerializable
 
     /**
      * Set the value of sharingSettingsPermissions
-     */ 
+     */
     public function setSharingSettingsPermissions($sharingSettingsPermissions)
     {
         $this->sharingSettingsPermissions = $sharingSettingsPermissions;
@@ -69,7 +72,7 @@ class SharingSettings extends JsonSerializable
 
     /**
      * Get the value of user
-     */ 
+     */
     public function getUser()
     {
         return $this->user;
@@ -77,7 +80,7 @@ class SharingSettings extends JsonSerializable
 
     /**
      * Set the value of user
-     */ 
+     */
     public function setUser($user)
     {
         $this->user = $user;

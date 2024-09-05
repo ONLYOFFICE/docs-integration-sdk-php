@@ -20,15 +20,21 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Format extends JsonSerializable
- {
+class Format extends JsonSerializable
+{
     protected $name;
     protected $type;
     protected $actions;
     protected $convert;
     protected $mime;
 
-    public function __construct(string $name, string $type = "", array $actions = [], array $convert = [], array $mime = []) {
+    public function __construct(
+        string $name,
+        string $type = "",
+        array $actions = [],
+        array $convert = [],
+        array $mime = []
+    ) {
         $this->name = $name;
         $this->type = $type;
         $this->actions = $actions;
@@ -36,72 +42,88 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
         $this->mime = $mime;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setName(string $name) {
+    public function setName(string $name)
+    {
         $this->name = $name;
     }
 
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
-    public function setType(string $type) {
+    public function setType(string $type)
+    {
         $this->type = $type;
     }
 
-    public function getActions() {
+    public function getActions()
+    {
         return $this->actions;
     }
 
-    public function setActions(array $actions) {
+    public function setActions(array $actions)
+    {
         $this->actions = $actions;
     }
 
-    public function getConvert() {
+    public function getConvert()
+    {
         return $this->convert;
     }
 
-    public function setConvert(array $convert) {
+    public function setConvert(array $convert)
+    {
         $this->convert = $convert;
     }
 
-    public function getMimes() {
+    public function getMimes()
+    {
         return $this->mime;
     }
 
-    public function setMimes(array $mime) {
+    public function setMimes(array $mime)
+    {
         $this->mime = $mime;
     }
 
-    protected function hasAction(string $search) {
+    protected function hasAction(string $search)
+    {
         return in_array($search, $this->actions);
     }
 
-    public function isViewable() {
+    public function isViewable()
+    {
         return $this->hasAction("view");
     }
 
-    public function isStrictlyEditable() {
+    public function isStrictlyEditable()
+    {
         return $this->hasAction("edit");
     }
 
-    public function isLossyEditable() {
+    public function isLossyEditable()
+    {
         return $this->hasAction("lossy-edit");
     }
 
-    public function isEditable() {
+    public function isEditable()
+    {
         return $this->hasAction("edit") || $this->hasAction("lossy-edit");
     }
 
-    public function isAutoConvertable() {
+    public function isAutoConvertable()
+    {
         $this->hasAction("auto-convert");
     }
 
-    public function isFillable() {
+    public function isFillable()
+    {
         return $this->hasAction("fill");
     }
-
- }
+}

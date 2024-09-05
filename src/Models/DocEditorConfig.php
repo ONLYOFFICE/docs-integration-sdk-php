@@ -27,8 +27,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\User;
 use Onlyoffice\DocsIntegrationSdk\Models\Customization;
 use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
 
- class DocEditorConfig extends JsonSerializable
- {
+class DocEditorConfig extends JsonSerializable
+{
     protected $callbackUrl;
     protected $coEditing;
     protected $createUrl;
@@ -42,19 +42,20 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     protected $customization;
     protected $embedded;
 
-    public function __construct (?string $callbackUrl = "",
-                                ?CoEditing $coEditing = null,
-                                ?string $createUrl = "",
-                                ?string $lang = "en",
-                                ?string $location = "",
-                                ?EditorsMode $mode = null,
-                                ?array $recent = null,
-                                ?string $region = "en-US",
-                                ?array $templates = null,
-                                ?User $user = null,
-                                ?Customization $customization = null,
-                                ?Embedded $embedded = null)
-    {
+    public function __construct(
+        ?string $callbackUrl = "",
+        ?CoEditing $coEditing = null,
+        ?string $createUrl = "",
+        ?string $lang = "en",
+        ?string $location = "",
+        ?EditorsMode $mode = null,
+        ?array $recent = null,
+        ?string $region = "en-US",
+        ?array $templates = null,
+        ?User $user = null,
+        ?Customization $customization = null,
+        ?Embedded $embedded = null
+    ) {
         $this->callbackUrl = $callbackUrl;
         $this->coEditing = $coEditing;
         $this->createUrl = $createUrl;
@@ -71,7 +72,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
 
     /**
      * Get the value of callbackUrl
-     */ 
+     */
     public function getCallbackUrl()
     {
         return $this->callbackUrl;
@@ -80,16 +81,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of callbackUrl
      *
-     */ 
+     */
     public function setCallbackUrl($callbackUrl)
     {
         $this->callbackUrl = $callbackUrl;
-
     }
 
     /**
      * Get the value of coEditing
-     */ 
+     */
     public function getCoEditing()
     {
         return $this->coEditing;
@@ -98,16 +98,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of coEditing
      *
-     */ 
+     */
     public function setCoEditing($coEditing)
     {
         $this->coEditing = $coEditing;
-
     }
 
     /**
      * Get the value of createUrl
-     */ 
+     */
     public function getCreateUrl()
     {
         return $this->createUrl;
@@ -116,16 +115,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of createUrl
      *
-     */ 
+     */
     public function setCreateUrl($createUrl)
     {
         $this->createUrl = $createUrl;
-
     }
 
     /**
      * Get the value of lang
-     */ 
+     */
     public function getLang()
     {
         return $this->lang;
@@ -134,16 +132,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of lang
      *
-     */ 
+     */
     public function setLang($lang)
     {
         $this->lang = $lang;
-
     }
 
     /**
      * Get the value of location
-     */ 
+     */
     public function getLocation()
     {
         return $this->location;
@@ -152,16 +149,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of location
      *
-     */ 
+     */
     public function setLocation($location)
     {
         $this->location = $location;
-
     }
 
     /**
      * Get the value of mode
-     */ 
+     */
     public function getMode()
     {
         return $this->mode;
@@ -170,16 +166,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of mode
      *
-     */ 
+     */
     public function setMode($mode)
     {
         $this->mode = $mode;
-
     }
 
     /**
      * Get the value of recent
-     */ 
+     */
     public function getRecent()
     {
         return $this->recent;
@@ -188,16 +183,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of recent
      *
-     */ 
+     */
     public function setRecent($recent)
     {
         $this->recent = $recent;
-
     }
 
     /**
      * Get the value of region
-     */ 
+     */
     public function getRegion()
     {
         return $this->region;
@@ -206,16 +200,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of region
      *
-     */ 
+     */
     public function setRegion($region)
     {
         $this->region = $region;
-
     }
 
     /**
      * Get the value of templates
-     */ 
+     */
     public function getTemplates()
     {
         return $this->templates;
@@ -224,16 +217,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of templates
      *
-     */ 
+     */
     public function setTemplates($templates)
     {
         $this->templates = $templates;
-
     }
 
     /**
      * Get the value of user
-     */ 
+     */
     public function getUser()
     {
         return $this->user;
@@ -242,16 +234,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of user
      *
-     */ 
+     */
     public function setUser($user)
     {
         $this->user = $user;
-
     }
 
     /**
      * Get the value of customization
-     */ 
+     */
     public function getCustomization()
     {
         return $this->customization;
@@ -260,16 +251,15 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of customization
      *
-     */ 
+     */
     public function setCustomization($customization)
     {
         $this->customization = $customization;
-
     }
 
     /**
      * Get the value of embedded
-     */ 
+     */
     public function getEmbedded()
     {
         return $this->embedded;
@@ -278,10 +268,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     /**
      * Set the value of embedded
      *
-     */ 
+     */
     public function setEmbedded($embedded)
     {
         $this->embedded = $embedded;
-
     }
- }
+}

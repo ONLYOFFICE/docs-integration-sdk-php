@@ -20,18 +20,16 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- abstract class JsonSerializable implements \JsonSerializable
- {
+abstract class JsonSerializable implements \JsonSerializable
+{
     public function jsonSerialize()
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $var) {
-            if (empty($var) && !is_bool($var))
-            {
+            if (empty($var) && !is_bool($var)) {
                 unset($vars[$key]);
             } else {
-                if (is_object($var))
-                {
+                if (is_object($var)) {
                     if (property_exists($var, "value")) {
                         if (empty($var->value)) {
                             unset($vars[$key]);
@@ -45,8 +43,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
         return $vars;
     }
 
-    public function mapFromArray(array $values){
-        foreach ($values as $key => $value){
+    public function mapFromArray(array $values)
+    {
+        foreach ($values as $key => $value) {
             try {
                 $mapperFunction = "set" . lcfirst($key);
                 $this->{$mapperFunction}($value);
@@ -55,4 +54,4 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
             }
         }
     }
- }
+}

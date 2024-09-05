@@ -20,8 +20,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Customer extends JsonSerializable
- {
+class Customer extends JsonSerializable
+{
     protected $address;
     protected $info;
     protected $logo;
@@ -31,16 +31,16 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
     protected $phone;
     protected $www;
 
-    public function __construct (string $address = "",
-                                string $info = "",
-                                string $logo = "",
-                                string $logoDark = "",
-                                string $mail = "",
-                                string $name = "",
-                                string $phone = "",
-                                string $www = ""
-                                )
-    {
+    public function __construct(
+        string $address = "",
+        string $info = "",
+        string $logo = "",
+        string $logoDark = "",
+        string $mail = "",
+        string $name = "",
+        string $phone = "",
+        string $www = ""
+    ) {
         $this->address = $address;
         $this->info = $info;
         $this->logo = $logo;
@@ -53,7 +53,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of address
-     */ 
+     */
     public function getAddress()
     {
         return $this->address;
@@ -61,7 +61,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of address
-     */ 
+     */
     public function setAddress($address)
     {
         $this->address = $address;
@@ -69,7 +69,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of info
-     */ 
+     */
     public function getInfo()
     {
         return $this->info;
@@ -77,7 +77,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of info
-     */ 
+     */
     public function setInfo($info)
     {
         $this->info = $info;
@@ -85,7 +85,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of logo
-     */ 
+     */
     public function getLogo()
     {
         return $this->logo;
@@ -93,7 +93,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of logo
-     */ 
+     */
     public function setLogo($logo)
     {
         $this->logo = $logo;
@@ -101,7 +101,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of logoDark
-     */ 
+     */
     public function getLogoDark()
     {
         return $this->logoDark;
@@ -109,7 +109,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of logoDark
-     */ 
+     */
     public function setLogoDark($logoDark)
     {
         $this->logoDark = $logoDark;
@@ -117,7 +117,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of mail
-     */ 
+     */
     public function getMail()
     {
         return $this->mail;
@@ -125,7 +125,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of mail
-     */ 
+     */
     public function setMail($mail)
     {
         $this->mail = $mail;
@@ -133,7 +133,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -141,7 +141,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of name
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -149,7 +149,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of phone
-     */ 
+     */
     public function getPhone()
     {
         return $this->phone;
@@ -157,7 +157,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of phone
-     */ 
+     */
     public function setPhone($phone)
     {
         $this->phone = $phone;
@@ -165,7 +165,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of www
-     */ 
+     */
     public function getWww()
     {
         return $this->www;
@@ -173,9 +173,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of www
-     */ 
+     */
     public function setWww($www)
     {
         $this->www = $www;
     }
- }
+}

@@ -27,12 +27,12 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Settings
  */
 
- interface SettingsManagerInterface
- {
+interface SettingsManagerInterface
+{
 
    /**
     * Get the setting value by setting name.
-    * 
+    *
     * @param string $settingName Name of setting.
     * @throws Exception If the processing fails unexpectedly.
     */
@@ -40,7 +40,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
 
    /**
     * Set the setting value.
-    * 
+    *
     * @param string $settingName Name of setting.
     * @param $value Value of setting.
     * @param bool $createSetting If True, then create a new setting with the value.
@@ -147,5 +147,4 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
    * @return bool True if the setting to ignore SSL certificate is enabled.
    */
     public function isIgnoreSSL();
-
- }
+}

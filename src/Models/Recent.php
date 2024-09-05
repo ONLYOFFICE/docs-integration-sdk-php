@@ -27,7 +27,7 @@ class Recent extends JsonSerializable
     protected $title;
     protected $url;
 
-    public function __construct (string $folder = "", string $title = "", string $url = "")
+    public function __construct(string $folder = "", string $title = "", string $url = "")
     {
         $this->folder = $folder;
         $this->title = $title;
@@ -36,7 +36,7 @@ class Recent extends JsonSerializable
 
     /**
      * Get the value of folder
-     */ 
+     */
     public function getFolder()
     {
         return $this->folder;
@@ -44,7 +44,7 @@ class Recent extends JsonSerializable
 
     /**
      * Set the value of folder
-     */ 
+     */
     public function setFolder($folder)
     {
         $this->folder = $folder;
@@ -52,7 +52,7 @@ class Recent extends JsonSerializable
 
     /**
      * Get the value of title
-     */ 
+     */
     public function getTitle()
     {
         return $this->title;
@@ -60,7 +60,7 @@ class Recent extends JsonSerializable
 
     /**
      * Set the value of title
-     */ 
+     */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -68,7 +68,7 @@ class Recent extends JsonSerializable
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -76,7 +76,7 @@ class Recent extends JsonSerializable
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;

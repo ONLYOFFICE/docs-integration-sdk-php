@@ -21,8 +21,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
- class Permissions extends JsonSerializable
- {
+class Permissions extends JsonSerializable
+{
     protected $chat;
     protected $comment;
     protected $commentGroups;
@@ -41,25 +41,25 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
     protected $reviewGroups; //string array
     protected $userInfoGroups; //string array
 
-    public function __construct (?bool $chat = true,
-                                ?bool $comment = true,
-                                ?CommentGroups $commentGroups = null,
-                                ?bool $copy = true,
-                                ?bool $deleteCommentAuthorOnly = false,
-                                ?bool $download = true,
-                                ?bool $edit = true,
-                                ?bool $editCommentAuthorOnly = false,
-                                ?bool $fillForms = true,
-                                ?bool $modifyContentControl = true,
-                                ?bool $modifyFilter = true,
-                                ?bool $print = true,
-                                ?bool $protect = true,
-                                ?bool $rename = false,
-                                ?bool $review = false,
-                                ?array $reviewGroups = null,
-                                ?array $userInfoGroups = null
-                                )
-    {
+    public function __construct(
+        ?bool $chat = true,
+        ?bool $comment = true,
+        ?CommentGroups $commentGroups = null,
+        ?bool $copy = true,
+        ?bool $deleteCommentAuthorOnly = false,
+        ?bool $download = true,
+        ?bool $edit = true,
+        ?bool $editCommentAuthorOnly = false,
+        ?bool $fillForms = true,
+        ?bool $modifyContentControl = true,
+        ?bool $modifyFilter = true,
+        ?bool $print = true,
+        ?bool $protect = true,
+        ?bool $rename = false,
+        ?bool $review = false,
+        ?array $reviewGroups = null,
+        ?array $userInfoGroups = null
+    ) {
         $this->chat = $chat;
         $this->comment = $comment;
         $this->commentGroups = $commentGroups !== null ? $commentGroups : new CommentGroups;
@@ -81,7 +81,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of chat
-     */ 
+     */
     public function getChat()
     {
         return $this->chat;
@@ -89,7 +89,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of chat
-     */ 
+     */
     public function setChat($chat)
     {
         $this->chat = $chat;
@@ -97,7 +97,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of comment
-     */ 
+     */
     public function getComment()
     {
         return $this->comment;
@@ -105,7 +105,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of comment
-     */ 
+     */
     public function setComment($comment)
     {
         $this->comment = $comment;
@@ -113,7 +113,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of commentGroups
-     */ 
+     */
     public function getCommentGroups()
     {
         return $this->commentGroups;
@@ -121,7 +121,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of commentGroups
-     */ 
+     */
     public function setCommentGroups($commentGroups)
     {
         $this->commentGroups = $commentGroups;
@@ -129,7 +129,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of copy
-     */ 
+     */
     public function getCopy()
     {
         return $this->copy;
@@ -137,7 +137,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of copy
-     */ 
+     */
     public function setCopy($copy)
     {
         $this->copy = $copy;
@@ -145,7 +145,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of deleteCommentAuthorOnly
-     */ 
+     */
     public function getDeleteCommentAuthorOnly()
     {
         return $this->deleteCommentAuthorOnly;
@@ -153,7 +153,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of deleteCommentAuthorOnly
-     */ 
+     */
     public function setDeleteCommentAuthorOnly($deleteCommentAuthorOnly)
     {
         $this->deleteCommentAuthorOnly = $deleteCommentAuthorOnly;
@@ -161,7 +161,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of download
-     */ 
+     */
     public function getDownload()
     {
         return $this->download;
@@ -169,7 +169,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of download
-     */ 
+     */
     public function setDownload($download)
     {
         $this->download = $download;
@@ -177,7 +177,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of edit
-     */ 
+     */
     public function getEdit()
     {
         return $this->edit;
@@ -185,7 +185,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of edit
-     */ 
+     */
     public function setEdit($edit)
     {
         $this->edit = $edit;
@@ -193,7 +193,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of editCommentAuthorOnly
-     */ 
+     */
     public function getEditCommentAuthorOnly()
     {
         return $this->editCommentAuthorOnly;
@@ -201,7 +201,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of editCommentAuthorOnly
-     */ 
+     */
     public function setEditCommentAuthorOnly($editCommentAuthorOnly)
     {
         $this->editCommentAuthorOnly = $editCommentAuthorOnly;
@@ -209,7 +209,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of fillForms
-     */ 
+     */
     public function getFillForms()
     {
         return $this->fillForms;
@@ -217,7 +217,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of fillForms
-     */ 
+     */
     public function setFillForms($fillForms)
     {
         $this->fillForms = $fillForms;
@@ -225,7 +225,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of modifyContentControl
-     */ 
+     */
     public function getModifyContentControl()
     {
         return $this->modifyContentControl;
@@ -233,7 +233,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of modifyContentControl
-     */ 
+     */
     public function setModifyContentControl($modifyContentControl)
     {
         $this->modifyContentControl = $modifyContentControl;
@@ -241,7 +241,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of modifyFilter
-     */ 
+     */
     public function getModifyFilter()
     {
         return $this->modifyFilter;
@@ -249,7 +249,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of modifyFilter
-     */ 
+     */
     public function setModifyFilter($modifyFilter)
     {
         $this->modifyFilter = $modifyFilter;
@@ -257,7 +257,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of print
-     */ 
+     */
     public function getPrint()
     {
         return $this->print;
@@ -265,7 +265,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of print
-     */ 
+     */
     public function setPrint($print)
     {
         $this->print = $print;
@@ -273,7 +273,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of protect
-     */ 
+     */
     public function getProtect()
     {
         return $this->protect;
@@ -281,7 +281,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of protect
-     */ 
+     */
     public function setProtect($protect)
     {
         $this->protect = $protect;
@@ -289,7 +289,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of rename
-     */ 
+     */
     public function getRename()
     {
         return $this->rename;
@@ -297,7 +297,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of rename
-     */ 
+     */
     public function setRename($rename)
     {
         $this->rename = $rename;
@@ -305,7 +305,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of review
-     */ 
+     */
     public function getReview()
     {
         return $this->review;
@@ -313,7 +313,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of review
-     */ 
+     */
     public function setReview($review)
     {
         $this->review = $review;
@@ -321,7 +321,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of reviewGroups
-     */ 
+     */
     public function getReviewGroups()
     {
         return $this->reviewGroups;
@@ -329,7 +329,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of reviewGroups
-     */ 
+     */
     public function setReviewGroups($reviewGroups)
     {
         $this->reviewGroups = $reviewGroups;
@@ -337,7 +337,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Get the value of userInfoGroups
-     */ 
+     */
     public function getUserInfoGroups()
     {
         return $this->userInfoGroups;
@@ -345,9 +345,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\CommentGroups;
 
     /**
      * Set the value of userInfoGroups
-     */ 
+     */
     public function setUserInfoGroups($userInfoGroups)
     {
         $this->userInfoGroups = $userInfoGroups;
     }
- }
+}

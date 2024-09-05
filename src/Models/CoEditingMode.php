@@ -26,12 +26,12 @@ class CoEditingMode extends BasicEnum
     const FAST = "fast";
     const STRICT = "strict";
 
-    public function __construct($сoEditingMode = null)
+    public function __construct($mode = null)
     {
-        if (!self::isValidValue($сoEditingMode) && $сoEditingMode !== null) {
+        if (!self::isValidValue($mode) && $mode !== null) {
             throw new Exception("Unknown co-editing mode");
         } else {
-            $this->value = $сoEditingMode !== null ? $сoEditingMode : self::FAST;
+            $this->value = $mode !== null ? $mode : self::FAST;
         }
     }
 }

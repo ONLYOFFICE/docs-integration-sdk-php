@@ -34,7 +34,7 @@ class Anonymous extends JsonSerializable
 
     /**
      * Get the value of request
-     */ 
+     */
     public function getRequest()
     {
         return $this->request;
@@ -42,7 +42,7 @@ class Anonymous extends JsonSerializable
 
     /**
      * Set the value of request
-     */ 
+     */
     public function setRequest($request)
     {
         $this->request = $request;
@@ -50,7 +50,7 @@ class Anonymous extends JsonSerializable
 
     /**
      * Get the value of label
-     */ 
+     */
     public function getLabel()
     {
         return $this->label;
@@ -58,7 +58,7 @@ class Anonymous extends JsonSerializable
 
     /**
      * Set the value of label
-     */ 
+     */
     public function setLabel($label)
     {
         $this->label = $label;

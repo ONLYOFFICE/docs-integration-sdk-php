@@ -27,22 +27,24 @@ use Dotenv\Dotenv;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
- class EnvUtil
- {
+class EnvUtil
+{
  
     private const ENV_SETTINGS_PREFIX = "DOCS_INTEGRATION_SDK";
 
-    public function __construct() {
+    public function __construct()
+    {
         static::loadEnvSettings();
     }
 
-    public static function loadEnvSettings() {
+    public static function loadEnvSettings()
+    {
         $dotenv = Dotenv::createImmutable(dirname(dirname(__DIR__)));
         $dotenv->safeLoad();
     }
 
-    public static function envKey($key) {
+    public static function envKey($key)
+    {
         return mb_strtoupper(self::ENV_SETTINGS_PREFIX . "_" . $key);
     }
-
- }
+}

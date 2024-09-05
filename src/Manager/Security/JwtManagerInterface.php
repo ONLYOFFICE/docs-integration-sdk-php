@@ -27,15 +27,15 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Security;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Security
  */
 
- interface JwtManagerInterface
- {
+interface JwtManagerInterface
+{
     /**
     * Checks is JWT enabled or not.
-    * 
+    *
     * @throws Exception If the processing fails unexpectedly.
     * @return bool True if JWT is enabled.
     */
-   public function isJwtEnabled();
+    public function isJwtEnabled();
 
     /**
      * Encode a payload object into a token using a secret key
@@ -45,7 +45,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Security;
      *
      * @return string
      */
-   public function jwtEncode($payload, $key);
+    public function jwtEncode($payload, $key);
 
     /**
      * Create an object from the token
@@ -55,6 +55,5 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Security;
      *
      * @return array
      */
-   public function readHash($token, $securityKey);
-
- }
+    public function readHash($token, $securityKey);
+}

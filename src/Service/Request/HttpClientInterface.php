@@ -27,9 +27,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
  * @package Onlyoffice\DocsIntegrationSdk\Service\Request
  */
 
- interface HttpClientInterface
- {
+interface HttpClientInterface
+{
     public function request($method, $url, $options);
     public function getStatusCode();
     public function getBody();
- }
+}

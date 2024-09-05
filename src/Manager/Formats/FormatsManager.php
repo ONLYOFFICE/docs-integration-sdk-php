@@ -28,8 +28,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Formats
  */
 
- class FormatsManager implements FormatsManagerInterface
- {
+class FormatsManager implements FormatsManagerInterface
+{
 
     /**
      * List of formats
@@ -38,7 +38,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
      */
     private $formatsList;
 
-    public function __construct($nameAssoc = false) {
+    public function __construct($nameAssoc = false)
+    {
         $formats = self::getFormats();
         if ($nameAssoc === false) {
             $this->formatsList = self::buildDefaultFormatsArray($formats);
@@ -47,25 +48,48 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
         }
     }
 
-    private function buildDefaultFormatsArray(array $formats) {
+    private function buildDefaultFormatsArray(array $formats)
+    {
         $formatsList = [];
         foreach ($formats as $format) {
-            array_push($formatsList, new Format ($format->name, $format->type, $format->actions, $format->convert, $format->mime));
+            array_push($formatsList, new Format(
+                $format->name,
+                $format->type,
+                $format->actions,
+                $format->convert,
+                $format->mime
+            ));
         }
         return $formatsList;
     }
 
-    private function buildNamedFormatsArray(array $formats) {
+    private function buildNamedFormatsArray(array $formats)
+    {
         $formatsList = [];
         foreach ($formats as $format) {
-            $currentFormat = new Format ($format->name, $format->type, $format->actions, $format->convert, $format->mime);
+            $currentFormat = new Format(
+                $format->name,
+                $format->type,
+                $format->actions,
+                $format->convert,
+                $format->mime
+            );
             $formatsList[$currentFormat->getName()] = $currentFormat;
         }
         return $formatsList;
     }
 
-    private function getFormats() {
-        $formats = file_get_contents(dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "document-formats" . DIRECTORY_SEPARATOR . "onlyoffice-docs-formats.json");
+    private function getFormats()
+    {
+        $formats = file_get_contents(dirname(dirname(dirname(__DIR__))).
+        DIRECTORY_SEPARATOR.
+        "resources".
+        DIRECTORY_SEPARATOR.
+        "assets".
+        DIRECTORY_SEPARATOR.
+        "document-formats".
+        DIRECTORY_SEPARATOR.
+        "onlyoffice-docs-formats.json");
         if (!empty($formats)) {
             $formats = json_decode($formats);
             if (!empty($formats)) {
@@ -76,11 +100,13 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
         throw new \Exception(CommonError::message(CommonError::EMPTY_FORMATS_ASSET));
     }
 
-    public function getFormatsList() {
+    public function getFormatsList()
+    {
         return $this->formatsList;
     }
 
-    public function getViewableList() {
+    public function getViewableList()
+    {
         $viewableList = [];
         foreach ($this->formatsList as $format) {
             if ($format->isViewable()) {
@@ -90,7 +116,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
         return $viewableList;
     }
 
-    public function getEditableList() {
+    public function getEditableList()
+    {
         $editableList = [];
         foreach ($this->formatsList as $format) {
             if ($format->isEditable()) {
@@ -100,7 +127,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
         return $editableList;
     }
 
-    public function getConvertableList() {
+    public function getConvertableList()
+    {
         $convertableList = [];
         foreach ($this->formatsList as $format) {
             if ($format->isAutoConvertable()) {
@@ -110,7 +138,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
         return $convertableList;
     }
 
-    public function getFillableList() {
+    public function getFillableList()
+    {
         $fillableList = [];
         foreach ($this->formatsList as $format) {
             if ($format->isFillable()) {
@@ -119,4 +148,4 @@ use Onlyoffice\DocsIntegrationSdk\Models\Format;
         }
         return $fillableList;
     }
- }
+}

@@ -30,17 +30,18 @@ use Firebase\JWT\Key;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Security
  */
 
- abstract class JwtManager implements JwtManagerInterface
- {
+abstract class JwtManager implements JwtManagerInterface
+{
 
     private SettingsManager $settingsManager;
 
-    public function __construct(SettingsManager $settingsManager) {
+    public function __construct(SettingsManager $settingsManager)
+    {
         $this->settingsManager = $settingsManager;
     }
 
-    public abstract function encode($payload, $key, $algorithm = "HS256");
-    public abstract function decode($token, $key, $algorithm = "HS256");
+    abstract public function encode($payload, $key, $algorithm = "HS256");
+    abstract public function decode($token, $key, $algorithm = "HS256");
 
     /**
      * Check if a secret key to generate token exists or not.
@@ -105,4 +106,4 @@ use Firebase\JWT\Key;
         }
         return [$result, $error];
     }
- }
+}

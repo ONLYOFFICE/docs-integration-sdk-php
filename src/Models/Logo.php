@@ -20,8 +20,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class Logo extends JsonSerializable
- {
+class Logo extends JsonSerializable
+{
     protected $image;
     protected $imageDark;
     protected $url;
@@ -37,7 +37,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of image
-     */ 
+     */
     public function getImage()
     {
         return $this->image;
@@ -45,7 +45,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of image
-     */ 
+     */
     public function setImage($image)
     {
         $this->image = $image;
@@ -53,7 +53,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of imageDark
-     */ 
+     */
     public function getImageDark()
     {
         return $this->imageDark;
@@ -61,7 +61,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of imageDark
-     */ 
+     */
     public function setImageDark($imageDark)
     {
         $this->imageDark = $imageDark;
@@ -69,7 +69,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of imageEmbedded
-     */ 
+     */
     public function getImageEmbedded()
     {
         return $this->imageEmbedded;
@@ -77,7 +77,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of imageEmbedded
-     */ 
+     */
     public function setImageEmbedded($imageEmbedded)
     {
         $this->imageEmbedded = $imageEmbedded;
@@ -85,7 +85,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -93,9 +93,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;
     }
- }
+}

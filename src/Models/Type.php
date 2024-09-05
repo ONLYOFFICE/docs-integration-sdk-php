@@ -22,8 +22,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
 use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
 
- class Type extends BasicEnum
- {
+class Type extends BasicEnum
+{
     const DESKTOP = "desktop";
     const MOBILE = "mobile";
     const EMBEDDED = "embedded";
@@ -36,4 +36,4 @@ use Onlyoffice\DocsIntegrationSdk\Util\BasicEnum;
             $this->value = $type !== null ? $type : self::DESKTOP;
         }
     }
- }
+}

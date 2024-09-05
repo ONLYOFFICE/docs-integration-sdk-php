@@ -20,21 +20,21 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
  *
  */
 
- interface DocumentManagerInterface
- {
+interface DocumentManagerInterface
+{
     /**
     * Generates a unique document identifier used by the service to recognize the document.
-    * 
+    *
     * @param string $fileId The file ID.
     * @param bool $embedded Specifies if the editor is opened in the embedded mode (true) or not (false).
     * @throws Exception If the processing fails unexpectedly.
     * @return string The unique document identifier.
     */
-   public function getDocumentKey(string $fileId, bool $embedded);
+    public function getDocumentKey(string $fileId, bool $embedded);
 
     /**
     * Returns the document name by file ID.
-    * 
+    *
     * @param string $fileId The file ID.
     * @throws Exception If the processing fails unexpectedly.
     * @return string Document name
@@ -43,7 +43,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the locale by lang code
-    * 
+    *
     * @throws Exception If the processing fails unexpectedly.
     * @return string Locale
     */
@@ -51,7 +51,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the URL to download a file with the ID specified in the request.
-    * 
+    *
     * @param string $fileId The file ID.
     * @throws Exception If the processing fails unexpectedly.
     * @return string The URL to download a file.
@@ -60,7 +60,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the URL to the callback handler.
-    * 
+    *
     * @param string $fileId The file ID.
     * @throws Exception If the processing fails unexpectedly.
     * @return string The URL to the callback handler.
@@ -69,7 +69,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the URL to the location folder of a file with the ID specified in the request.
-    * 
+    *
     * @param string $fileId The file ID.
     * @throws Exception If the processing fails unexpectedly.
     * @return string The URL to the file location folder.
@@ -78,7 +78,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the URL to create a new file with the ID specified in the request.
-    * 
+    *
     * @param string $fileId The file ID.
     * @throws Exception If the processing fails unexpectedly.
     * @return string The URL to create a new file.
@@ -87,7 +87,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the path of empty file from assets/document-templates by extension.
-    * 
+    *
     * @param string $fileExt Extension of the file.
     * @throws Exception If the processing fails unexpectedly.
     * @return string The URL to create a new file.
@@ -96,7 +96,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns temporary file info (path and url as array)
-    * 
+    *
     * @throws Exception If the processing fails unexpectedly.
     * @return array Temporary file info.
     */
@@ -104,7 +104,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Return file type by extension
-    * 
+    *
     * @param string $extension Extension of the file.
     * @throws Exception If the processing fails unexpectedly.
     * @return string File type
@@ -113,7 +113,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Return actions for file by extension
-    * 
+    *
     * @param string $extension Extension of the file.
     * @throws Exception If the processing fails unexpectedly.
     * @return array Actions for file by extension
@@ -122,7 +122,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Return convert extensions for file by current extension
-    * 
+    *
     * @param string $extension Extension of the file.
     * @throws Exception If the processing fails unexpectedly.
     * @return array Convert extensions for file by current extension
@@ -132,7 +132,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Return array of all mime types for file by extension
-    * 
+    *
     * @param string $extension Extension of the file.
     * @throws Exception If the processing fails unexpectedly.
     * @return array All mime types for file by extension
@@ -141,7 +141,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Return one mime type of the file by extension
-    * 
+    *
     * @param string $extension Extension of the file.
     * @throws Exception If the processing fails unexpectedly.
     * @return string Mime type of the file by extension
@@ -150,7 +150,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the file base name without the full path and extension.
-    * 
+    *
     * @param string $filePath The file path.
     * @return string The file name without the extension or null if the file name is empty.
     */
@@ -158,7 +158,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the file extension.
-    * 
+    *
     * @param string $filePath The file path.
     * @return string The file extension.
     */
@@ -166,7 +166,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Returns the file name.
-    * 
+    *
     * @param string $filePath The file path.
     * @return string The file name.
     */
@@ -174,7 +174,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Determines whether a document with a name specified in the request is viewable.
-    * 
+    *
     * @param string $filePath The file path.
     * @return bool True if the document is viewable.
     */
@@ -182,7 +182,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Determines whether a document with a name specified in the request is editable.
-    * 
+    *
     * @param string $filePath The file path.
     * @return bool True if the document is editable.
     */
@@ -190,7 +190,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Determines whether a document with a name specified in the request is convertable.
-    * 
+    *
     * @param string $filePath The file path.
     * @return bool True if the document is convertable.
     */
@@ -198,7 +198,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Determines whether a document with a name specified in the request is fillable.
-    * 
+    *
     * @param string $filePath The file path.
     * @return bool True if the document is fillable.
     */
@@ -206,9 +206,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
     /**
     * Translation key to a supported form
-    * 
+    *
     * @param string $expectedKey The expected key for document.
     * @return string Generated key
     */
     public static function generateRevisionId(string $expectedKey);
- }
+}

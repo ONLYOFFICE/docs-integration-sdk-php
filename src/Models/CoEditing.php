@@ -26,7 +26,7 @@ class CoEditing extends JsonSerializable
     protected $mode;
     protected $change;
 
-    public function __construct (CoEditingMode $mode = null, bool $change = true)
+    public function __construct(CoEditingMode $mode = null, bool $change = true)
     {
         $this->mode = $mode !== null ? $mode : new CoEditingMode;
         $this->change = $change;
@@ -35,7 +35,7 @@ class CoEditing extends JsonSerializable
 
     /**
      * Get the value of mode
-     */ 
+     */
     public function getMode()
     {
         return $this->mode;
@@ -43,7 +43,7 @@ class CoEditing extends JsonSerializable
 
     /**
      * Set the value of mode
-     */ 
+     */
     public function setMode($mode)
     {
         $this->mode = $mode;
@@ -51,7 +51,7 @@ class CoEditing extends JsonSerializable
 
     /**
      * Get the value of change
-     */ 
+     */
     public function getChange()
     {
         return $this->change;
@@ -59,7 +59,7 @@ class CoEditing extends JsonSerializable
 
     /**
      * Set the value of change
-     */ 
+     */
     public function setChange($change)
     {
         $this->change = $change;

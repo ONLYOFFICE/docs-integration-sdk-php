@@ -20,13 +20,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class CommentGroups extends JsonSerializable
- {
+class CommentGroups extends JsonSerializable
+{
     protected $edit;
     protected $remove;
     protected $view;
 
-    public function __construct (array $edit = [], array $remove = [], array $view = [])
+    public function __construct(array $edit = [], array $remove = [], array $view = [])
     {
         $this->edit = $edit;
         $this->remove = $remove;
@@ -35,7 +35,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of edit
-     */ 
+     */
     public function getEdit()
     {
         return $this->edit;
@@ -43,7 +43,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of edit
-     */ 
+     */
     public function setEdit($edit)
     {
         $this->edit = $edit;
@@ -51,7 +51,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of remove
-     */ 
+     */
     public function getRemove()
     {
         return $this->remove;
@@ -59,7 +59,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of remove
-     */ 
+     */
     public function setRemove($remove)
     {
         $this->remove = $remove;
@@ -67,7 +67,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of view
-     */ 
+     */
     public function getView()
     {
         return $this->view;
@@ -75,9 +75,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of view
-     */ 
+     */
     public function setView($view)
     {
         $this->view = $view;
     }
- }
+}

@@ -29,14 +29,14 @@ use Dotenv\Dotenv;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Settings
  */
 
- abstract class SettingsManager implements SettingsManagerInterface
- {
+abstract class SettingsManager implements SettingsManagerInterface
+{
 
-    public abstract function getServerUrl();
+    abstract public function getServerUrl();
 
-    public abstract function getSetting($settingName);
+    abstract public function getSetting($settingName);
 
-    public abstract function setSetting($settingName, $value, $createSetting = false);
+    abstract public function setSetting($settingName, $value, $createSetting = false);
 
     /**
      * The settings key for the demo server
@@ -114,7 +114,8 @@ use Dotenv\Dotenv;
 
     protected const ENV_SETTINGS_PREFIX = "DOCS_INTEGRATION_SDK";
 
-    public function __construct() {
+    public function __construct()
+    {
         EnvUtil::loadEnvSettings();
     }
 
@@ -123,7 +124,8 @@ use Dotenv\Dotenv;
      *
      * @return bool
      */
-    public function useDemo() {
+    public function useDemo()
+    {
         return $this->getDemoData()["enabled"] === true;
     }
 
@@ -132,7 +134,8 @@ use Dotenv\Dotenv;
      *
      * @return array
      */
-    public function getDemoData() {
+    public function getDemoData()
+    {
         $data = $this->getSetting($this->useDemoName);
 
         if (empty($data)) {
@@ -167,7 +170,8 @@ use Dotenv\Dotenv;
      *
      * @return bool
      */
-    public function selectDemo($value) {
+    public function selectDemo($value)
+    {
         $data = $this->getDemoData();
 
         if ($value === true && !$data["available"]) {
@@ -183,7 +187,8 @@ use Dotenv\Dotenv;
         return true;
     }
 
-    private function getBaseSettingValue(string $settingKey, string $envKey, string $demoKey = "") {
+    private function getBaseSettingValue(string $settingKey, string $envKey, string $demoKey = "")
+    {
         if ($this->useDemo() && !empty($demoKey)) {
             return $demoKey;
         }
@@ -201,13 +206,19 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getDocumentServerUrl() {
-        $url = $this->getBaseSettingValue($this->documentServerUrl, EnvUtil::envKey("DOCUMENT_SERVER_URL"), self::DEMO_URL);
+    public function getDocumentServerUrl()
+    {
+        $url = $this->getBaseSettingValue(
+            $this->documentServerUrl,
+            EnvUtil::envKey("DOCUMENT_SERVER_URL"),
+            self::DEMO_URL
+        );
         $url = !empty($url) ? $this->normalizeUrl($url) : "";
         return (string)$url;
     }
 
-    public function getDocumentServerInternalUrl() {
+    public function getDocumentServerInternalUrl()
+    {
         if ($this->useDemo()) {
             return $this->getDocumentServerUrl();
         }
@@ -220,7 +231,8 @@ use Dotenv\Dotenv;
         return (string)$url;
     }
 
-    public function getStorageUrl() {
+    public function getStorageUrl()
+    {
         $url = $this->getSetting($this->storageUrl);
         return !empty($url) ? $url : "";
     }
@@ -232,14 +244,18 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function replaceDocumentServerUrlToInternal($url) {
+    public function replaceDocumentServerUrlToInternal($url)
+    {
         $documentServerUrl = $this->getDocumentServerInternalUrl();
         if (!empty($documentServerUrl)) {
             $from = $this->getDocumentServerUrl();
 
             if (!preg_match("/^https?:\/\//i", $from)) {
                 $parsedUrl = parse_url($url);
-                $from = $parsedUrl["scheme"] . "://" . $parsedUrl["host"] . (array_key_exists("port", $parsedUrl) ? (":" . $parsedUrl["port"]) : "") . $from;
+                $from = $parsedUrl["scheme"].
+                "://".
+                $parsedUrl["host"].
+                (array_key_exists("port", $parsedUrl) ? (":" . $parsedUrl["port"]) : "") . $from;
             }
 
             $url = $from !== $documentServerUrl ?? str_replace($from, $documentServerUrl, $url);
@@ -247,7 +263,8 @@ use Dotenv\Dotenv;
         return $url;
     }
 
-    private function getDocumentServerCustomUrl($settingKey, $useInternalUrl = false) {
+    private function getDocumentServerCustomUrl($settingKey, $useInternalUrl = false)
+    {
         if (!$useInternalUrl) {
             $serverUrl = $this->getDocumentServerUrl();
         } else {
@@ -268,8 +285,10 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getDocumentServerApiUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/web-apps/apps/api/documents/api.js");
+    public function getDocumentServerApiUrl($useInternalUrl = false)
+    {
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_URL", $useInternalUrl) ?:
+        $this->normalizeUrl($this->getDocumentServerUrl()."/web-apps/apps/api/documents/api.js");
     }
 
     /**
@@ -277,8 +296,10 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getDocumentServerPreloaderUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_PRELOADER_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/web-apps/apps/api/documents/cache-scripts.html");
+    public function getDocumentServerPreloaderUrl($useInternalUrl = false)
+    {
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_API_PRELOADER_URL", $useInternalUrl) ?:
+        $this->normalizeUrl($this->getDocumentServerUrl()."/web-apps/apps/api/documents/cache-scripts.html");
     }
 
     /**
@@ -286,8 +307,10 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getDocumentServerHealthcheckUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_HEALTHCHECK_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/healthcheck");
+    public function getDocumentServerHealthcheckUrl($useInternalUrl = false)
+    {
+        return $this->getDocumentServerCustomUrl("DOCUMENT_SERVER_HEALTHCHECK_URL", $useInternalUrl) ?:
+        $this->normalizeUrl($this->getDocumentServerUrl()."/healthcheck");
     }
 
     /**
@@ -295,8 +318,10 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getConvertServiceUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("CONVERT_SERVICE_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/ConvertService.ashx");
+    public function getConvertServiceUrl($useInternalUrl = false)
+    {
+        return $this->getDocumentServerCustomUrl("CONVERT_SERVICE_URL", $useInternalUrl) ?:
+        $this->normalizeUrl($this->getDocumentServerUrl()."/ConvertService.ashx");
     }
 
     /**
@@ -304,8 +329,10 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getCommandServiceUrl($useInternalUrl = false) {
-        return $this->getDocumentServerCustomUrl("COMMAND_SERVICE_URL", $useInternalUrl) ?: $this->normalizeUrl($this->getDocumentServerUrl()."/coauthoring/CommandService.ashx");
+    public function getCommandServiceUrl($useInternalUrl = false)
+    {
+        return $this->getDocumentServerCustomUrl("COMMAND_SERVICE_URL", $useInternalUrl) ?:
+        $this->normalizeUrl($this->getDocumentServerUrl()."/coauthoring/CommandService.ashx");
     }
 
     /**
@@ -313,7 +340,8 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getJwtHeader() {
+    public function getJwtHeader()
+    {
         $jwtHeader = $this->getBaseSettingValue($this->jwtHeader, EnvUtil::envKey("JWT_HEADER"), self::DEMO_JWT_HEADER);
         return (string)$jwtHeader;
     }
@@ -323,7 +351,8 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getJwtKey() {
+    public function getJwtKey()
+    {
         $jwtKey = $this->getBaseSettingValue($this->jwtKey, EnvUtil::envKey("JWT_KEY"), self::DEMO_JWT_KEY);
         return (string)$jwtKey;
     }
@@ -333,7 +362,8 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getJwtPrefix() {
+    public function getJwtPrefix()
+    {
         $jwtPrefix = $this->getBaseSettingValue($this->jwtPrefix, EnvUtil::envKey("JWT_PREFIX"), self::DEMO_JWT_PREFIX);
         return (string)$jwtPrefix;
     }
@@ -343,7 +373,8 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function getJwtLeeway() {
+    public function getJwtLeeway()
+    {
         $jwtLeeway = $this->getBaseSettingValue($this->jwtLeeway, EnvUtil::envKey("JWT_LEEWAY"));
         return (string)$jwtLeeway;
     }
@@ -353,9 +384,11 @@ use Dotenv\Dotenv;
      *
      * @return bool
      */
-    public function isIgnoreSSL() {
+    public function isIgnoreSSL()
+    {
         if (!$this->useDemo()) {
-            return boolval($this->getBaseSettingValue($this->httpIgnoreSSL, EnvUtil::envKey("HTTP_IGNORE_SSL"))) === true;
+            return boolval($this->getBaseSettingValue($this->httpIgnoreSSL, EnvUtil::envKey("HTTP_IGNORE_SSL")))
+            === true;
         }
 
         return false;
@@ -382,7 +415,8 @@ use Dotenv\Dotenv;
      *
      * @return string
      */
-    public function processUrl($url) {
+    public function processUrl($url)
+    {
         if ($url !== null && $url !== "/") {
             $url = rtrim($url, "/");
             if (strlen($url) > 0) {
@@ -392,10 +426,10 @@ use Dotenv\Dotenv;
         return $url;
     }
 
-    public function normalizeUrl($url) {
+    public function normalizeUrl($url)
+    {
         $url = preg_replace('/([^:])(\/{2,})/', '$1/', $url);
         $url = filter_var($url, FILTER_SANITIZE_URL);
         return $url;
     }
-
- }
+}

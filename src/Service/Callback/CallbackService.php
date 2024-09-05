@@ -46,14 +46,14 @@ abstract class CallbackService implements CallbackServiceInterface
     protected $settingsManager;
     protected $jwtManager;
 
-    abstract function processTrackerStatusEditing(Callback $callback, string $fileid);
-    abstract function processTrackerStatusMustsave(Callback $callback, string $fileid);
-    abstract function processTrackerStatusCorrupted(Callback $callback, string $fileid);
-    abstract function processTrackerStatusClosed(Callback $callback, string $fileid);
-    abstract function processTrackerStatusForcesave(Callback $callback, string $fileid);
+    abstract public function processTrackerStatusEditing(Callback $callback, string $fileid);
+    abstract public function processTrackerStatusMustsave(Callback $callback, string $fileid);
+    abstract public function processTrackerStatusCorrupted(Callback $callback, string $fileid);
+    abstract public function processTrackerStatusClosed(Callback $callback, string $fileid);
+    abstract public function processTrackerStatusForcesave(Callback $callback, string $fileid);
 
 
-    public function __construct (SettingsManager $settingsManager, JwtManager $jwtManager)
+    public function __construct(SettingsManager $settingsManager, JwtManager $jwtManager)
     {
         $this->settingsManager = $settingsManager;
         $this->jwtManager = $jwtManager;
@@ -61,31 +61,26 @@ abstract class CallbackService implements CallbackServiceInterface
 
     public function verifyCallback(Callback $callback, string $authorizationHeader = "")
     {
-        if ($this->jwtManager->isJwtEnabled())
-        {
+        if ($this->jwtManager->isJwtEnabled()) {
             $token = $callback->getToken();
             $payload = null;
             $fromHeader = false;
  
-            if (!empty($authorizationHeader) )
-            {
+            if (!empty($authorizationHeader)) {
                 $compareHeaders = substr($authorizationHeader, 0, strlen($this->settingsManager->getJwtPrefix()));
-                if ($compareHeaders === $this->settingsManager->getJwtPrefix())
-                {
+                if ($compareHeaders === $this->settingsManager->getJwtPrefix()) {
                     $token = $compareHeaders;
                     $fromHeader = true;
                 }
             }
 
-            if (empty($token)) 
-            {
+            if (empty($token)) {
                 throw new \Exception(CommonError::message(CommonError::CALLBACK_NO_AUTH_TOKEN));
             }
 
             $payload = $this->jwtManager->jwtDecode($token);
             $callbackFromToken = json_decode($payload, true);
-            if ($fromHeader)
-            {
+            if ($fromHeader) {
                 $callbackFromToken = $callbackFromToken["payload"];
             }
 
@@ -98,24 +93,25 @@ abstract class CallbackService implements CallbackServiceInterface
     public function processCallback(Callback $callback, string $fileId)
     {
         switch ($callback->getStatus()->getValue()) {
-            case CallbackDocStatus::EDITING :
+            case CallbackDocStatus::EDITING:
                 return $this->processTrackerStatusEditing($callback, $fileId);
-            case CallbackDocStatus::SAVE :
+            case CallbackDocStatus::SAVE:
                 return $this->processTrackerStatusMustsave($callback, $fileId);
-            case CallbackDocStatus::SAVE_CORRUPTED :
+            case CallbackDocStatus::SAVE_CORRUPTED:
                 return $this->processTrackerStatusCorrupted($callback, $fileId);
-            case CallbackDocStatus::CLOSED :
+            case CallbackDocStatus::CLOSED:
                 return $this->processTrackerStatusClosed($callback, $fileId);
-            case CallbackDocStatus::FORCESAVE :
+            case CallbackDocStatus::FORCESAVE:
                 return $this->processTrackerStatusForcesave($callback, $fileId);
-            case CallbackDocStatus::FORCESAVE_CORRUPTED :
+            case CallbackDocStatus::FORCESAVE_CORRUPTED:
                 return $this->processTrackerStatusCorruptedForcesave($callback, $fileId);
             default:
                 throw new \Exception(CommonError::message(CommonError::CALLBACK_NO_STATUS));
         }
     }
 
-    public function processTrackerStatusCorruptedForcesave(Callback $callback, string $fileid) {
+    public function processTrackerStatusCorruptedForcesave(Callback $callback, string $fileid)
+    {
         return $this->processTrackerStatusForcesave($callback, $fileid);
     }
 }

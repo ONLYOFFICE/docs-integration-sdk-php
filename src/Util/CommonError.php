@@ -27,7 +27,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
  * @package Onlyoffice\DocsIntegrationSdk\Util
  */
 
- class CommonError {
+class CommonError
+{
     const NO_HEALTHCHECK_ENDPOINT = 1;
     const NO_DOCUMENT_SERVER_URL = 2;
     const NO_CONVERT_SERVICE_ENDPOINT = 3;
@@ -51,43 +52,43 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
     public static function message($code): string
     {
         switch ($code) {
-            case self::NO_HEALTHCHECK_ENDPOINT :
+            case self::NO_HEALTHCHECK_ENDPOINT:
                 return "There is no healthcheck endpoint in the application configuration";
-            case self::NO_DOCUMENT_SERVER_URL :
+            case self::NO_DOCUMENT_SERVER_URL:
                 return "There is no document server URL in the application configuration";
-            case self::NO_CONVERT_SERVICE_ENDPOINT :
+            case self::NO_CONVERT_SERVICE_ENDPOINT:
                 return "There is no convert service endpoint in the application configuration";
-            case self::NO_JWT_HEADER :
+            case self::NO_JWT_HEADER:
                 return "There is no JWT header in the application configuration";
-            case self::NO_JWT_PREFIX :
+            case self::NO_JWT_PREFIX:
                 return "There is no JWT prefix in the application configuration";
-            case self::READ_XML :
+            case self::READ_XML:
                 return "Can't read XML";
-            case self::BAD_RESPONSE_XML :
+            case self::BAD_RESPONSE_XML:
                 return "Bad response";
-            case self::NO_COMMAND_ENDPOINT :
+            case self::NO_COMMAND_ENDPOINT:
                 return "There is no command endpoint in the application configuration";
-            case self::MIXED_CONTENT :
+            case self::MIXED_CONTENT:
                 return "Mixed Active Content is not allowed. HTTPS address for ONLYOFFICE Docs is required";
-            case self::BAD_HEALTHCHECK_STATUS :
+            case self::BAD_HEALTHCHECK_STATUS:
                 return "Bad healthcheck status";
-            case self::DOC_SERVICE_ERROR :
+            case self::DOC_SERVICE_ERROR:
                 return "Error occurred in the document service";
-            case self::NOT_SUPPORTED_VERSION :
+            case self::NOT_SUPPORTED_VERSION:
                 return "Not supported version";
-            case self::EMPTY_FORMATS_ASSET :
+            case self::EMPTY_FORMATS_ASSET:
                 return "Formats submodule error";
-            case self::FORMATS_ASSET_JSON_ERROR :
+            case self::FORMATS_ASSET_JSON_ERROR:
                 return "Formats submodule JSON error";
-            case self::UNKNOWN_EXT :
+            case self::UNKNOWN_EXT:
                 return "Unknown file extension";
-            case self::FILE_TEMPLATE_IS_NOT_EXISTS :
+            case self::FILE_TEMPLATE_IS_NOT_EXISTS:
                 return "File template is not exists";
-            case self::NO_API_URL :
+            case self::NO_API_URL:
                 return "There is no document server API URL in the application configuration";
-            case self::CALLBACK_NO_AUTH_TOKEN :
+            case self::CALLBACK_NO_AUTH_TOKEN:
                 return "Not found authorization token";
-            case self::CALLBACK_NO_STATUS :
+            case self::CALLBACK_NO_STATUS:
                 return "Callback has no status";
             default:
                 return "Unknown error";

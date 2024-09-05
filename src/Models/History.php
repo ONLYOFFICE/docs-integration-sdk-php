@@ -26,7 +26,7 @@ class History extends JsonSerializable
     protected $serverVersion;
     protected $changes; // array of Changes
 
-    public function __construct (string $serverVersion = "", array $changes = [])
+    public function __construct(string $serverVersion = "", array $changes = [])
     {
         $this->serverVersion = $serverVersion;
         $this->changes = $changes;
@@ -34,7 +34,7 @@ class History extends JsonSerializable
 
     /**
      * Get the value of serverVersion
-     */ 
+     */
     public function getServerVersion()
     {
         return $this->serverVersion;
@@ -42,7 +42,7 @@ class History extends JsonSerializable
 
     /**
      * Set the value of serverVersion
-     */ 
+     */
     public function setServerVersion($serverVersion)
     {
         $this->serverVersion = $serverVersion;
@@ -50,7 +50,7 @@ class History extends JsonSerializable
 
     /**
      * Set the value of changes
-     */ 
+     */
     public function setChanges($changes)
     {
         $this->changes = $changes;

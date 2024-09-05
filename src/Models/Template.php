@@ -27,7 +27,7 @@ class Template extends JsonSerializable
     protected $title;
     protected $url;
 
-    public function __construct (string $image = "", string $title = "", string $url = "")
+    public function __construct(string $image = "", string $title = "", string $url = "")
     {
         $this->image = $image;
         $this->title = $title;
@@ -36,7 +36,7 @@ class Template extends JsonSerializable
 
     /**
      * Get the value of image
-     */ 
+     */
     public function getImage()
     {
         return $this->image;
@@ -44,7 +44,7 @@ class Template extends JsonSerializable
 
     /**
      * Set the value of image
-     */ 
+     */
     public function setImage($image)
     {
         $this->image = $image;
@@ -52,7 +52,7 @@ class Template extends JsonSerializable
 
     /**
      * Get the value of title
-     */ 
+     */
     public function getTitle()
     {
         return $this->title;
@@ -60,7 +60,7 @@ class Template extends JsonSerializable
 
     /**
      * Set the value of title
-     */ 
+     */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -68,7 +68,7 @@ class Template extends JsonSerializable
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -76,7 +76,7 @@ class Template extends JsonSerializable
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;

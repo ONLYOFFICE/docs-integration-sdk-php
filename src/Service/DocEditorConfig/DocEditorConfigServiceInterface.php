@@ -42,10 +42,11 @@ interface DocEditorConfigServiceInterface
 {
     /**
      * Creates a configuration for the document editor using the User-Agent request header.
-     * 
+     *
      * @param string $fileId The file ID.
      * @param EditorsMode $mode The editor opening mode.
-     * @param string $userAgent The User-Agent request header that is used to determine the platform type ("desktop" or "mobile").
+     * @param string $userAgent The User-Agent request header that is used
+     * to determine the platform type ("desktop" or "mobile").
      * @throws Exception If the processing fails unexpectedly.
      * @return Config
      */
@@ -53,7 +54,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Checks whether the mobile agent is used or not.
-     * 
+     *
      * @param string $userAgent The User-Agent request header.
      * @throws Exception If the processing fails unexpectedly.
      * @return bool
@@ -62,7 +63,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the DocEditorConfig object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @param EditorsMode $mode The editor opening mode.
      * @param Type $type The platform type used to access the document.
@@ -73,7 +74,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the Document object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @param Type $type The platform type used to access the document.
      * @throws Exception If the processing fails unexpectedly.
@@ -83,7 +84,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the Customization object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @throws Exception If the processing fails unexpectedly.
      * @return Customization
@@ -92,7 +93,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the Permissions object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @throws Exception If the processing fails unexpectedly.
      * @return Permissions
@@ -101,7 +102,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the ReferenceData object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @throws Exception If the processing fails unexpectedly.
      * @return ReferenceData
@@ -110,7 +111,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the Info object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @throws Exception If the processing fails unexpectedly.
      * @return Info
@@ -119,7 +120,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the CoEditing object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @param EditorsMode The editor opening mode.
      * @param Type The platform type used to access the document.
@@ -130,7 +131,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the Type object.
-     * 
+     *
      * @param string $userAgent The User-Agent request header.
      * @throws Exception If the processing fails unexpectedly.
      * @return Type
@@ -139,7 +140,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the User object.
-     * 
+     *
      * @throws Exception If the processing fails unexpectedly.
      * @return User
      */
@@ -147,7 +148,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns array of Recent objects.
-     * 
+     *
      * @throws Exception If the processing fails unexpectedly.
      * @return Recent[]
      */
@@ -155,7 +156,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns array of Template objects.
-     * 
+     *
      * @param string $fileId The file ID.
      * @throws Exception If the processing fails unexpectedly.
      * @return Template[]
@@ -164,7 +165,7 @@ interface DocEditorConfigServiceInterface
 
     /**
      * Returns the Embedded object.
-     * 
+     *
      * @param string $fileId The file ID.
      * @throws Exception If the processing fails unexpectedly.
      * @return Embedded

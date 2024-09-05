@@ -35,7 +35,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
  * @package Onlyoffice\DocsIntegrationSdk\Service\Request
  */
 
- abstract class RequestService implements RequestServiceInterface {
+abstract class RequestService implements RequestServiceInterface
+{
 
     /**
      * Minimum supported version of editors
@@ -47,24 +48,29 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
     protected SettingsManager $settingsManager;
     protected JwtManager $jwtManager;
 
-    abstract function getFileUrlForConvert();
+    abstract public function getFileUrlForConvert();
 
-    public function __construct(SettingsManager $settingsManager, HttpClientInterface $httpClient, JwtManager $jwtManager) {
+    public function __construct(
+        SettingsManager $settingsManager,
+        HttpClientInterface $httpClient,
+        JwtManager $jwtManager
+    ) {
         $this->settingsManager = $settingsManager;
         $this->jwtManager = $jwtManager;
         $this->httpClient = $httpClient;
     }
 
-     /**
-     * Request to Document Server
-     *
-     * @param string $url - request address
-     * @param array $method - request method
-     * @param array $opts - request options
-     *
-     * @return string
-     */
-    public function request($url, $method = "GET", $opts = []) {
+    /**
+    * Request to Document Server
+    *
+    * @param string $url - request address
+    * @param array $method - request method
+    * @param array $opts - request options
+    *
+    * @return string
+    */
+    public function request($url, $method = "GET", $opts = [])
+    {
         if ($this->settingsManager->isIgnoreSSL()) {
             $opts["verify"] = false;
         }
@@ -88,7 +94,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @throws Exception
      */
-    public function processConvServResponceError($errorCode) {
+    public function processConvServResponceError($errorCode)
+    {
         $errorMessage = '';
 
         switch ($errorCode) {
@@ -131,7 +138,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @throws Exception
      */
-    public function processCommandServResponceError($errorCode) {
+    public function processCommandServResponceError($errorCode)
+    {
         $errorMessage = "";
 
         switch ($errorCode) {
@@ -167,10 +175,11 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      * Request health status
      *
      * @throws Exception
-     * 
+     *
      * @return bool
      */
-    public function healthcheckRequest() : bool {
+    public function healthcheckRequest() : bool
+    {
         $healthcheckUrl = $this->settingsManager->getDocumentServerHealthcheckUrl();
         if (empty($healthcheckUrl)) {
             throw new \Exception(CommonError::message(CommonError::NO_HEALTHCHECK_ENDPOINT));
@@ -189,12 +198,19 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      * @param string $documentRevisionId - Key for caching on service
      * @param bool - $isAsync - Perform conversions asynchronously
      * @param string $region - Region
-     * 
+     *
      * @throws Exception
      *
      * @return array
      */
-    public function sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, $isAsync, $region = null) {
+    public function sendRequestToConvertService(
+        $documentUri,
+        $fromExtension,
+        $toExtension,
+        $documentRevisionId,
+        $isAsync,
+        $region = null
+    ) {
         $urlToConverter = $this->settingsManager->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
             throw new \Exception(CommonError::message(CommonError::NO_CONVERT_SERVICE_ENDPOINT));
@@ -263,10 +279,10 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
         
         if (!$responseData) {
             $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
-            foreach(libxml_get_errors() as $error) {
+            foreach (libxml_get_errors() as $error) {
                 $exc = $exc . PHP_EOL . $error->message;
             }
-            throw new \Exception ($exc);
+            throw new \Exception($exc);
         }
 
         return $responseData;
@@ -283,16 +299,27 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @return string
      */
-    public function getConvertedUri($documentUri, $fromExtension, $toExtension, $documentRevisionId, $region = null) {
-        $responseFromConvertService = $this->sendRequestToConvertService($documentUri, $fromExtension, $toExtension, $documentRevisionId, false, $region);
+    public function getConvertedUri($documentUri, $fromExtension, $toExtension, $documentRevisionId, $region = null)
+    {
+        $responseFromConvertService = $this->sendRequestToConvertService(
+            $documentUri,
+            $fromExtension,
+            $toExtension,
+            $documentRevisionId,
+            false,
+            $region
+        );
+        // phpcs:ignore
         $errorElement = $responseFromConvertService->Error;
         if ($errorElement->count() > 0) {
             $this->processConvServResponceError($errorElement);
         }
 
+        // phpcs:ignore
         $isEndConvert = $responseFromConvertService->EndConvert;
 
         if ($isEndConvert !== null && strtolower($isEndConvert) === "true") {
+            // phpcs:ignore
             return is_string($responseFromConvertService->FileUrl) ? $responseFromConvertService->FileUrl : $responseFromConvertService->FileUrl->__toString();
         }
 
@@ -306,7 +333,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @return array
      */
-    public function commandRequest($method) {
+    public function commandRequest($method)
+    {
         $urlCommand = $this->settingsManager->getCommandServiceUrl(true);
         if (empty($urlCommand)) {
             throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
@@ -355,7 +383,8 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
      *
      * @return array
      */
-    public function checkDocServiceUrl() {
+    public function checkDocServiceUrl()
+    {
         $version = null;
         $documentServerUrl = $this->settingsManager->getDocumentServerUrl();
         if (empty($documentServerUrl)) {
@@ -404,8 +433,12 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
 
             if (!empty($fileUrl)) {
                 if (!empty($this->settingsManager->getStorageUrl())) {
-                    $fileUrl = str_replace($this->settingsManager->getServerUrl(), $this->settingsManager->getStorageUrl(), $fileUrl);
-                   }
+                    $fileUrl = str_replace(
+                        $this->settingsManager->getServerUrl(),
+                        $this->settingsManager->getStorageUrl(),
+                        $fileUrl
+                    );
+                }
                 $convertedFileUri = $this->getConvertedUri($fileUrl, "docx", "docx", "check_" . rand());
             }
         } catch (\Exception $e) {
@@ -420,5 +453,4 @@ use Onlyoffice\DocsIntegrationSdk\Util\ConvertResponseError;
 
         return ["", $version];
     }
-
 }

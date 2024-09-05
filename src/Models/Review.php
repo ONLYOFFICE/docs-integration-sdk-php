@@ -29,13 +29,13 @@ class Review extends JsonSerializable
     protected $showReviewChanges;
     protected $trackChanges;
 
-    public function __construct (bool $hideReviewDisplay = false,
-                                bool $hoverMode = false,
-                                ReviewDisplay $reviewDisplay = null,
-                                bool $showReviewChanges = false,
-                                bool $trackChanges = true
-                                )
-    {
+    public function __construct(
+        bool $hideReviewDisplay = false,
+        bool $hoverMode = false,
+        ReviewDisplay $reviewDisplay = null,
+        bool $showReviewChanges = false,
+        bool $trackChanges = true
+    ) {
         $this->hideReviewDisplay = $hideReviewDisplay;
         $this->hoverMode = $hoverMode;
         $this->reviewDisplay = $reviewDisplay !== null ? $reviewDisplay : new ReviewDisplay;
@@ -45,7 +45,7 @@ class Review extends JsonSerializable
 
     /**
      * Get the value of hideReviewDisplay
-     */ 
+     */
     public function getHideReviewDisplay()
     {
         return $this->hideReviewDisplay;
@@ -53,7 +53,7 @@ class Review extends JsonSerializable
 
     /**
      * Set the value of hideReviewDisplay
-     */ 
+     */
     public function setHideReviewDisplay($hideReviewDisplay)
     {
         $this->hideReviewDisplay = $hideReviewDisplay;
@@ -61,7 +61,7 @@ class Review extends JsonSerializable
 
     /**
      * Get the value of hoverMode
-     */ 
+     */
     public function getHoverMode()
     {
         return $this->hoverMode;
@@ -69,7 +69,7 @@ class Review extends JsonSerializable
 
     /**
      * Set the value of hoverMode
-     */ 
+     */
     public function setHoverMode($hoverMode)
     {
         $this->hoverMode = $hoverMode;
@@ -77,7 +77,7 @@ class Review extends JsonSerializable
 
     /**
      * Get the value of reviewDisplay
-     */ 
+     */
     public function getReviewDisplay()
     {
         return $this->reviewDisplay;
@@ -85,7 +85,7 @@ class Review extends JsonSerializable
 
     /**
      * Set the value of reviewDisplay
-     */ 
+     */
     public function setReviewDisplay($reviewDisplay)
     {
         $this->reviewDisplay = $reviewDisplay;
@@ -93,7 +93,7 @@ class Review extends JsonSerializable
 
     /**
      * Get the value of showReviewChanges
-     */ 
+     */
     public function getShowReviewChanges()
     {
         return $this->showReviewChanges;
@@ -101,7 +101,7 @@ class Review extends JsonSerializable
 
     /**
      * Set the value of showReviewChanges
-     */ 
+     */
     public function setShowReviewChanges($showReviewChanges)
     {
         $this->showReviewChanges = $showReviewChanges;
@@ -109,7 +109,7 @@ class Review extends JsonSerializable
 
     /**
      * Get the value of trackChanges
-     */ 
+     */
     public function getTrackChanges()
     {
         return $this->trackChanges;
@@ -117,7 +117,7 @@ class Review extends JsonSerializable
 
     /**
      * Set the value of trackChanges
-     */ 
+     */
     public function setTrackChanges($trackChanges)
     {
         $this->trackChanges = $trackChanges;

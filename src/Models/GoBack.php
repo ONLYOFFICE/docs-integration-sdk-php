@@ -20,8 +20,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class GoBack extends JsonSerializable
- {
+class GoBack extends JsonSerializable
+{
     protected $blank;
     protected $requestClose;
     protected $text;
@@ -37,7 +37,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of blank
-     */ 
+     */
     public function getBlank()
     {
         return $this->blank;
@@ -45,7 +45,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of blank
-     */ 
+     */
     public function setBlank($blank)
     {
         $this->blank = $blank;
@@ -53,7 +53,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of requestClose
-     */ 
+     */
     public function getRequestClose()
     {
         return $this->requestClose;
@@ -61,7 +61,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of requestClose
-     */ 
+     */
     public function setRequestClose($requestClose)
     {
         $this->requestClose = $requestClose;
@@ -69,7 +69,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of text
-     */ 
+     */
     public function getText()
     {
         return $this->text;
@@ -77,7 +77,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of text
-     */ 
+     */
     public function setText($text)
     {
         $this->text = $text;
@@ -85,7 +85,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -93,9 +93,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;
     }
- }
+}

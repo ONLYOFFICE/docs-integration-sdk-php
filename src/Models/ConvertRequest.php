@@ -21,8 +21,8 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
- class ConvertRequest extends JsonSerializable
- {
+class ConvertRequest extends JsonSerializable
+{
     protected $async;
     protected $codePage;
     protected $delimiter;
@@ -36,21 +36,21 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
     protected $token;
     protected $url;
 
-    public function __construct(bool $async = false,
-                                int $codepage = 65001,
-                                int $delimiter = 0,
-                                string $filetype = "",
-                                string $key = "",
-                                string $outputtype = "",
-                                string $password = "",
-                                string $region = "",
-                                ?ConvertRequestThumbnail $thumbnail = null,
-                                string $title = "",
-                                string $token = "",
-                                string $url = ""
-    )
-    {
-        $this->async = $async;   
+    public function __construct(
+        bool $async = false,
+        int $codepage = 65001,
+        int $delimiter = 0,
+        string $filetype = "",
+        string $key = "",
+        string $outputtype = "",
+        string $password = "",
+        string $region = "",
+        ?ConvertRequestThumbnail $thumbnail = null,
+        string $title = "",
+        string $token = "",
+        string $url = ""
+    ) {
+        $this->async = $async;
         $this->codePage = $codePage;
         $this->delimiter = $delimiter;
         $this->filetype = $filetype;
@@ -66,7 +66,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of async
-     */ 
+     */
     public function getAsync()
     {
         return $this->async;
@@ -74,7 +74,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of async
-     */ 
+     */
     public function setAsync($async)
     {
         $this->async = $async;
@@ -82,7 +82,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of codePage
-     */ 
+     */
     public function getCodePage()
     {
         return $this->codePage;
@@ -90,7 +90,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of codePage
-     */ 
+     */
     public function setCodePage($codePage)
     {
         $this->codePage = $codePage;
@@ -98,7 +98,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of delimiter
-     */ 
+     */
     public function getDelimiter()
     {
         return $this->delimiter;
@@ -106,7 +106,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of delimiter
-     */ 
+     */
     public function setDelimiter($delimiter)
     {
         $this->delimiter = $delimiter;
@@ -114,7 +114,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of filetype
-     */ 
+     */
     public function getFiletype()
     {
         return $this->filetype;
@@ -122,7 +122,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of filetype
-     */ 
+     */
     public function setFiletype($filetype)
     {
         $this->filetype = $filetype;
@@ -130,7 +130,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of key
-     */ 
+     */
     public function getKey()
     {
         return $this->key;
@@ -138,7 +138,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of key
-     */ 
+     */
     public function setKey($key)
     {
         $this->key = $key;
@@ -146,7 +146,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of outputtype
-     */ 
+     */
     public function getOutputtype()
     {
         return $this->outputtype;
@@ -154,7 +154,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of outputtype
-     */ 
+     */
     public function setOutputtype($outputtype)
     {
         $this->outputtype = $outputtype;
@@ -162,7 +162,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -170,7 +170,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of password
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -178,7 +178,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of region
-     */ 
+     */
     public function getRegion()
     {
         return $this->region;
@@ -186,7 +186,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of region
-     */ 
+     */
     public function setRegion($region)
     {
         $this->region = $region;
@@ -194,7 +194,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of thumbnail
-     */ 
+     */
     public function getThumbnail()
     {
         return $this->thumbnail;
@@ -202,7 +202,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of thumbnail
-     */ 
+     */
     public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
@@ -210,7 +210,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of title
-     */ 
+     */
     public function getTitle()
     {
         return $this->title;
@@ -218,7 +218,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of title
-     */ 
+     */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -226,7 +226,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of token
-     */ 
+     */
     public function getToken()
     {
         return $this->token;
@@ -234,7 +234,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of token
-     */ 
+     */
     public function setToken($token)
     {
         $this->token = $token;
@@ -242,7 +242,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -250,9 +250,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;
     }
- }
+}

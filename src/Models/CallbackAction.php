@@ -21,12 +21,12 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\CallbackActionType;
 
- class CallbackAction extends JsonSerializable
- {
+class CallbackAction extends JsonSerializable
+{
     protected $type;
     protected $userId;
 
-    public function __construct (CallbackActionType $type = null, string $userId = "")
+    public function __construct(CallbackActionType $type = null, string $userId = "")
     {
         $this->type = $type !== null ? $type : new CallbackActionType;
         $this->userId = $userId;
@@ -34,7 +34,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CallbackActionType;
 
     /**
      * Get the value of type
-     */ 
+     */
     public function getType()
     {
         return $this->type;
@@ -42,7 +42,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CallbackActionType;
 
     /**
      * Set the value of type
-     */ 
+     */
     public function setType($type)
     {
         $this->type = $type;
@@ -50,7 +50,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\CallbackActionType;
 
     /**
      * Get the value of userId
-     */ 
+     */
     public function getUserId()
     {
         return $this->userId;
@@ -58,9 +58,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\CallbackActionType;
 
     /**
      * Set the value of userId
-     */ 
+     */
     public function setUserId($userId)
     {
         $this->userId = $userId;
     }
- }
+}

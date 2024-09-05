@@ -35,5 +35,4 @@ class MacrosMode extends BasicEnum
             $this->value = $macrosMode !== null ? $macrosMode : self::WARN;
         }
     }
-
 }

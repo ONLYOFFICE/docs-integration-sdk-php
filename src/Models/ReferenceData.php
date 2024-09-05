@@ -20,13 +20,13 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  *
  */
 
- class ReferenceData extends JsonSerializable
- {
+class ReferenceData extends JsonSerializable
+{
     protected $fileKey;
     protected $instanceId;
     protected $key;
 
-    public function __construct (?string $fileKey = "", ?string $instanceId = "", ?string $key ="")
+    public function __construct(?string $fileKey = "", ?string $instanceId = "", ?string $key = "")
     {
         $this->fileKey = $fileKey;
         $this->instanceId = $instanceId;
@@ -35,7 +35,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of fileKey
-     */ 
+     */
     public function getFileKey()
     {
         return $this->fileKey;
@@ -43,7 +43,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of fileKey
-     */ 
+     */
     public function setFileKey($fileKey)
     {
         $this->fileKey = $fileKey;
@@ -51,7 +51,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of instanceId
-     */ 
+     */
     public function getInstanceId()
     {
         return $this->instanceId;
@@ -59,7 +59,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of instanceId
-     */ 
+     */
     public function setInstanceId($instanceId)
     {
         $this->instanceId = $instanceId;
@@ -67,7 +67,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Get the value of key
-     */ 
+     */
     public function getKey()
     {
         return $this->key;
@@ -75,9 +75,9 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
     /**
      * Set the value of key
-     */ 
+     */
     public function setKey($key)
     {
         $this->key = $key;
     }
- }
+}

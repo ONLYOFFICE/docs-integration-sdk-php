@@ -24,8 +24,8 @@ use Onlyoffice\DocsIntegrationSdk\Models\CallbackForceSaveType;
 use Onlyoffice\DocsIntegrationSdk\Models\CallbackDocStatus;
 use Onlyoffice\DocsIntegrationSdk\Models\History;
 
- class Callback extends JsonSerializable
- {
+class Callback extends JsonSerializable
+{
     protected $actions; //array of CallbackAction
     protected $changesurl;
     protected $fileType;
@@ -37,18 +37,18 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
     protected $users;
     protected $token;
 
-    public function __construct (array $actions = [],
-                                string $changesurl = "",
-                                string $fileType = "",
-                                CallbackForceSaveType $forceSaveType = null,
-                                History $history = null,
-                                string $key = "",
-                                CallbackDocStatus $status = null,
-                                string $url = "",
-                                array $users = [],
-                                string $token = ""
-    )
-    {
+    public function __construct(
+        array $actions = [],
+        string $changesurl = "",
+        string $fileType = "",
+        CallbackForceSaveType $forceSaveType = null,
+        History $history = null,
+        string $key = "",
+        CallbackDocStatus $status = null,
+        string $url = "",
+        array $users = [],
+        string $token = ""
+    ) {
         $this->actions = $actions;
         $this->changesurl = $changesurl;
         $this->fileType = $fileType;
@@ -63,7 +63,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of actions
-     */ 
+     */
     public function getActions()
     {
         return $this->actions;
@@ -71,7 +71,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of actions
-     */ 
+     */
     public function setActions($actions)
     {
         $this->actions = $actions;
@@ -79,7 +79,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of changesurl
-     */ 
+     */
     public function getChangesurl()
     {
         return $this->changesurl;
@@ -87,7 +87,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of changesurl
-     */ 
+     */
     public function setChangesurl($changesurl)
     {
         $this->changesurl = $changesurl;
@@ -95,7 +95,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of fileType
-     */ 
+     */
     public function getFileType()
     {
         return $this->fileType;
@@ -103,7 +103,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of fileType
-     */ 
+     */
     public function setFileType($fileType)
     {
         $this->fileType = $fileType;
@@ -111,7 +111,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of forceSaveType
-     */ 
+     */
     public function getForceSaveType()
     {
         return $this->forceSaveType;
@@ -119,7 +119,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of forceSaveType
-     */ 
+     */
     public function setForceSaveType($forceSaveType)
     {
         $this->forceSaveType = $forceSaveType;
@@ -127,7 +127,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of history
-     */ 
+     */
     public function getHistory()
     {
         return $this->history;
@@ -135,7 +135,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of history
-     */ 
+     */
     public function setHistory($history)
     {
         $this->history = $history;
@@ -143,7 +143,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of key
-     */ 
+     */
     public function getKey()
     {
         return $this->key;
@@ -151,7 +151,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of key
-     */ 
+     */
     public function setKey($key)
     {
         $this->key = $key;
@@ -159,7 +159,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of status
-     */ 
+     */
     public function getStatus()
     {
         return $this->status;
@@ -167,7 +167,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of status
-     */ 
+     */
     public function setStatus($status)
     {
         $this->status = $status;
@@ -175,7 +175,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -183,7 +183,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;
@@ -191,7 +191,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of users
-     */ 
+     */
     public function getUsers()
     {
         return $this->users;
@@ -199,7 +199,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of users
-     */ 
+     */
     public function setUsers($users)
     {
         $this->users = $users;
@@ -207,7 +207,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Get the value of token
-     */ 
+     */
     public function getToken()
     {
         return $this->token;
@@ -215,9 +215,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\History;
 
     /**
      * Set the value of token
-     */ 
+     */
     public function setToken($token)
     {
         $this->token = $token;
     }
- }
+}

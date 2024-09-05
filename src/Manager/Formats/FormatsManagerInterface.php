@@ -27,40 +27,40 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Formats;
  * @package Onlyoffice\DocsIntegrationSdk\Manager\Formats
  */
 
- interface FormatsManagerInterface
- {
+interface FormatsManagerInterface
+{
    /**
     * Returns the list of all formats.
-    * 
+    *
     * @return array List of all formats
     */
     public function getFormatsList();
 
    /**
     * Returns the list of viewable formats.
-    * 
+    *
     * @return array List of viewable formats
     */
     public function getViewableList();
 
    /**
     * Returns the list of editable formats.
-    * 
+    *
     * @return array List of editable formats
     */
     public function getEditableList();
 
    /**
     * Returns the list of convertable formats.
-    * 
+    *
     * @return array List of convertable formats
     */
     public function getConvertableList();
 
    /**
     * Returns the list of fillable formats.
-    * 
+    *
     * @return array List of fillable formats
     */
     public function getFillableList();
- }
+}

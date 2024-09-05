@@ -36,8 +36,15 @@ class Document extends JsonSerializable
     protected $info;
     protected $permissions;
 
-    public function __construct(?string $fileType, ?string $key, ?ReferenceData $referenceData, ?string $title, ?string $url, ?Info $info, ?Permissions $permissions)
-    {
+    public function __construct(
+        ?string $fileType,
+        ?string $key,
+        ?ReferenceData $referenceData,
+        ?string $title,
+        ?string $url,
+        ?Info $info,
+        ?Permissions $permissions
+    ) {
         $this->fileType = $fileType;
         $this->key = $key;
         $this->referenceData = $referenceData;
@@ -49,7 +56,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of fileType
-     */ 
+     */
     public function getFileType()
     {
         return $this->fileType;
@@ -57,7 +64,7 @@ class Document extends JsonSerializable
 
     /**
      * Set the value of fileType
-     */ 
+     */
     public function setFileType($fileType)
     {
         $this->fileType = $fileType;
@@ -65,7 +72,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of key
-     */ 
+     */
     public function getKey()
     {
         return $this->key;
@@ -73,7 +80,7 @@ class Document extends JsonSerializable
 
     /**
      * Set the value of key
-     */ 
+     */
     public function setKey($key)
     {
         $this->key = $key;
@@ -81,7 +88,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of referenceData
-     */ 
+     */
     public function getReferenceData()
     {
         return $this->referenceData;
@@ -90,7 +97,7 @@ class Document extends JsonSerializable
     /**
      * Set the value of referenceData
 
-     */ 
+     */
     public function setReferenceData($referenceData)
     {
         $this->referenceData = $referenceData;
@@ -98,7 +105,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of title
-     */ 
+     */
     public function getTitle()
     {
         return $this->title;
@@ -106,7 +113,7 @@ class Document extends JsonSerializable
 
     /**
      * Set the value of title
-     */ 
+     */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -114,7 +121,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of url
-     */ 
+     */
     public function getUrl()
     {
         return $this->url;
@@ -122,7 +129,7 @@ class Document extends JsonSerializable
 
     /**
      * Set the value of url
-     */ 
+     */
     public function setUrl($url)
     {
         $this->url = $url;
@@ -130,7 +137,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of info
-     */ 
+     */
     public function getInfo()
     {
         return $this->info;
@@ -138,7 +145,7 @@ class Document extends JsonSerializable
 
     /**
      * Set the value of info
-     */ 
+     */
     public function setInfo($info)
     {
         $this->info = $info;
@@ -146,7 +153,7 @@ class Document extends JsonSerializable
 
     /**
      * Get the value of permissions
-     */ 
+     */
     public function getPermissions()
     {
         return $this->permissions;
@@ -154,7 +161,7 @@ class Document extends JsonSerializable
 
     /**
      * Set the value of permissions
-     */ 
+     */
     public function setPermissions($permissions)
     {
         $this->permissions = $permissions;

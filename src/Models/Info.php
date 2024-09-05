@@ -21,21 +21,21 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
  */
 use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
- class Info extends JsonSerializable
- {
+class Info extends JsonSerializable
+{
     protected $favorite;
     protected $folder;
     protected $owner;
     protected $sharingSettings; // array of SharingSettings
     protected $uploaded;
 
-    public function __construct(bool $favorite = false,
-                                string $folder = "",
-                                string $owner = "",
-                                array $sharingSettings = [],
-                                string $uploaded = ""
-                                )
-    {
+    public function __construct(
+        bool $favorite = false,
+        string $folder = "",
+        string $owner = "",
+        array $sharingSettings = [],
+        string $uploaded = ""
+    ) {
         $this->favorite = $favorite;
         $this->folder = $folder;
         $this->owner = $owner;
@@ -45,7 +45,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Get the value of favorite
-     */ 
+     */
     public function getFavorite()
     {
         return $this->favorite;
@@ -53,7 +53,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Set the value of favorite
-     */ 
+     */
     public function setFavorite($favorite)
     {
         $this->favorite = $favorite;
@@ -61,7 +61,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Get the value of folder
-     */ 
+     */
     public function getFolder()
     {
         return $this->folder;
@@ -69,7 +69,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Set the value of folder
-     */ 
+     */
     public function setFolder($folder)
     {
         $this->folder = $folder;
@@ -77,7 +77,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Get the value of owner
-     */ 
+     */
     public function getOwner()
     {
         return $this->owner;
@@ -85,7 +85,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Set the value of owner
-     */ 
+     */
     public function setOwner($owner)
     {
         $this->owner = $owner;
@@ -93,7 +93,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Get the value of sharingSettings
-     */ 
+     */
     public function getSharingSettings()
     {
         return $this->sharingSettings;
@@ -101,7 +101,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Set the value of sharingSettings
-     */ 
+     */
     public function setSharingSettings($sharingSettings)
     {
         $this->sharingSettings = $sharingSettings;
@@ -109,7 +109,7 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Get the value of uploaded
-     */ 
+     */
     public function getUploaded()
     {
         return $this->uploaded;
@@ -117,9 +117,9 @@ use Onlyoffice\DocsIntegrationSdk\Models\SharingSettings;
 
     /**
      * Set the value of uploaded
-     */ 
+     */
     public function setUploaded($uploaded)
     {
         $this->uploaded = $uploaded;
     }
- }
+}
