@@ -141,19 +141,19 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
    }
 
    public function getPermissions(string $fileId = "") {
-      return new Permissions;
+      return null;
    }
 
    public function getReferenceData(string $fileId = "") {
-      return new ReferenceData;
+      return null;
    }
 
    public function getInfo(string $fileId = "") {
-      return new Info;
+      return null;
    }
 
    public function getCoEditing(string $fileId = "", EditorsMode $mode = null, Type $type) {
-      return new CoEditing;
+      return null;
    }
 
    public function getType(string $userAgent = "") {
@@ -161,21 +161,19 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
    }
 
    public function getUser() {
-      return new User;
+      return null;
    }
 
    public function getRecent() {
-      $recent = new Recent;
-      return $recent;
+      return null;
    }
 
    public function getTemplates($fileId) {
-      $template = new Template;
-      return $template;
+      return null;
    }
 
    public function getEmbedded($fileId) {
-      return new Embedded;
+      return null;
    }
 
    public function getLang() {

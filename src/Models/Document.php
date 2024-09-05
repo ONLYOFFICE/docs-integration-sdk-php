@@ -36,7 +36,7 @@ class Document extends JsonSerializable
     protected $info;
     protected $permissions;
 
-    public function __construct(string $fileType, string $key, ReferenceData $referenceData, string $title, string $url, Info $info, Permissions $permissions)
+    public function __construct(?string $fileType, ?string $key, ?ReferenceData $referenceData, ?string $title, ?string $url, ?Info $info, ?Permissions $permissions)
     {
         $this->fileType = $fileType;
         $this->key = $key;

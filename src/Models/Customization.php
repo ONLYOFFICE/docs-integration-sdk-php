@@ -58,65 +58,65 @@ class Customization extends JsonSerializable
     protected $unit;
     protected $zoom;
 
-    public function __construct (Anonymous $anonymous = null,
-                                bool $autosave = true,
-                                bool $comments = true,
-                                bool $compactHeader = false,
-                                bool $compactToolbar = false,
-                                bool $compatibleFeatures = false,
-                                Customer $customer = null,
-                                Features $features = null,
-                                bool $feedback = false,
-                                bool $forcesave = false,
-                                GoBack $goback = null,
-                                bool $help = true,
-                                bool $hideNotes = false,
-                                bool $hideRightMenu = false,
-                                bool $hideRulers = false,
-                                string $integrationMode = "embed",
-                                Logo $logo = null,
-                                bool $macros = true,
-                                MacrosMode $macrosMode = null,
-                                bool $mentionShare = true,
-                                bool $mobileForceView = true,
-                                bool $plugins = true,
-                                Review $review = null,
-                                bool $submitForm = false,
-                                bool $toolbarHideFileName = false,
-                                bool $toolbarNoTabs = false,
-                                string $uiTheme = "",
-                                Unit $unit = null,
-                                int $zoom = 100
+    public function __construct (?Anonymous $anonymous = null,
+                                ?bool $autosave = null,
+                                ?bool $comments = null,
+                                ?bool $compactHeader = null,
+                                ?bool $compactToolbar = null,
+                                ?bool $compatibleFeatures = null,
+                                ?Customer $customer = null,
+                                ?Features $features = null,
+                                ?bool $feedback = null,
+                                ?bool $forcesave = null,
+                                ?GoBack $goback = null,
+                                ?bool $help = true,
+                                ?bool $hideNotes = null,
+                                ?bool $hideRightMenu = null,
+                                ?bool $hideRulers = null,
+                                ?string $integrationMode = "embed",
+                                ?Logo $logo = null,
+                                ?bool $macros = null,
+                                ?MacrosMode $macrosMode = null,
+                                ?bool $mentionShare = null,
+                                ?bool $mobileForceView = null,
+                                ?bool $plugins = null,
+                                ?Review $review = null,
+                                ?bool $submitForm = null,
+                                ?bool $toolbarHideFileName = null,
+                                ?bool $toolbarNoTabs = null,
+                                ?string $uiTheme = "",
+                                ?Unit $unit = null,
+                                ?int $zoom = 100
                                 )
     {
-        $this->anonymous =  $anonymous !== null ? $anonymous : new Anonymous;
+        $this->anonymous =  $anonymous;
         $this->autosave = $autosave;
         $this->comments = $comments;
         $this->compactHeader = $compactHeader;
         $this->compactToolbar = $compactToolbar;
         $this->compatibleFeatures = $compatibleFeatures;
-        $this->customer = $customer !== null ? $customer : new Customer;
-        $this->features = $features !== null ? $features : new Features;
+        $this->customer = $customer;
+        $this->features = $features;
         $this->feedback = $feedback;
         $this->forcesave = $forcesave;
-        $this->goback = $goback !== null ? $goback : new GoBack;
+        $this->goback = $goback;
         $this->help = $help;
         $this->hideNotes = $hideNotes;
         $this->hideRightMenu = $hideRightMenu;
         $this->hideRulers = $hideRulers;
         $this->integrationMode = $integrationMode;
-        $this->logo = $logo !== null ? $logo : new Logo;
+        $this->logo = $logo;
         $this->macros = $macros;
-        $this->macrosMode = $macrosMode !== null ? $macrosMode : new MacrosMode;
+        $this->macrosMode = $macrosMode;
         $this->mentionShare = $mentionShare;
         $this->mobileForceView = $mobileForceView;
         $this->plugins = $plugins;
-        $this->review = $review !== null ? $review : new Review;
+        $this->review = $review;
         $this->submitForm = $submitForm;
         $this->toolbarHideFileName = $toolbarHideFileName;
         $this->toolbarNoTabs = $toolbarNoTabs;
         $this->uiTheme = $uiTheme;
-        $this->unit = $unit !== null ? $unit : new Unit;
+        $this->unit = $unit;
         $this->zoom = $zoom;
     }
 

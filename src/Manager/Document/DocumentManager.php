@@ -107,7 +107,7 @@ use Onlyoffice\DocsIntegrationSdk\Util\CommonError;
                 }
             }
             if ($search === null) {
-                throw new \Exception(CommonError::message(CommonError::UNKNOWN_EXT));
+                return null;
             }
         } else {
             $search = $formats[$extension];

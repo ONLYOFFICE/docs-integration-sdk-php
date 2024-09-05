@@ -42,31 +42,31 @@ use Onlyoffice\DocsIntegrationSdk\Models\Embedded;
     protected $customization;
     protected $embedded;
 
-    public function __construct (string $callbackUrl = "",
-                                CoEditing $coEditing = null,
-                                string $createUrl = "",
-                                string $lang = "en",
-                                string $location = "",
-                                EditorsMode $mode = null,
-                                array $recent = [],
-                                string $region = "en-US",
-                                array $templates = [],
-                                User $user = null,
-                                Customization $customization = null,
-                                Embedded $embedded = null)
+    public function __construct (?string $callbackUrl = "",
+                                ?CoEditing $coEditing = null,
+                                ?string $createUrl = "",
+                                ?string $lang = "en",
+                                ?string $location = "",
+                                ?EditorsMode $mode = null,
+                                ?array $recent = null,
+                                ?string $region = "en-US",
+                                ?array $templates = null,
+                                ?User $user = null,
+                                ?Customization $customization = null,
+                                ?Embedded $embedded = null)
     {
         $this->callbackUrl = $callbackUrl;
-        $this->coEditing = $coEditing !== null ? $coEditing : new CoEditing;
+        $this->coEditing = $coEditing;
         $this->createUrl = $createUrl;
         $this->lang = $lang;
         $this->location = $location;
-        $this->mode = $mode !== null ? $mode : new EditorsMode;
+        $this->mode = $mode;
         $this->recent = $recent;
         $this->region = $region;
         $this->templates = $templates;
-        $this->user = $user !== null ? $user : new User;
-        $this->customization = $customization !== null ? $customization : new Customization;
-        $this->embedded = $embedded !== null ? $embedded : new Embedded;
+        $this->user = $user;
+        $this->customization = $customization;
+        $this->embedded = $embedded;
     }
 
     /**
