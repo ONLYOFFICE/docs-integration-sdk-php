@@ -1,8 +1,21 @@
 {
     "name": "onlyoffice/docs-integration-sdk",
-    "description": "ONLYOFFICE Docs integration SDK",
     "type": "library",
+    "description": "ONLYOFFICE Docs integration SDK",
+    "keywords": ["onlyoffice"],
+    "homepage": "https://www.onlyoffice.com",
     "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Ascensio System SIA"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ONLYOFFICE/docs-integration-sdk-php/issues",
+        "source": "https://github.com/ONLYOFFICE/docs-integration-sdk-php",
+        "email": "support@onlyoffice.com",
+        "forum": "https://forum.onlyoffice.com/"
+    },
     "autoload": {
         "psr-4": {
             "Onlyoffice\\DocsIntegrationSdk\\": "src/",
@@ -16,11 +29,6 @@
             "Onlyoffice\\DocsIntegrationSdk\\Util\\": "src/util/"
         }
     },
-    "authors": [
-        {
-            "name": "Ascensio System SIA"
-        }
-    ],
     "require": {
         "vlucas/phpdotenv": "^5.6"
     },
