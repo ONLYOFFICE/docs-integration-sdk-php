@@ -18,7 +18,7 @@ ONLYOFFICE Docs Integration PHP SDK provides common interfaces and default imple
 
 | Service                       | Description                                                             | Default implementation           |
 | ----------------------------- | ----------------------------------------------------------------------- | -------------------------------- |
-| CallbackServiceInterface | This service is used for processing the response of the document server. | CallbackService (abstract) |
+| CallbackServiceInterface | This service is used for processing the response of the Document Server. | CallbackService (abstract) |
 | DocEditorConfigServiceInterface | This configuration generation service is used for opening the document editor. | DocEditorConfigService |
 | RequestServiceInterface | This service is used to make requests to the ONLYOFFICE Document Server. | RequestService (abstract) |
 
@@ -60,7 +60,7 @@ ONLYOFFICE Docs Integration PHP SDK provides common interfaces and default imple
         return "https://example-server.example/fileId";
     }
     ```
-2. Implement the methods of the abstract **JwtManager** class (use third party libraries for JWT encoding and decoding, whichever is convenient for you):
+2. Implement the methods of the abstract **JwtManager** class (use third-party libraries for JWT encoding and decoding, whichever is convenient for you):
     ```php
     public function encode($token, $key, $algorithm = "HS256")
     {
@@ -125,7 +125,7 @@ ONLYOFFICE Docs Integration PHP SDK provides common interfaces and default imple
         // return json_encode($someTrackResult);
     }
     ```
-5. Create a class that implements the **HttpClientInterface** interface (use PHP Client URL Library or any other third party library to make requests):
+5. Create a class that implements the **HttpClientInterface** interface (use PHP Client URL Library or any other third-party library to make requests):
     ```php
     class YourHttpClient implements HttpClientInterface
     {
@@ -159,4 +159,4 @@ ONLYOFFICE Docs Integration PHP SDK provides common interfaces and default imple
         return "https://example-server.example/file-url-for-check-convert";
     }
     ```
-7. Use DocEditorConfigService to create a config model for Editors in your own controllers.
+7. Use DocEditorConfigService to create a config model for the editors in your own controllers.
