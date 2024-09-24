@@ -1,7 +1,0 @@
-[submodule "resources/assets/document-templates"]
-	path = resources/assets/document-templates
-	url = https://github.com/ONLYOFFICE/document-templates
-	branch = main/new
-[submodule "resources/assets/document-formats"]
-	path = resources/assets/document-formats
-	url = https://github.com/ONLYOFFICE/document-formats
