@@ -33,7 +33,7 @@ class CallbackDocStatus extends BasicEnum
     public function __construct($status = null)
     {
         if (!self::isValidValue($status) && $status !== null) {
-            throw new Exception("Unknown callback document status");
+            throw new \Exception("Unknown callback document status");
         } else {
             $this->value= $status;
         }

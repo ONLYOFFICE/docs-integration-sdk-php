@@ -30,7 +30,7 @@ class CallbackForceSaveType extends BasicEnum
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
-            throw new Exception("Unknown callback forcesave type");
+            throw new \Exception("Unknown callback forcesave type");
         } else {
             $this->value = $type;
         }

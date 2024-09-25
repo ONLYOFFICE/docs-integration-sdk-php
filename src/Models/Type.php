@@ -31,7 +31,7 @@ class Type extends BasicEnum
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
-            throw new Exception("Unknown editors type");
+            throw new \Exception("Unknown editors type");
         } else {
             $this->value = $type !== null ? $type : self::DESKTOP;
         }
