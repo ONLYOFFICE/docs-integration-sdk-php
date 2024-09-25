@@ -30,7 +30,7 @@ class CallbackActionType extends BasicEnum
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
-            throw new Exception("Unknown callback action type");
+            throw new \Exception("Unknown callback action type");
         } else {
             $this->value = $type;
         }
