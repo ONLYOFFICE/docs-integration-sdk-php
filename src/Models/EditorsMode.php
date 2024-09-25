@@ -29,7 +29,7 @@ class EditorsMode extends BasicEnum
     public function __construct($editorsMode = null)
     {
         if (!self::isValidValue($editorsMode) && $editorsMode !== null) {
-            throw new Exception("Unknown editors mode");
+            throw new \Exception("Unknown editors mode");
         } else {
             $this->value = $editorsMode !== null ? $editorsMode : self::EDIT;
         }

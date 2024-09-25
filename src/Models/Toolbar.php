@@ -29,7 +29,7 @@ class Toolbar extends BasicEnum
     public function __construct($toolbar = null)
     {
         if (!self::isValidValue($toolbar) && $toolbar !== null) {
-            throw new Exception("Unknown toolbar type");
+            throw new \Exception("Unknown toolbar type");
         } else {
             $this->value = $toolbar !== null ? $toolbar : self::TOP;
         }

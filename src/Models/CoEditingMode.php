@@ -29,7 +29,7 @@ class CoEditingMode extends BasicEnum
     public function __construct($mode = null)
     {
         if (!self::isValidValue($mode) && $mode !== null) {
-            throw new Exception("Unknown co-editing mode");
+            throw new \Exception("Unknown co-editing mode");
         } else {
             $this->value = $mode !== null ? $mode : self::FAST;
         }

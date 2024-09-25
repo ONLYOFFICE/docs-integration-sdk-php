@@ -31,7 +31,7 @@ class Unit extends BasicEnum
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
-            throw new Exception("Unknown unit type");
+            throw new \Exception("Unknown unit type");
         } else {
             $this->value = $type !== null ? $type : self::CM;
         }

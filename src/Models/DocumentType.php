@@ -26,11 +26,12 @@ class DocumentType extends BasicEnum
     const WORD = "word";
     const CELL = "cell";
     const SLIDE = "slide";
+    const PDF = "pdf";
 
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
-            throw new Exception("Unknown document type");
+            throw new \Exception("Unknown document type");
         } else {
             $this->value = $type;
         }

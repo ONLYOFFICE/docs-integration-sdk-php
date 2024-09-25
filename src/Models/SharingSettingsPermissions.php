@@ -30,7 +30,7 @@ class SharingSettingsPermissions extends BasicEnum
     public function __construct($type = null)
     {
         if (!self::isValidValue($type) && $type !== null) {
-            throw new Exception("Unknown sharing settings permission type");
+            throw new \Exception("Unknown sharing settings permission type");
         } else {
             $this->value = $type !== null ? $type : self::FULL_ACCESS;
         }
