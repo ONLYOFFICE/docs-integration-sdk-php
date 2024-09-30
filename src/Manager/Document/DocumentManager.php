@@ -70,7 +70,7 @@ abstract class DocumentManager implements DocumentManagerInterface
         if (isset(static::getLangMapping()[$systemLangCode]) && !empty(static::getLangMapping()[$systemLangCode])) {
             $locale = static::getLangMapping()[$systemLangCode];
         } else {
-            $locale = "en-US";
+            $locale = "default";
         }
         $this->formats = $formats;
         $this->settingsManager = $settingsManager;

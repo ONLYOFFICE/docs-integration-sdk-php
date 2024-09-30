@@ -1,5 +1,8 @@
 # Change Log
 
+##
+- default empty templates
+
 ## 0.0.4
 - minor fixes
 
