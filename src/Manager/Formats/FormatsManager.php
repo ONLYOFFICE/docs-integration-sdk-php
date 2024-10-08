@@ -36,7 +36,7 @@ class FormatsManager implements FormatsManagerInterface
      *
      * @var array
      */
-    private $formatsList;
+    protected $formatsList;
 
     public function __construct($nameAssoc = false)
     {
@@ -48,7 +48,7 @@ class FormatsManager implements FormatsManagerInterface
         }
     }
 
-    private function buildDefaultFormatsArray(array $formats)
+    protected function buildDefaultFormatsArray(array $formats)
     {
         $formatsList = [];
         foreach ($formats as $format) {
@@ -63,7 +63,7 @@ class FormatsManager implements FormatsManagerInterface
         return $formatsList;
     }
 
-    private function buildNamedFormatsArray(array $formats)
+    protected function buildNamedFormatsArray(array $formats)
     {
         $formatsList = [];
         foreach ($formats as $format) {
