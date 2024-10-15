@@ -102,7 +102,7 @@ abstract class SettingsManager implements SettingsManagerInterface
     protected $httpIgnoreSSL = "ignoreSSL";
 
     /** The demo url. */
-    protected const DEMO_URL = "https://onlinedocs.onlyoffice.com/";
+    protected const DEMO_URL = "https://onlinedocs.docs.onlyoffice.com/";
     /** The demo security header. */
     protected const DEMO_JWT_HEADER = "AuthorizationJWT";
     /** The demo security key. */

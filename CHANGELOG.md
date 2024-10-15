@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0
+- common interfaces
+- list supported formats
+- empty file templates
+- demo server settings
+
 ## 0.0.5
 - default empty templates
 
