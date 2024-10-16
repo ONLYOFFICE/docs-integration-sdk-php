@@ -48,7 +48,7 @@ class FormatsManager implements FormatsManagerInterface
         }
     }
 
-    protected function buildDefaultFormatsArray(array $formats)
+    protected static function buildDefaultFormatsArray(array $formats)
     {
         $formatsList = [];
         foreach ($formats as $format) {
@@ -63,7 +63,7 @@ class FormatsManager implements FormatsManagerInterface
         return $formatsList;
     }
 
-    protected function buildNamedFormatsArray(array $formats)
+    protected static function buildNamedFormatsArray(array $formats)
     {
         $formatsList = [];
         foreach ($formats as $format) {
@@ -79,7 +79,7 @@ class FormatsManager implements FormatsManagerInterface
         return $formatsList;
     }
 
-    private function getFormats()
+    private static function getFormats()
     {
         $formats = file_get_contents(dirname(dirname(dirname(__DIR__))).
         DIRECTORY_SEPARATOR.
