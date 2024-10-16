@@ -1,5 +1,8 @@
 # Change Log
 
+##
+- fix settings check
+
 ## 1.0.0
 - common interfaces
 - list supported formats
