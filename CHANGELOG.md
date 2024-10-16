@@ -1,6 +1,6 @@
 # Change Log
 
-##
+## 1.0.1
 - fix settings check
 
 ## 1.0.0
