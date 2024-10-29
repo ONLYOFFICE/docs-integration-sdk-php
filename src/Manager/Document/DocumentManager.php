@@ -285,4 +285,64 @@ abstract class DocumentManager implements DocumentManagerInterface
         $key = substr($key, 0, min(array(strlen($key), 20)));
         return $key;
     }
+
+    /**
+     * Checking pdf onlyoffice form
+     *
+     * @param string $filePath path to the file
+     * @return bool
+     */
+    public function isOnlyofficeForm($filePath) {
+        if (empty($filePath)) {
+            return false;
+        }
+        if ($this->getExt($filePath) !== "pdf") {
+            return false;
+        }
+
+        $limitDetect = 300;
+        $content = file_get_contents($filePath, false, null, 0, $limitDetect);
+
+        if ($content === false) {
+            return false;
+        }
+        
+        $onlyofficeFormMetaTag = "ONLYOFFICEFORM";
+
+        $indexFirst = strpos($content, "%\xCD\xCA\xD2\xA9\x0D");
+        if ($indexFirst === false) {
+            return false;
+        }
+
+        $pFirst = substr($content, $indexFirst + 6);
+        if (!str_starts_with($pFirst, "1 0 obj\n<<\n")) {
+            return false;
+        }
+
+        $pFirst = substr($pFirst, 11);
+
+        $indexStream = strpos($pFirst, "stream\x0D\x0A");
+        $indexMeta = strpos($pFirst, $onlyofficeFormMetaTag);
+
+        if ($indexStream === false || $indexMeta === false || $indexStream < $indexMeta) {
+            return false;
+        }
+
+        $pMeta = substr($pFirst, $indexMeta);
+        $pMeta = substr($pMeta, strlen($onlyofficeFormMetaTag) + 3);
+
+        $indexMetaLast = strpos($pMeta, " ");
+        if ($indexMetaLast === false) {
+            return false;
+        }
+
+        $pMeta = substr($pMeta, $indexMetaLast + 1);
+
+        $indexMetaLast = strpos($pMeta, " ");
+        if ($indexMetaLast === false) {
+            return false;
+        }
+
+        return true;
+    }
 }
