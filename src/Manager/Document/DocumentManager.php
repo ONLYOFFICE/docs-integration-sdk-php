@@ -39,6 +39,8 @@ abstract class DocumentManager implements DocumentManagerInterface
     private const FORMATINFO_MIMES = "mimes";
     private const FORMATINFO_MIME = "mime";
 
+    public const FILE_DATA_LIMIT = 300;
+
     /**
      * Formats list
      */
@@ -300,8 +302,7 @@ abstract class DocumentManager implements DocumentManagerInterface
             return false;
         }
 
-        $limitDetect = 300;
-        $content = file_get_contents($filePath, false, null, 0, $limitDetect);
+        $content = file_get_contents($filePath, false, null, 0, self::FILE_DATA_LIMIT);
 
         if ($content === false) {
             return false;
