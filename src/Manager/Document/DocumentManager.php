@@ -289,33 +289,20 @@ abstract class DocumentManager implements DocumentManagerInterface
     }
 
     /**
-     * Checking pdf onlyoffice form
+     * Checking pdf onlyoffice form by file content
      *
-     * @param string $filePath path to the file
+     * @param string $fileContent file content
      * @return bool
      */
-    public function isOnlyofficeForm($filePath) {
-        if (empty($filePath)) {
-            return false;
-        }
-        if ($this->getExt($filePath) !== "pdf") {
-            return false;
-        }
-
-        $content = file_get_contents($filePath, false, null, 0, self::FILE_DATA_LIMIT);
-
-        if ($content === false) {
-            return false;
-        }
-        
+    public function isOnlyofficeForm($fileContent) {
         $onlyofficeFormMetaTag = "ONLYOFFICEFORM";
 
-        $indexFirst = strpos($content, "%\xCD\xCA\xD2\xA9\x0D");
+        $indexFirst = strpos($fileContent, "%\xCD\xCA\xD2\xA9\x0D");
         if ($indexFirst === false) {
             return false;
         }
 
-        $pFirst = substr($content, $indexFirst + 6);
+        $pFirst = substr($fileContent, $indexFirst + 6);
         if (!str_starts_with($pFirst, "1 0 obj\n<<\n")) {
             return false;
         }
@@ -345,5 +332,63 @@ abstract class DocumentManager implements DocumentManagerInterface
         }
 
         return true;
+    }
+
+    /**
+     * Getting limited content from file source
+     *
+     * @param string $source file source for get content
+     * @return bool|string
+     */
+    public function getFileLimitedContent($source) {
+        $content = file_get_contents($source, false, null, 0, self::FILE_DATA_LIMIT);
+        if ($content === false) {
+            return false;
+        }
+
+        return $content;
+    }
+
+    /**
+     * Checking pdf onlyoffice form by file path
+     *
+     * @param string $filePath path to the file
+     * @return bool
+     */
+    public function checkOnlyofficeFormByPath($filePath) {
+        if (empty($filePath)) {
+            return false;
+        }
+
+        if ($this->getExt($filePath) !== "pdf") {
+            return false;
+        }
+
+        $fileContent = $this->getFileLimitedContent($filePath);
+        if ($fileContent === false) {
+            return false;
+        }
+        
+        return $this->isOnlyofficeForm($fileContent);
+    }
+
+
+    /**
+     * Checking pdf onlyoffice form by url
+     *
+     * @param string $fileUrl url to the file
+     * @return bool
+     */
+    public function checkOnlyofficeFormByUrl($fileUrl) {
+        if (filter_var($fileUrl, FILTER_VALIDATE_URL) === false) {
+            return false;
+        }
+
+        $fileContent = $this->getFileLimitedContent($fileUrl);
+        if ($fileContent === false) {
+            return false;
+        }
+        
+        return $this->isOnlyofficeForm($fileContent);
     }
 }
