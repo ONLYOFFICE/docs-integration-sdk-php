@@ -1,5 +1,9 @@
 # Change Log
 
+##
+## Added
+ - methods for check PDF form
+
 ## 1.0.1
 - minor fixes
 - fix settings check
