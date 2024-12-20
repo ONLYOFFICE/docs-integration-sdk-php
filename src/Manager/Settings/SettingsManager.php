@@ -258,7 +258,9 @@ abstract class SettingsManager implements SettingsManagerInterface
                 (array_key_exists("port", $parsedUrl) ? (":" . $parsedUrl["port"]) : "") . $from;
             }
 
-            $url = $from !== $documentServerUrl ?? str_replace($from, $documentServerUrl, $url);
+            if ($from !== $documentServerUrl) {
+                $url = str_replace($from, $documentServerUrl, $url);
+            }
         }
         return $url;
     }
