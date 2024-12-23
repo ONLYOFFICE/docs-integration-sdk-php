@@ -55,4 +55,12 @@ class History extends JsonSerializable
     {
         $this->changes = $changes;
     }
+
+    /**
+     * Get the value of changes
+     */
+    public function getChanges()
+    {
+        return $this->changes;
+    }
 }

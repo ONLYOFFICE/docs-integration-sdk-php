@@ -38,7 +38,7 @@ class ConvertRequest extends JsonSerializable
 
     public function __construct(
         bool $async = false,
-        int $codepage = 65001,
+        int $codePage = 65001,
         int $delimiter = 0,
         string $filetype = "",
         string $key = "",

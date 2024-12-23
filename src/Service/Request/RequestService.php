@@ -219,7 +219,6 @@ abstract class RequestService implements RequestServiceInterface
         if (empty($documentRevisionId)) {
             $documentRevisionId = $documentUri;
         }
-        $documentRevisionId = DocumentManager::generateRevisionId($documentRevisionId);
 
         if (empty($fromExtension)) {
             $fromExtension = pathinfo($documentUri)["extension"];
