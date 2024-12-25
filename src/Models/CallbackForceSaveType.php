@@ -26,6 +26,7 @@ class CallbackForceSaveType extends BasicEnum
     const COMMAND_SERVICE = 0;
     const SAVE_BUTTON = 1;
     const TIMER = 2;
+    const SUBMIT_FORM = 3;
 
     public function __construct($type = null)
     {
