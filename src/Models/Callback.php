@@ -47,7 +47,9 @@ class Callback extends JsonSerializable
         CallbackDocStatus $status = null,
         string $url = "",
         array $users = [],
-        string $token = ""
+        string $token = "",
+        string $formsdataurl = "",
+        string $userData = ""
     ) {
         $this->actions = $actions;
         $this->changesurl = $changesurl;
@@ -59,6 +61,8 @@ class Callback extends JsonSerializable
         $this->url = $url;
         $this->users = $users;
         $this->token = $token;
+        $this->formsdataurl = $formsdataurl;
+        $this->userData = $userData;
     }
 
     /**
@@ -219,5 +223,37 @@ class Callback extends JsonSerializable
     public function setToken($token)
     {
         $this->token = $token;
+    }
+
+    /**
+     * Get the value of formsdataurl
+     */
+    public function getFormsDataUrl()
+    {
+        return $this->formsdataurl;
+    }
+
+    /**
+     * Set the value of formsdataurl
+     */
+    public function setFormsDataUrl($formsdataurl)
+    {
+        $this->formsdataurl = $formsdataurl;
+    }
+
+    /**
+     * Get the value of userData
+     */
+    public function getUserData()
+    {
+        return $this->userData;
+    }
+
+    /**
+     * Set the value of userData
+     */
+    public function setUserData($userData)
+    {
+        $this->userData = $userData;
     }
 }
