@@ -3,6 +3,7 @@
 ##
 ## Added
  - methods for check PDF form
+ - support of complete&submit button
 
 ## 1.0.1
 - minor fixes
