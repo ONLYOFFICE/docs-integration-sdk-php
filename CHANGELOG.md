@@ -3,6 +3,7 @@
 ##
 ## Added
  - methods for check PDF form
+ - Callback - support of formsdataurl and userdata params
 
 ## 1.0.1
 - minor fixes
