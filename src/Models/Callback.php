@@ -36,6 +36,8 @@ class Callback extends JsonSerializable
     protected $url;
     protected $users;
     protected $token;
+    protected $formsdataurl;
+    protected $userData;
 
     public function __construct(
         array $actions = [],
