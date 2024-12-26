@@ -4,6 +4,7 @@
 ## Added
  - methods for check PDF form
  - Callback - support of formsdataurl and userdata params
+ - support of complete&submit button
 
 ## 1.0.1
 - minor fixes
