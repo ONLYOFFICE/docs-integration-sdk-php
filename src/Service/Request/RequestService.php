@@ -23,6 +23,7 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequest;
+use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\RequestServiceInterface;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\HttpClientInterface;
 use Onlyoffice\DocsIntegrationSdk\Util\CommandResponseError;
@@ -209,7 +210,12 @@ abstract class RequestService implements RequestServiceInterface
         $toExtension,
         $documentRevisionId,
         $isAsync,
-        $region = null
+        $region = null,
+        $title = null,
+        $codePage = null,
+        $delimiter = null,
+        $password = null,
+        $thumbnail = null
     ) {
         $urlToConverter = $this->settingsManager->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
@@ -231,11 +237,32 @@ abstract class RequestService implements RequestServiceInterface
         $data->setUrl($documentUri);
         $data->setOutputtype(trim($toExtension, "."));
         $data->setFiletype($fromExtension);
-        $data->setTitle($documentRevisionId . "." . $fromExtension);
+
+        if (is_null($title)) {
+            $data->setTitle($documentRevisionId . "." . $fromExtension);
+        } else {
+            $data->setTitle($title);
+        }
         $data->setKey($documentRevisionId);
 
         if (!is_null($region)) {
             $data->setRegion($region);
+        }
+
+        if (!is_null($codePage)) {
+            $data->setCodePage($codePage);
+        }
+
+        if (!is_null($delimiter)) {
+            $data->setDelimiter($delimiter);
+        }
+
+        if (!is_null($password)) {
+            $data->setPassword($password);
+        }
+
+        if (!is_null($thumbnail) && ($thumbnail instanceof ConvertRequestThumbnail)) {
+            $data->setThumbnail($thumbnail);
         }
 
         $opts = [
