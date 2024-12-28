@@ -329,19 +329,22 @@ abstract class RequestService implements RequestServiceInterface
      * Send command
      *
      * @param string $method - type of command
+     * @param array $data - data for request
      *
      * @return array
      */
-    public function commandRequest($method)
+    public function commandRequest($method, $data = [])
     {
         $urlCommand = $this->settingsManager->getCommandServiceUrl(true);
         if (empty($urlCommand)) {
             throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
         }
 
-        $data = [
-            "c" => $method
-        ];
+        if (empty($data)) {
+            $data = [
+                "c" => $method
+            ];
+        }
         $opts = [
             "headers" => [
                 "Content-type" => "application/json"
