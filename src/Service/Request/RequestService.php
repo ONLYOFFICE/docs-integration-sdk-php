@@ -294,21 +294,30 @@ abstract class RequestService implements RequestServiceInterface
         }
 
 
-        $responseXmlData = $this->request($urlToConverter, "POST", $opts);
-        libxml_use_internal_errors(true);
-
-        if (!function_exists("simplexml_load_file")) {
-             throw new \Exception(CommonError::message(CommonError::READ_XML));
-        }
-
-        $responseData = simplexml_load_string($responseXmlData);
-        
-        if (!$responseData) {
-            $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
-            foreach (libxml_get_errors() as $error) {
-                $exc = $exc . PHP_EOL . $error->message;
+        $response = $this->request($urlToConverter, "POST", $opts);
+        $responseData = json_decode($response);
+        if (json_last_error() !== 0) {
+            libxml_use_internal_errors(true);
+            if (!function_exists("simplexml_load_file")) {
+                 throw new \Exception(CommonError::message(CommonError::READ_XML));
             }
-            throw new \Exception($exc);
+    
+            $responseData = simplexml_load_string($response);
+            if (!$responseData) {
+                $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
+                foreach (libxml_get_errors() as $error) {
+                    $exc = $exc . PHP_EOL . $error->message;
+                }
+                throw new \Exception($exc);
+            }
+        } else { //convert object props names to uppercase first (like with XML)
+            foreach ($responseData as $key => $value) {
+                if(!ctype_upper($key[0])) {
+                    $newKey = ucfirst($key);
+                    $responseData->{"$newKey"} = $value;
+                    unset($responseData->{$key});
+                }
+            }
         }
 
         return $responseData;
