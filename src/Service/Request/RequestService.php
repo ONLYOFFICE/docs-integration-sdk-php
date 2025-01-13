@@ -23,6 +23,7 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequest;
+use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\RequestServiceInterface;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\HttpClientInterface;
 use Onlyoffice\DocsIntegrationSdk\Util\CommandResponseError;
@@ -209,7 +210,12 @@ abstract class RequestService implements RequestServiceInterface
         $toExtension,
         $documentRevisionId,
         $isAsync,
-        $region = null
+        $region = null,
+        $title = null,
+        $codePage = null,
+        $delimiter = null,
+        $password = null,
+        $thumbnail = null
     ) {
         $urlToConverter = $this->settingsManager->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
@@ -231,11 +237,32 @@ abstract class RequestService implements RequestServiceInterface
         $data->setUrl($documentUri);
         $data->setOutputtype(trim($toExtension, "."));
         $data->setFiletype($fromExtension);
-        $data->setTitle($documentRevisionId . "." . $fromExtension);
+
+        if (is_null($title)) {
+            $data->setTitle($documentRevisionId . "." . $fromExtension);
+        } else {
+            $data->setTitle($title);
+        }
         $data->setKey($documentRevisionId);
 
         if (!is_null($region)) {
             $data->setRegion($region);
+        }
+
+        if (!is_null($codePage)) {
+            $data->setCodePage($codePage);
+        }
+
+        if (!is_null($delimiter)) {
+            $data->setDelimiter($delimiter);
+        }
+
+        if (!is_null($password)) {
+            $data->setPassword($password);
+        }
+
+        if (!is_null($thumbnail) && ($thumbnail instanceof ConvertRequestThumbnail)) {
+            $data->setThumbnail($thumbnail);
         }
 
         $opts = [
@@ -267,21 +294,30 @@ abstract class RequestService implements RequestServiceInterface
         }
 
 
-        $responseXmlData = $this->request($urlToConverter, "POST", $opts);
-        libxml_use_internal_errors(true);
-
-        if (!function_exists("simplexml_load_file")) {
-             throw new \Exception(CommonError::message(CommonError::READ_XML));
-        }
-
-        $responseData = simplexml_load_string($responseXmlData);
-        
-        if (!$responseData) {
-            $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
-            foreach (libxml_get_errors() as $error) {
-                $exc = $exc . PHP_EOL . $error->message;
+        $response = $this->request($urlToConverter, "POST", $opts);
+        $responseData = json_decode($response);
+        if (json_last_error() !== 0) {
+            libxml_use_internal_errors(true);
+            if (!function_exists("simplexml_load_file")) {
+                 throw new \Exception(CommonError::message(CommonError::READ_XML));
             }
-            throw new \Exception($exc);
+    
+            $responseData = simplexml_load_string($response);
+            if (!$responseData) {
+                $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
+                foreach (libxml_get_errors() as $error) {
+                    $exc = $exc . PHP_EOL . $error->message;
+                }
+                throw new \Exception($exc);
+            }
+        } else { //convert object props names to uppercase first (like with XML)
+            foreach ($responseData as $key => $value) {
+                if(!ctype_upper($key[0])) {
+                    $newKey = ucfirst($key);
+                    $responseData->{"$newKey"} = $value;
+                    unset($responseData->{$key});
+                }
+            }
         }
 
         return $responseData;
@@ -329,19 +365,22 @@ abstract class RequestService implements RequestServiceInterface
      * Send command
      *
      * @param string $method - type of command
+     * @param array $data - data for request
      *
      * @return array
      */
-    public function commandRequest($method)
+    public function commandRequest($method, $data = [])
     {
         $urlCommand = $this->settingsManager->getCommandServiceUrl(true);
         if (empty($urlCommand)) {
             throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
         }
 
-        $data = [
-            "c" => $method
-        ];
+        if (empty($data)) {
+            $data = [
+                "c" => $method
+            ];
+        }
         $opts = [
             "headers" => [
                 "Content-type" => "application/json"
