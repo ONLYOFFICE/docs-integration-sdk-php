@@ -351,17 +351,18 @@ abstract class RequestService implements RequestServiceInterface
             $region
         );
         // phpcs:ignore
-        $errorElement = $responseFromConvertService->Error;
-        if ($errorElement->count() > 0) {
-            $this->processConvServResponceError($errorElement);
+        $errorElement = isset($responseFromConvertService->Error) ? $responseFromConvertService->Error : null;
+        if ($errorElement !== null) {
+            $this->processConvServResponceError((int)$errorElement);
         }
 
         // phpcs:ignore
-        $isEndConvert = $responseFromConvertService->EndConvert;
-
-        if ($isEndConvert !== null && strtolower($isEndConvert) === "true") {
-            // phpcs:ignore
-            return is_string($responseFromConvertService->FileUrl) ? $responseFromConvertService->FileUrl : $responseFromConvertService->FileUrl->__toString();
+        $isEndConvert = isset($responseFromConvertService->EndConvert) ? $responseFromConvertService->EndConvert : false;
+        if ($isEndConvert !== null) {
+            if (strtolower($isEndConvert) === "true" || $isEndConvert === true) {
+                // phpcs:ignore
+                return is_string($responseFromConvertService->FileUrl) ? $responseFromConvertService->FileUrl : $responseFromConvertService->FileUrl->__toString();
+            }
         }
 
         return "";
