@@ -124,6 +124,12 @@ abstract class RequestService implements RequestServiceInterface
             case ConvertResponseError::TOKEN:
                 $errorMessage = ConvertResponseError::message(ConvertResponseError::TOKEN);
                 break;
+            case ConvertResponseError::OOXML_OUTPUT_TYPE:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::OOXML_OUTPUT_TYPE);
+                break;
+            case ConvertResponseError::SIZE_LIMIT_EXCEEDED:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::SIZE_LIMIT_EXCEEDED);
+                break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
                 break;
