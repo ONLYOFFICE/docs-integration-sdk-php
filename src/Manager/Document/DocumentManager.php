@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Document;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,8 @@ abstract class DocumentManager implements DocumentManagerInterface
     private const FORMATINFO_CONVERT = "convert";
     private const FORMATINFO_MIMES = "mimes";
     private const FORMATINFO_MIME = "mime";
+
+    public const FILE_DATA_LIMIT = 300;
 
     /**
      * Formats list
@@ -284,5 +286,109 @@ abstract class DocumentManager implements DocumentManagerInterface
         $key = preg_replace("[^0-9-.a-zA-Z_=]", "_", $expectedKey);
         $key = substr($key, 0, min(array(strlen($key), 20)));
         return $key;
+    }
+
+    /**
+     * Checking pdf onlyoffice form by file content
+     *
+     * @param string $fileContent file content
+     * @return bool
+     */
+    public function isOnlyofficeForm($fileContent) {
+        $onlyofficeFormMetaTag = "ONLYOFFICEFORM";
+
+        $indexFirst = strpos($fileContent, "%\xCD\xCA\xD2\xA9\x0D");
+        if ($indexFirst === false) {
+            return false;
+        }
+
+        $pFirst = substr($fileContent, $indexFirst + 6);
+        if (!str_starts_with($pFirst, "1 0 obj\n<<\n")) {
+            return false;
+        }
+
+        $pFirst = substr($pFirst, 11);
+
+        $indexStream = strpos($pFirst, "stream\x0D\x0A");
+        $indexMeta = strpos($pFirst, $onlyofficeFormMetaTag);
+
+        if ($indexStream === false || $indexMeta === false || $indexStream < $indexMeta) {
+            return false;
+        }
+
+        $pMeta = substr($pFirst, $indexMeta);
+        $pMeta = substr($pMeta, strlen($onlyofficeFormMetaTag) + 3);
+
+        $indexMetaLast = strpos($pMeta, " ");
+        if ($indexMetaLast === false) {
+            return false;
+        }
+
+        $pMeta = substr($pMeta, $indexMetaLast + 1);
+
+        $indexMetaLast = strpos($pMeta, " ");
+        if ($indexMetaLast === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Getting limited content from file source
+     *
+     * @param string $source file source for get content
+     * @return bool|string
+     */
+    public function getFileLimitedContent($source) {
+        $content = file_get_contents($source, false, null, 0, self::FILE_DATA_LIMIT);
+        if ($content === false) {
+            return false;
+        }
+
+        return $content;
+    }
+
+    /**
+     * Checking pdf onlyoffice form by file path
+     *
+     * @param string $filePath path to the file
+     * @return bool
+     */
+    public function checkOnlyofficeFormByPath($filePath) {
+        if (empty($filePath)) {
+            return false;
+        }
+
+        if ($this->getExt($filePath) !== "pdf") {
+            return false;
+        }
+
+        $fileContent = $this->getFileLimitedContent($filePath);
+        if ($fileContent === false) {
+            return false;
+        }
+        
+        return $this->isOnlyofficeForm($fileContent);
+    }
+
+
+    /**
+     * Checking pdf onlyoffice form by url
+     *
+     * @param string $fileUrl url to the file
+     * @return bool
+     */
+    public function checkOnlyofficeFormByUrl($fileUrl) {
+        if (filter_var($fileUrl, FILTER_VALIDATE_URL) === false) {
+            return false;
+        }
+
+        $fileContent = $this->getFileLimitedContent($fileUrl);
+        if ($fileContent === false) {
+            return false;
+        }
+        
+        return $this->isOnlyofficeForm($fileContent);
     }
 }

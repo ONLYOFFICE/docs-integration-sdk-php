@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
  * limitations under the License.
  *
  */
-
+use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 
 /**
  * Interface DocumentService.
@@ -84,6 +84,11 @@ interface RequestServiceInterface
       * @param string $documentRevisionId - Key for caching on service
       * @param bool - $isAsync - Perform conversions asynchronously
       * @param string $region - Region value
+      * @param string $title - title value
+      * @param int $codePage - codePage value
+      * @param int $delimiter - Delimiter value
+      * @param string $password - Password value
+      * @param ConvertRequestThumbnail $thumbnail - Thumbnail value
       * @throws Exception If the processing fails unexpectedly.
       * @return array
    */
@@ -93,7 +98,12 @@ interface RequestServiceInterface
         string $toExtension,
         string $documentRevisionId,
         bool $isAsync,
-        string $region
+        string $region,
+        string $title,
+        int $codePage,
+        int $delimiter,
+        string $password,
+        ConvertRequestThumbnail $thumbnail
     );
 
    /**
@@ -119,10 +129,11 @@ interface RequestServiceInterface
     * Request health status of Document Server.
     *
     * @param string $method - type of command
+    * @param array $data - data for request
     * @throws Exception If the processing fails unexpectedly.
     * @return array
     */
-    public function commandRequest(string $method);
+    public function commandRequest(string $method, array $data);
 
    /**
     * Checking document service location

@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.0
+## Added
+ - methods for check PDF form
+ - Callback - support of formsdataurl and userdata params
+ - support of complete&submit button
+ - ConvertService - support of error codes -9, -10
+ - ConvertService - support of JSON format response from Conversion API
+
 ## 1.0.1
 - minor fixes
 - fix settings check

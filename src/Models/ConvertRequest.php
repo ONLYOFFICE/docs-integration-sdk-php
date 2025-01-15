@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Models;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ class ConvertRequest extends JsonSerializable
 
     public function __construct(
         bool $async = false,
-        int $codepage = 65001,
+        int $codePage = 65001,
         int $delimiter = 0,
         string $filetype = "",
         string $key = "",

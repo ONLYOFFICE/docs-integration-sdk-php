@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Manager\Settings;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -258,7 +258,9 @@ abstract class SettingsManager implements SettingsManagerInterface
                 (array_key_exists("port", $parsedUrl) ? (":" . $parsedUrl["port"]) : "") . $from;
             }
 
-            $url = $from !== $documentServerUrl ?? str_replace($from, $documentServerUrl, $url);
+            if ($from !== $documentServerUrl) {
+                $url = str_replace($from, $documentServerUrl, $url);
+            }
         }
         return $url;
     }

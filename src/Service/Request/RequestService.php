@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ use Onlyoffice\DocsIntegrationSdk\Manager\Document\DocumentManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Settings\SettingsManager;
 use Onlyoffice\DocsIntegrationSdk\Manager\Security\JwtManager;
 use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequest;
+use Onlyoffice\DocsIntegrationSdk\Models\ConvertRequestThumbnail;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\RequestServiceInterface;
 use Onlyoffice\DocsIntegrationSdk\Service\Request\HttpClientInterface;
 use Onlyoffice\DocsIntegrationSdk\Util\CommandResponseError;
@@ -123,6 +124,12 @@ abstract class RequestService implements RequestServiceInterface
             case ConvertResponseError::TOKEN:
                 $errorMessage = ConvertResponseError::message(ConvertResponseError::TOKEN);
                 break;
+            case ConvertResponseError::OOXML_OUTPUT_TYPE:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::OOXML_OUTPUT_TYPE);
+                break;
+            case ConvertResponseError::SIZE_LIMIT_EXCEEDED:
+                $errorMessage = ConvertResponseError::message(ConvertResponseError::SIZE_LIMIT_EXCEEDED);
+                break;
             default:
                 $errorMessage = "ErrorCode = " . $errorCode;
                 break;
@@ -209,7 +216,12 @@ abstract class RequestService implements RequestServiceInterface
         $toExtension,
         $documentRevisionId,
         $isAsync,
-        $region = null
+        $region = null,
+        $title = null,
+        $codePage = null,
+        $delimiter = null,
+        $password = null,
+        $thumbnail = null
     ) {
         $urlToConverter = $this->settingsManager->getConvertServiceUrl(true);
         if (empty($urlToConverter)) {
@@ -219,7 +231,6 @@ abstract class RequestService implements RequestServiceInterface
         if (empty($documentRevisionId)) {
             $documentRevisionId = $documentUri;
         }
-        $documentRevisionId = DocumentManager::generateRevisionId($documentRevisionId);
 
         if (empty($fromExtension)) {
             $fromExtension = pathinfo($documentUri)["extension"];
@@ -232,11 +243,32 @@ abstract class RequestService implements RequestServiceInterface
         $data->setUrl($documentUri);
         $data->setOutputtype(trim($toExtension, "."));
         $data->setFiletype($fromExtension);
-        $data->setTitle($documentRevisionId . "." . $fromExtension);
+
+        if (is_null($title)) {
+            $data->setTitle($documentRevisionId . "." . $fromExtension);
+        } else {
+            $data->setTitle($title);
+        }
         $data->setKey($documentRevisionId);
 
         if (!is_null($region)) {
             $data->setRegion($region);
+        }
+
+        if (!is_null($codePage)) {
+            $data->setCodePage($codePage);
+        }
+
+        if (!is_null($delimiter)) {
+            $data->setDelimiter($delimiter);
+        }
+
+        if (!is_null($password)) {
+            $data->setPassword($password);
+        }
+
+        if (!is_null($thumbnail) && ($thumbnail instanceof ConvertRequestThumbnail)) {
+            $data->setThumbnail($thumbnail);
         }
 
         $opts = [
@@ -268,21 +300,30 @@ abstract class RequestService implements RequestServiceInterface
         }
 
 
-        $responseXmlData = $this->request($urlToConverter, "POST", $opts);
-        libxml_use_internal_errors(true);
-
-        if (!function_exists("simplexml_load_file")) {
-             throw new \Exception(CommonError::message(CommonError::READ_XML));
-        }
-
-        $responseData = simplexml_load_string($responseXmlData);
-        
-        if (!$responseData) {
-            $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
-            foreach (libxml_get_errors() as $error) {
-                $exc = $exc . PHP_EOL . $error->message;
+        $response = $this->request($urlToConverter, "POST", $opts);
+        $responseData = json_decode($response);
+        if (json_last_error() !== 0) {
+            libxml_use_internal_errors(true);
+            if (!function_exists("simplexml_load_file")) {
+                 throw new \Exception(CommonError::message(CommonError::READ_XML));
             }
-            throw new \Exception($exc);
+    
+            $responseData = simplexml_load_string($response);
+            if (!$responseData) {
+                $exc = CommonError::message(CommonError::BAD_RESPONSE_XML);
+                foreach (libxml_get_errors() as $error) {
+                    $exc = $exc . PHP_EOL . $error->message;
+                }
+                throw new \Exception($exc);
+            }
+        } else { //convert object props names to uppercase first (like with XML)
+            foreach ($responseData as $key => $value) {
+                if(!ctype_upper($key[0])) {
+                    $newKey = ucfirst($key);
+                    $responseData->{"$newKey"} = $value;
+                    unset($responseData->{$key});
+                }
+            }
         }
 
         return $responseData;
@@ -310,17 +351,18 @@ abstract class RequestService implements RequestServiceInterface
             $region
         );
         // phpcs:ignore
-        $errorElement = $responseFromConvertService->Error;
-        if ($errorElement->count() > 0) {
-            $this->processConvServResponceError($errorElement);
+        $errorElement = isset($responseFromConvertService->Error) ? $responseFromConvertService->Error : null;
+        if ($errorElement !== null) {
+            $this->processConvServResponceError((int)$errorElement);
         }
 
         // phpcs:ignore
-        $isEndConvert = $responseFromConvertService->EndConvert;
-
-        if ($isEndConvert !== null && strtolower($isEndConvert) === "true") {
-            // phpcs:ignore
-            return is_string($responseFromConvertService->FileUrl) ? $responseFromConvertService->FileUrl : $responseFromConvertService->FileUrl->__toString();
+        $isEndConvert = isset($responseFromConvertService->EndConvert) ? $responseFromConvertService->EndConvert : false;
+        if ($isEndConvert !== null) {
+            if (strtolower($isEndConvert) === "true" || $isEndConvert === true) {
+                // phpcs:ignore
+                return is_string($responseFromConvertService->FileUrl) ? $responseFromConvertService->FileUrl : $responseFromConvertService->FileUrl->__toString();
+            }
         }
 
         return "";
@@ -330,19 +372,22 @@ abstract class RequestService implements RequestServiceInterface
      * Send command
      *
      * @param string $method - type of command
+     * @param array $data - data for request
      *
      * @return array
      */
-    public function commandRequest($method)
+    public function commandRequest($method, $data = [])
     {
         $urlCommand = $this->settingsManager->getCommandServiceUrl(true);
         if (empty($urlCommand)) {
             throw new \Exception(CommonError::message(CommonError::NO_COMMAND_ENDPOINT));
         }
 
-        $data = [
-            "c" => $method
-        ];
+        if (empty($data)) {
+            $data = [
+                "c" => $method
+            ];
+        }
         $opts = [
             "headers" => [
                 "Content-type" => "application/json"

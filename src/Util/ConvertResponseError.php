@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Util;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,8 @@ class ConvertResponseError
     const DATABASE = -6;
     const INPUT = -7;
     const TOKEN = -8;
+    const OOXML_OUTPUT_TYPE = -9;
+    const SIZE_LIMIT_EXCEEDED = -10;
 
     public static function message($code): string
     {
@@ -57,6 +59,10 @@ class ConvertResponseError
                 return "Error document request";
             case self::TOKEN:
                 return "Invalid token";
+            case self::OOXML_OUTPUT_TYPE:
+                return "Error automatically determine the output file format";
+            case self::SIZE_LIMIT_EXCEEDED:
+                return "Size limit exceeded";
             default:
                 return "Undefined error";
         }
