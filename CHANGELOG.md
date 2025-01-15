@@ -1,6 +1,6 @@
 # Change Log
 
-##
+## 1.1.0
 ## Added
  - methods for check PDF form
  - Callback - support of formsdataurl and userdata params
