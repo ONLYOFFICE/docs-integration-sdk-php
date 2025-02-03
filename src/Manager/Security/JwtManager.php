@@ -57,11 +57,23 @@ abstract class JwtManager implements JwtManagerInterface
      * Encode a payload object into a token using a secret key
      *
      * @param array $payload
+     * @param string|null $key
+     * @param int $exp
      *
      * @return string
      */
-    public function jwtEncode($payload, $key = null)
+    public function jwtEncode($payload, $key = null, $exp = 0)
     {
+        if (empty($exp)) {
+            $exp = $this->settingsManager->getJwtExpiration();
+        }
+
+        if (!empty($exp)) {
+            $iat = time();
+            $payload["iat"] = $iat;
+            $payload["exp"] = $iat + $exp * 60;
+        }
+
         if (empty($key)) {
             $key = $this->settingsManager->getJwtKey();
         }
