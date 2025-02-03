@@ -1,4 +1,6 @@
 # Change Log
+## Added
+ - JwtManager - support of JWT token generation with expiration
 
 ## 1.1.0
 ## Added
