@@ -95,6 +95,13 @@ abstract class SettingsManager implements SettingsManagerInterface
     protected $jwtLeeway = "jwtLeeway";
 
     /**
+     * The config key for JWT expiration
+     *
+     * @var string
+     */
+    protected $jwtExpiration = "jwtExpiration";
+
+    /**
      * The config key for HTTP ignore SSL setting
      *
      * @var string
@@ -379,6 +386,17 @@ abstract class SettingsManager implements SettingsManagerInterface
     {
         $jwtLeeway = $this->getBaseSettingValue($this->jwtLeeway, EnvUtil::envKey("JWT_LEEWAY"));
         return (string)$jwtLeeway;
+    }
+
+    /**
+     * Get the JWT expiration
+     *
+     * @return int
+     */
+    public function getJwtExpiration()
+    {
+        $jwtExpiration = $this->getBaseSettingValue($this->jwtExpiration, EnvUtil::envKey("JWT_EXPIRATION"));
+        return (int)$jwtExpiration;
     }
 
     /**
