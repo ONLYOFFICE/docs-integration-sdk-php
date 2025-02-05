@@ -27,6 +27,7 @@ class DocumentType extends BasicEnum
     const CELL = "cell";
     const SLIDE = "slide";
     const PDF = "pdf";
+    const DIAGRAM = "diagram";
 
     public function __construct($type = null)
     {
