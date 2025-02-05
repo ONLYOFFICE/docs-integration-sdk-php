@@ -1,5 +1,8 @@
 # Change Log
 
+## Added
+- Document type - diagram
+
 ## 1.2.0
 ## Added
 - JwtManager - support of JWT token generation with expiration
