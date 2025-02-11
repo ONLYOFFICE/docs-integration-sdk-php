@@ -1,5 +1,6 @@
 # Change Log
 
+## 1.2.0
 ## Added
 - JwtManager - support of JWT token generation with expiration
 - support hwp, hwpx, pages, numbers, key formats
