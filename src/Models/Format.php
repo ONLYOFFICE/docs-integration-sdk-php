@@ -119,7 +119,7 @@ class Format extends JsonSerializable
 
     public function isAutoConvertable()
     {
-        $this->hasAction("auto-convert");
+        return $this->hasAction("auto-convert");
     }
 
     public function isFillable()

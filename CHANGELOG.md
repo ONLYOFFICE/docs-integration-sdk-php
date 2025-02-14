@@ -1,12 +1,18 @@
 # Change Log
 
+## 1.2.0
+## Added
+- JwtManager - support of JWT token generation with expiration
+- support hwp, hwpx, pages, numbers, key formats
+- sq-AL empty file templates
+
 ## 1.1.0
 ## Added
- - methods for check PDF form
- - Callback - support of formsdataurl and userdata params
- - support of complete&submit button
- - ConvertService - support of error codes -9, -10
- - ConvertService - support of JSON format response from Conversion API
+- methods for check PDF form
+- Callback - support of formsdataurl and userdata params
+- support of complete&submit button
+- ConvertService - support of error codes -9, -10
+- ConvertService - support of JSON format response from Conversion API
 
 ## 1.0.1
 - minor fixes
