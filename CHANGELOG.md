@@ -1,5 +1,8 @@
 # Change Log
 
+## Changed
+- MIN_EDITORS_VERSION as 8.0
+
 ## 1.2.0
 ## Added
 - JwtManager - support of JWT token generation with expiration
