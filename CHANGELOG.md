@@ -3,6 +3,9 @@
 ## Changed
 - MIN_EDITORS_VERSION as 8.0
 - ca-ES, cs-CZ, da-DK, hu-HU, id-ID, ro-RO, sq-AL, ur-PK empty file templates
+- diagram documentType for vsdx, vssx, vstx, vsdm, vssm, vstm
+- view odg, md
+- edit xlsb
 
 ## 1.2.0
 ## Added
