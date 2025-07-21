@@ -91,6 +91,13 @@
         "mime": ["application/x-hwpx"]
     },
     {
+        "name": "md",
+        "type": "word",
+        "actions": ["view", "auto-convert"],
+        "convert": ["docx", "bmp", "docm", "dotm", "dotx", "epub", "fb2", "gif", "html", "jpg", "odt", "ott", "pdf", "pdfa", "png", "rtf", "txt"],
+        "mime": ["text/markdown"]
+    },
+    {
         "name": "mht",
         "type": "word",
         "actions": ["view", "auto-convert"],
@@ -240,7 +247,7 @@
     {
         "name": "xlsb",
         "type": "cell",
-        "actions": ["view", "auto-convert"],
+        "actions": ["view", "edit"],
         "convert": ["xlsx", "bmp", "csv", "gif", "jpg", "ods", "ots", "pdf", "pdfa", "png", "xlsm", "xltm", "xltx"],
         "mime": ["application/vnd.ms-excel.sheet.binary.macroenabled.12"]
     },
@@ -306,6 +313,13 @@
         "actions": ["view", "auto-convert"],
         "convert": ["pptx", "bmp", "gif", "jpg", "odp", "otp", "pdf", "pdfa", "png", "potm", "potx", "ppsm", "ppsx", "pptm"],
         "mime": ["application/vnd.apple.keynote", "application/x-iwork-keynote-sffkey"]
+    },
+    {
+        "name": "odg",
+        "type": "slide",
+        "actions": ["view", "auto-convert"],
+        "convert": ["pptx", "bmp", "gif", "jpg", "odp", "otp", "pdf", "pdfa", "png", "potm", "potx", "ppsm", "ppsx", "pptm"],
+        "mime": ["application/vnd.oasis.opendocument.presentationapplication/vnd.oasis.opendocument.graphics", "application/x-vnd.oasis.opendocument.graphics"]
     },
     {
         "name": "odp",

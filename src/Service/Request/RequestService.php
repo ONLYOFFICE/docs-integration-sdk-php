@@ -44,7 +44,7 @@ abstract class RequestService implements RequestServiceInterface
      *
      * @var float
      */
-    private const MIN_EDITORS_VERSION = 6.0;
+    private const MIN_EDITORS_VERSION = 8.0;
 
     protected SettingsManager $settingsManager;
     protected JwtManager $jwtManager;
