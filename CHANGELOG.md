@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.3.0
+## Added
+- ca-ES, cs-CZ, da-DK, hu-HU, id-ID, ro-RO, sq-AL, ur-PK empty file templates
+- diagram documentType for vsdx, vssx, vstx, vsdm, vssm, vstm
+- view odg, md
+- edit xlsb
+
+## Changed
+- MIN_EDITORS_VERSION as 8.0
+
 ## 1.2.0
 ## Added
 - JwtManager - support of JWT token generation with expiration
