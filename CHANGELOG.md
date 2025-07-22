@@ -1,5 +1,6 @@
 # Change Log
 
+## 1.3.0
 ## Added
 - ca-ES, cs-CZ, da-DK, hu-HU, id-ID, ro-RO, sq-AL, ur-PK empty file templates
 - diagram documentType for vsdx, vssx, vstx, vsdm, vssm, vstm
