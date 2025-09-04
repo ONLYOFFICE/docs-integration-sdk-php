@@ -63,7 +63,7 @@ interface RequestServiceInterface
     *
     * @param int $errorCode Code of error (See CommandResponseError Util).
     * @throws Exception If the processing fails unexpectedly.
-    * @return string
+    * @return void
     */
     public function processCommandServResponceError(int $errorCode);
 
