@@ -141,7 +141,7 @@ abstract class RequestService implements RequestServiceInterface
     /**
      * Generate an error code table of command
      *
-     * @param string $errorCode - Error code
+     * @param int $errorCode - Error code
      *
      * @throws Exception
      */
