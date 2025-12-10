@@ -97,6 +97,7 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
     {
         $permissions = $this->getPermissions($fileId);
         $editorConfig = new DocEditorConfig;
+        $editorConfig->setMode($mode);
         $editorConfig->setCoEditing($this->getCoEditing($fileId, $mode, $type));
         $editorConfig->setCreateUrl($this->documentManager->getCreateUrl($fileId));
         $editorConfig->setUser($this->getUser());
