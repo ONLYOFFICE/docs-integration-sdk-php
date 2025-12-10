@@ -79,7 +79,8 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
         );
 
         if ($this->jwtManager->isJwtEnabled()) {
-            $config->setToken($this->jwtManager->jwtEncode($config));
+            $payload = json_decode(json_encode($config), true);
+            $config->setToken($this->jwtManager->jwtEncode($payload));
         }
         return $config;
     }
