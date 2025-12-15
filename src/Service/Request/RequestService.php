@@ -187,7 +187,7 @@ abstract class RequestService implements RequestServiceInterface
      */
     public function healthcheckRequest() : bool
     {
-        $healthcheckUrl = $this->settingsManager->getDocumentServerHealthcheckUrl();
+        $healthcheckUrl = $this->settingsManager->getDocumentServerHealthcheckUrl(true);
         if (empty($healthcheckUrl)) {
             throw new \Exception(CommonError::message(CommonError::NO_HEALTHCHECK_ENDPOINT));
         }
