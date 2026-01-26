@@ -1,7 +1,7 @@
 {
     "name": "onlyoffice/docs-integration-sdk",
     "type": "library",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "description": "ONLYOFFICE Docs integration SDK",
     "keywords": [
         "onlyoffice",
