@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\DocEditorConfig;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,8 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
         );
 
         if ($this->jwtManager->isJwtEnabled()) {
-            $config->setToken($this->jwtManager->jwtEncode($config));
+            $payload = json_decode(json_encode($config), true);
+            $config->setToken($this->jwtManager->jwtEncode($payload));
         }
         return $config;
     }
@@ -97,6 +98,7 @@ abstract class DocEditorConfigService implements DocEditorConfigServiceInterface
     {
         $permissions = $this->getPermissions($fileId);
         $editorConfig = new DocEditorConfig;
+        $editorConfig->setMode($mode);
         $editorConfig->setCoEditing($this->getCoEditing($fileId, $mode, $type));
         $editorConfig->setCreateUrl($this->documentManager->getCreateUrl($fileId));
         $editorConfig->setUser($this->getUser());

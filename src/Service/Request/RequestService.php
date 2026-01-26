@@ -4,7 +4,7 @@ namespace Onlyoffice\DocsIntegrationSdk\Service\Request;
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -187,7 +187,7 @@ abstract class RequestService implements RequestServiceInterface
      */
     public function healthcheckRequest() : bool
     {
-        $healthcheckUrl = $this->settingsManager->getDocumentServerHealthcheckUrl();
+        $healthcheckUrl = $this->settingsManager->getDocumentServerHealthcheckUrl(true);
         if (empty($healthcheckUrl)) {
             throw new \Exception(CommonError::message(CommonError::NO_HEALTHCHECK_ENDPOINT));
         }
@@ -424,78 +424,93 @@ abstract class RequestService implements RequestServiceInterface
     }
 
     /**
-     * Checking document service location
+     * Check if Document Server URL is valid and reachable.
      *
      * @return array
      */
     public function checkDocServiceUrl()
     {
-        $version = null;
         $documentServerUrl = $this->settingsManager->getDocumentServerUrl();
         if (empty($documentServerUrl)) {
-            throw new \Exception(CommonError::message(CommonError::NO_DOCUMENT_SERVER_URL));
+            return [CommonError::message(CommonError::NO_DOCUMENT_SERVER_URL)];
         }
 
-        try {
-            if ((isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on" || $_SERVER["HTTPS"] == 1)
+        if ((isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on" || $_SERVER["HTTPS"] == 1)
             || isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https")
             && preg_match('/^http:\/\//i', $documentServerUrl)) {
-                throw new \Exception(CommonError::message(CommonError::MIXED_CONTENT));
-            }
-        } catch (\Exception $e) {
-            return [$e->getMessage(), $version];
+            return [CommonError::message(CommonError::MIXED_CONTENT)];
         }
 
         try {
             $healthcheckResponse = $this->healthcheckRequest();
 
             if (!$healthcheckResponse) {
-                throw new \Exception(CommonError::message(CommonError::BAD_HEALTHCHECK_STATUS));
+                return [CommonError::message(CommonError::BAD_HEALTHCHECK_STATUS)];
             }
         } catch (\Exception $e) {
-            return [$e->getMessage(), $version];
+            return [$e->getMessage()];
         }
 
+        return [];
+    }
+
+    /**
+     * Check Command Service
+     *
+     * @return array
+     */
+    public function checkCommandService()
+    {
         try {
             $commandResponse = $this->commandRequest('version');
 
             if (empty($commandResponse)) {
-                throw new \Exception(CommonError::message(CommonError::BAD_HEALTHCHECK_STATUS));
+                return [CommonError::message(CommonError::BAD_HEALTHCHECK_STATUS)];
             }
 
             $version = $commandResponse->version;
             $versionF = floatval($version);
 
             if ($versionF > 0.0 && $versionF <= self::MIN_EDITORS_VERSION) {
-                throw new \Exception(CommonError::message(CommonError::NOT_SUPPORTED_VERSION));
+                return [CommonError::message(CommonError::NOT_SUPPORTED_VERSION), $version];
             }
         } catch (\Exception $e) {
-            return [$e->getMessage(), $version];
+            return [$e->getMessage()];
         }
 
+        return [];
+    }
+
+    /**
+     * Check Convert Service
+     *
+     * @return array
+     */
+    public function checkConvertService()
+    {
         try {
             $fileUrl = $this->getFileUrlForConvert();
 
             if (!empty($fileUrl)) {
                 if (!empty($this->settingsManager->getStorageUrl())) {
                     $fileUrl = str_replace(
-                        $this->settingsManager->getServerUrl(),
-                        $this->settingsManager->getStorageUrl(),
+                        rtrim($this->settingsManager->getServerUrl(), "/"),
+                        rtrim($this->settingsManager->getStorageUrl(), "/"),
                         $fileUrl
                     );
                 }
                 $convertedFileUri = $this->getConvertedUri($fileUrl, "docx", "docx", "check_" . rand());
             }
         } catch (\Exception $e) {
-            return [$e->getMessage(), $version];
+            return [$e->getMessage()];
         }
 
         try {
             $this->request($convertedFileUri);
         } catch (\Exception $e) {
-            return [$e->getMessage(), $version];
+            return [$e->getMessage()];
         }
 
-        return ["", $version];
+        return [];
     }
 }
