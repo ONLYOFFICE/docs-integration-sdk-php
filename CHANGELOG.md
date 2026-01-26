@@ -3,6 +3,7 @@
 ## 1.3.1
 ## Changed
 - split RequestService::checkDocServiceUrl into checkDocServiceUrl, checkCommandService, and checkConvertService
+- add missing DocEditorConfig::setMode in DocEditorConfigService::getDocEditorConfig
 
 ## 1.3.0
 ## Added
