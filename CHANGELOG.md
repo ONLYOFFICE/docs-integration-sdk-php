@@ -1,4 +1,6 @@
 # Change Log
+
+## 1.3.1
 ## Changed
 - split RequestService::checkDocServiceUrl into checkDocServiceUrl, checkCommandService, and checkConvertService
 
